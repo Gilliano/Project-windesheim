@@ -3,17 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSchoolTable extends Migration
+class CreateSchoolsTable extends Migration
 {
     /**
      * Run the migrations.
-     * @table school
+     * @table schools
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('school', function (Blueprint $table) {
+        Schema::create('schools', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name', 45)->nullable();
@@ -35,6 +35,6 @@ class CreateSchoolTable extends Migration
      */
      public function down()
      {
-       Schema::dropIfExists('school');
+       Schema::dropIfExists('schools');
      }
 }

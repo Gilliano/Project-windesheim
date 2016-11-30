@@ -26,14 +26,14 @@ class CreateJobsTable extends Migration
             $table->integer('salary_max')->unsigned()->nullable();
             $table->timestamp('started_at')->nullable();
             $table->boolean('current_job')->nullable();
-            $table->integer('users_id')->unsigned();
+            $table->integer('persons_id')->unsigned();
             $table->integer('privacy_levels_id')->unsigned();
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('users_id', 'fk_jobs_users1_idx')
-                ->references('id')->on('users')
+            $table->foreign('persons_id', 'fk_jobs_persons1_idx')
+                ->references('id')->on('persons')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 

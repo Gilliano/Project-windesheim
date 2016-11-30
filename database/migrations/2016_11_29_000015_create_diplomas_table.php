@@ -22,25 +22,25 @@ class CreateDiplomasTable extends Migration
             $table->string('education', 45);
             $table->integer('education_coordinator')->unsigned()->nullable();
             $table->string('education_classcode', 25)->nullable();
-            $table->integer('users_id')->unsigned();
+            $table->integer('persons_id')->unsigned();
             $table->integer('school_id')->unsigned()->nullable();
             $table->string('school_name', 45)->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('education_coordinator', 'fk_educations_users1_idx')
-                ->references('id')->on('users')
+            $table->foreign('education_coordinator', 'fk_educations_persons1_idx')
+                ->references('id')->on('persons')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('users_id', 'fk_educations_users2_idx')
-                ->references('id')->on('users')
+            $table->foreign('persons_id', 'fk_educations_persons2_idx')
+                ->references('id')->on('persons')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
             $table->foreign('school_id', 'fk_diplomas_school1_idx')
-                ->references('id')->on('school')
+                ->references('id')->on('schools')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });
