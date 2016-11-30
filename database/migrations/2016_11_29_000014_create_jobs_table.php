@@ -21,7 +21,7 @@ class CreateJobsTable extends Migration
             $table->string('address_number', 10)->nullable();
             $table->string('zip_code', 9)->nullable();
             $table->string('city', 35);
-            $table->string('function', 35);
+            $table->string('function', 60);
             $table->integer('salary_min')->unsigned()->nullable();
             $table->integer('salary_max')->unsigned()->nullable();
             $table->timestamp('started_at')->nullable();

@@ -27,5 +27,11 @@ class User extends Model
         return $this->belongsTo('App\Models\Role', 'roles_id');
     }
 
+    public function achievement()
+    {
+        return $this->belongsToMany('App\Models\Achievement', 'users_has_achievements' , 'users_id', 'Achievements_id')
+            ->withTimestamps();
+    }
+
         
 }

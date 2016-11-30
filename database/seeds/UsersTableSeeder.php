@@ -12,9 +12,19 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
 //        factory(App\Models\User::class, 5)->create()->each(function ($u) {
-//            $u->getRole()->save(factory(App\Models\Role::class)->make());
+//            $u->getRole()->sync(factory(App\Models\Role::all()));
 //        });
 
+
+
+//        factory(App\Role::class, 10)->create();
+//
+//        factory(App\User::class, 50)->create()->each(function($bar) {
+//            $bar->foobars()->sync(
+//                App\Foo::all()->random(3)
+//            );
+//        });
+//
         factory(App\Models\User::class, 10)->create();
     }
 

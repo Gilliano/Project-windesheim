@@ -16,7 +16,7 @@ class CreateUsersInformationTable extends Migration
         Schema::create('users_information', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('address', 35)->nullable();
+            $table->string('address', 45)->nullable();
             $table->string('address_number', 10)->nullable();
             $table->string('city', 35);
             $table->string('zip_code', 9)->nullable();
