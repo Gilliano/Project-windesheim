@@ -30,5 +30,10 @@ class Job extends Model
 
     protected $guarded = [];
 
+
+    public function privacyLevel()
+    {
+        return $this->belongsTo('App\Models\PrivacyLevel', 'privacy_levels_id');
+    }
         
 }

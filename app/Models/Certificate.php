@@ -24,5 +24,14 @@ class Certificate extends Model
 
     protected $guarded = [];
 
-        
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'users_id');
+    }
+
+    public function privacyLevel()
+    {
+        return $this->belongsTo('App\Models\PrivacyLevel', 'privacy_levels_id');
+    }
 }

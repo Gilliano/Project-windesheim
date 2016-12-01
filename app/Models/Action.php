@@ -20,5 +20,17 @@ class Action extends Model
 
     protected $guarded = [];
 
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role', 'roles_has_actions' , 'actions_id', 'roles_id')
+            ->withTimestamps();
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'users_has_actions' , 'actions_id', 'users_id')
+            ->withTimestamps();
+    }
+
         
 }

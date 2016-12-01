@@ -22,5 +22,15 @@ class Company extends Model
 
     protected $guarded = [];
 
+
+    public function privacyLevel()
+    {
+        return $this->belongsTo('App\Models\PrivacyLevel', 'privacy_levels_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'users_id');
+    }
         
 }

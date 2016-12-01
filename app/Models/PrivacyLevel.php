@@ -20,5 +20,16 @@ class PrivacyLevel extends Model
 
     protected $guarded = [];
 
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role', 'roles_has_privacy_levels', 'privacy_levels_id' , 'roles_id')
+            ->withTimestamps();
+    }
+
+    public function certificates()
+    {
+        return $this->hasMany('App\Models\Certificate', 'id');
+    }
         
 }

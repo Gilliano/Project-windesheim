@@ -154,35 +154,6 @@ $factory->define(App\Models\Role::class, function (Faker\Generator $faker) {
 });
 
 /*
- *  Model RoleHasAction REQUIRES table: roles, actions;
- */
-$factory->define(App\Models\RolesHasAction::class, function (Faker\Generator $faker) {
-
-    $role = App\Models\Role::orderByRaw('RAND()')->first();
-    $action = App\Models\Action::orderByRaw('RAND()')->first();
-
-    return [
-        'role_id' => $role['id'],
-        'role_id' => $faker->unique()->numberBetween($min = 1, $max = 50),
-        'action_id' => $action['id'],
-    ];
-});
-
-/*
- *  Model RoleHasPrivacyLevel REQUIRES table: roles, privacy_levels;
- */
-$factory->define(App\Models\RolesHasPrivacyLevel::class, function (Faker\Generator $faker) {
-
-    $role = App\Models\Role::orderByRaw('RAND()')->first();
-    $privacyLevel = App\Models\PrivacyLevel::orderByRaw('RAND()')->first();
-
-    return [
-        'roles_id' => $role['id'],
-        'privacy_levels_id' => $privacyLevel['id'],
-    ];
-});
-
-/*
  *  Model School ;
  */
 $factory->define(App\Models\School::class, function (Faker\Generator $faker) {
@@ -217,39 +188,11 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 
 
 /*
- *  Model UserHasAchievements REQUIRES table: users, achievements;
- */
-$factory->define(App\Models\UsersHasAchievement::class, function (Faker\Generator $faker) {
-
-    $user = App\Models\User::orderByRaw('RAND()')->first();
-    $achievement = App\Models\Achievement::orderByRaw('RAND()')->first();
-
-    return [
-        'users_id' => $user['id'],
-        'achievements_id' => $achievement['id'],
-    ];
-});
-
-/*
- *  Model UserHasAction REQUIRES table: users, actions;
- */
-$factory->define(App\Models\UsersHasAction::class, function (Faker\Generator $faker) {
-
-    $user = App\Models\User::orderByRaw('RAND()')->first();
-    $action = App\Models\Action::orderByRaw('RAND()')->first();
-
-    return [
-        'users_id' => $user['id'],
-        'action_id' => $action['id'],
-    ];
-});
-
-/*
  *  Model UserInformation ;
  */
 $factory->define(App\Models\UsersInformation::class, function (Faker\Generator $faker) {
 
-    $user = App\Models\User::orderByRaw('RAND()')->first();
+    $user = App\Models\User::count();
     $privacyLevel = App\Models\PrivacyLevel::orderByRaw('RAND()')->first();
 
     return [
@@ -260,7 +203,7 @@ $factory->define(App\Models\UsersInformation::class, function (Faker\Generator $
         'alternative_email' => $faker->safeEmail,
         'mobile_number' => $faker->tollFreePhoneNumber,
         'additional_number' => $faker->tollFreePhoneNumber,
-        'users_id' => $user['id'],
+        'users_id' => $faker->unique($reset = true)->numberBetween($min = 1, $max = $user),
         'privacy_levels_id' => $privacyLevel['id'],
     ];
 });
