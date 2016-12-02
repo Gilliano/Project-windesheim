@@ -29,4 +29,14 @@ class Person extends Model
     {
         return $this->belongsTo('App\Models\PrivacyLevel', 'privacy_levels_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'users_id');
+    }
+
+    public function job()
+    {
+        return $this->hasMany('App\Models\Job', 'id');
+    }
 }

@@ -35,5 +35,10 @@ class Job extends Model
     {
         return $this->belongsTo('App\Models\PrivacyLevel', 'privacy_levels_id');
     }
+
+    public function person()
+    {
+        return $this->belongsTo('App\Models\Person', 'persons_id');
+    }
         
 }

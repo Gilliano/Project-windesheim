@@ -23,7 +23,7 @@ class CreateDiplomasTable extends Migration
             $table->integer('education_coordinator')->unsigned()->nullable();
             $table->string('education_classcode', 25)->nullable();
             $table->integer('persons_id')->unsigned();
-            $table->integer('school_id')->unsigned()->nullable();
+            $table->integer('schools_id')->unsigned()->nullable();
             $table->string('school_name', 45)->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
@@ -39,7 +39,7 @@ class CreateDiplomasTable extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('school_id', 'fk_diplomas_school1_idx')
+            $table->foreign('schools_id', 'fk_diplomas_schools1_idx')
                 ->references('id')->on('schools')
                 ->onDelete('no action')
                 ->onUpdate('no action');
