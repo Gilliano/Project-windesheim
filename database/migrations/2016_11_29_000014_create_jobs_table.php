@@ -26,18 +26,18 @@ class CreateJobsTable extends Migration
             $table->integer('salary_max')->unsigned()->nullable();
             $table->timestamp('started_at')->nullable();
             $table->boolean('current_job')->nullable();
-            $table->integer('persons_id')->unsigned();
-            $table->integer('privacy_levels_id')->unsigned();
+            $table->integer('person_id')->unsigned();
+            $table->integer('privacy_level_id')->unsigned();
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('persons_id', 'fk_jobs_persons1_idx')
+            $table->foreign('person_id', 'fk_jobs_persons1_idx')
                 ->references('id')->on('persons')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('privacy_levels_id', 'fk_jobs_privacy_levels1_idx')
+            $table->foreign('privacy_level_id', 'fk_jobs_privacy_levels1_idx')
                 ->references('id')->on('privacy_levels')
                 ->onDelete('no action')
                 ->onUpdate('no action');

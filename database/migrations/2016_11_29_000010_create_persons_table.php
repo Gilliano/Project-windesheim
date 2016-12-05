@@ -20,19 +20,19 @@ class CreatePersonsTable extends Migration
             $table->string('lastname', 45);
             $table->timestamp('birthday')->nullable();
             $table->text('autobiography')->nullable();
-            $table->integer('users_id')->unsigned();
-            $table->integer('privacy_levels_id')->unsigned();
-            $table->integer('classes_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->integer('privacy_level_id')->unsigned();
+            $table->integer('group_id')->unsigned();
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('users_id', 'fk_persons_users_idx')
+            $table->foreign('user_id', 'fk_persons_users_idx')
                 ->references('id')->on('users')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('privacy_levels_id', 'fk_persons_privacy_levels1_idx')
+            $table->foreign('privacy_level_id', 'fk_persons_privacy_levels1_idx')
                 ->references('id')->on('privacy_levels')
                 ->onDelete('no action')
                 ->onUpdate('no action');

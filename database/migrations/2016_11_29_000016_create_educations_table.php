@@ -18,12 +18,12 @@ class CreateEducationsTable extends Migration
             $table->increments('id');
             $table->string('name', 45)->nullable();
             $table->text('description')->nullable();
-            $table->integer('schools_id')->unsigned();
+            $table->integer('school_id')->unsigned();
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('schools_id', 'fk_educations_schools1_idx')
+            $table->foreign('school_id', 'fk_educations_schools1_idx')
                 ->references('id')->on('schools')
                 ->onDelete('no action')
                 ->onUpdate('no action');

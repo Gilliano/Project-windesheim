@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClassesTable extends Migration
+class CreateGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateClassesTable extends Migration
      */
     public function up()
     {
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('groups', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name', 45);
@@ -21,18 +21,18 @@ class CreateClassesTable extends Migration
             $table->integer('coordinator')->unsigned();
             $table->dateTime('cohort_start');
             $table->dateTime('cohort_end');
-            $table->integer('educations_id')->unsigned();
+            $table->integer('education_id')->unsigned();
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('educations_id', 'fk_classes_educations1_idx')
+            $table->foreign('education_id', 'fk_groups_educations1_idx')
                 ->references('id')->on('educations')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
 
-            $table->foreign('coordinator', 'fk_classes_persons1_idx')
+            $table->foreign('coordinator', 'fk_groups_persons1_idx')
                 ->references('id')->on('persons')
                 ->onDelete('no action')
                 ->onUpdate('no action');
@@ -46,6 +46,6 @@ class CreateClassesTable extends Migration
      */
      public function down()
      {
-       Schema::dropIfExists('classes');
+       Schema::dropIfExists('groups');
      }
 }

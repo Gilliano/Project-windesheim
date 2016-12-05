@@ -14,9 +14,9 @@ class CreateForeignKeysTable extends Migration
     public function up()
     {
         Schema::table('persons', function(Blueprint $table) {
-            $table->foreign('classes_id', 'fk_persons_classes_idx')
+            $table->foreign('group_id', 'fk_persons_groups_idx')
                   ->references('id')
-                  ->on('classes')
+                  ->on('groups')
                   ->onDelete('restrict')
                   ->onUpdate('restrict');
         });
@@ -30,7 +30,7 @@ class CreateForeignKeysTable extends Migration
      public function down()
      {
         Schema::table('persons', function(Blueprint $table) {
-            $table->dropForeign('fk_persons_classes_idx');
+            $table->dropForeign('fk_persons_groups_idx');
         });
      }
 }
