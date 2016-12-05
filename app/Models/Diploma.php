@@ -14,11 +14,8 @@ class Diploma extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'cohort_start',
-        'cohort_end',
         'graduated_year',
         'education',
-        'education_coordinator',
         'education_classcode',
         'persons_id',
         'schools_id',

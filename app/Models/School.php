@@ -15,12 +15,13 @@ class School extends Model
 
     protected $fillable = [
         'name',
+        'description',
         'address',
         'address_number',
+        'city',
         'zip_code',
         'telephone_number',
-        'email',
-        'city'
+        'email'
     ];
 
     protected $guarded = [];

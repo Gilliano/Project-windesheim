@@ -20,6 +20,7 @@ class Person extends Model
         'autobiography',
         'users_id',
         'privacy_levels_id',
+        'classes_id'
     ];
 
     protected $guarded = [];

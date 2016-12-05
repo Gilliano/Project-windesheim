@@ -16,11 +16,8 @@ class CreateDiplomasTable extends Migration
         Schema::create('diplomas', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->date('cohort_start');
-            $table->date('cohort_end');
             $table->date('graduated_year');
             $table->string('education', 45);
-            $table->integer('education_coordinator')->unsigned()->nullable();
             $table->string('education_classcode', 25)->nullable();
             $table->integer('persons_id')->unsigned();
             $table->integer('schools_id')->unsigned()->nullable();
@@ -29,12 +26,7 @@ class CreateDiplomasTable extends Migration
             $table->nullableTimestamps();
 
 
-            $table->foreign('education_coordinator', 'fk_educations_persons1_idx')
-                ->references('id')->on('persons')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('persons_id', 'fk_educations_persons2_idx')
+            $table->foreign('persons_id', 'fk_educations_persons1_idx')
                 ->references('id')->on('persons')
                 ->onDelete('no action')
                 ->onUpdate('no action');
