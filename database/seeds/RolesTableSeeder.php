@@ -20,7 +20,7 @@ class RolesTableSeeder extends Seeder
             'ICT' => "People that do ict stuff",
             'Technology' => "People that do technology stuff",
             'Law' => "People that do law stuff",
-            'Education' => "People that do education stuff"]; // TODO: Fetch these out of a global config file
+            'Education' => "People that do education stuff"];
         foreach ($names as $name=>$desc)
         {
             App\Models\Role::create([

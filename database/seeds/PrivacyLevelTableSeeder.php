@@ -13,7 +13,7 @@ class PrivacyLevelTableSeeder extends Seeder
     {
         $names = ['Public' => "Everybody can see it",
             'Only Alumni' => "Only Alumni can see it",
-            'Only Classmates' => "Only Classmates can see it"]; // TODO: Fetch these out of a global config file
+            'Only Classmates' => "Only Classmates can see it"];
         foreach ($names as $name=>$desc)
         {
             $row = new App\Models\PrivacyLevel([
