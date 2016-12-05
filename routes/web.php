@@ -18,3 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/persons', 'PersonsController@index');
+Route::post('/persons', 'PersonsController@store');
+
+Route::get('/persons/{id}', 'PersonsController@edit'); // TODO: Is 'edit' a good name?
+Route::post('/persons/{id}', 'PersonsController@update');
