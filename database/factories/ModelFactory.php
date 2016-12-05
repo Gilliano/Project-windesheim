@@ -132,28 +132,6 @@ $factory->define(App\Models\Person::class, function (Faker\Generator $faker) {
 });
 
 /*
- *  Model PrivacyLevel ;
- */
-$factory->define(App\Models\PrivacyLevel::class, function (Faker\Generator $faker) {
-
-    return [
-        'name' => $faker->word,
-        'description' => $faker->sentence,
-    ];
-});
-
-/*
- *  Model Role ;
- */
-$factory->define(App\Models\Role::class, function (Faker\Generator $faker) {
-
-    return [
-        'name' => $faker->word,
-        'description' => $faker->sentence,
-    ];
-});
-
-/*
  *  Model School ;
  */
 $factory->define(App\Models\School::class, function (Faker\Generator $faker) {
