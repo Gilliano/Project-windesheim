@@ -20,6 +20,10 @@ class Role extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'created_at', 'updated_at', 'deleted_at' ,
+    ];
+
     public function getUsers()
     {
        return $this->hasMany('App\Models\User', 'id');

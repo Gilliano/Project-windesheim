@@ -20,10 +20,14 @@ class PrivacyLevel extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'created_at', 'updated_at', 'deleted_at' ,
+    ];
+
 
     public function roles()
     {
-        return $this->belongsToMany('App\Models\Role', 'roles_has_privacy_levels', 'privacy_levels_id' , 'roles_id')
+        return $this->belongsToMany('App\Models\Role', 'roles_has_privacy_levels', 'privacy_level_id' , 'role_id')
             ->withTimestamps();
     }
 

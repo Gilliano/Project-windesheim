@@ -21,10 +21,14 @@ class Achievement extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'created_at', 'updated_at', 'deleted_at' ,
+    ];
+
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\User', 'users_has_achievements' , 'achievements_id', 'users_id')
+        return $this->belongsToMany('App\Models\User', 'users_has_achievements' , 'achievement_id', 'user_id')
             ->withTimestamps();
     }
 }

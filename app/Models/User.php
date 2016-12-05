@@ -22,6 +22,10 @@ class User extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'created_at', 'updated_at', 'deleted_at' ,
+    ];
+
     public function getRole()
     {
         return $this->belongsTo('App\Models\Role', 'roles_id');

@@ -20,6 +20,11 @@ class Action extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'created_at', 'updated_at', 'deleted_at' ,
+    ];
+
+
     public function roles()
     {
         return $this->belongsToMany('App\Models\Role', 'roles_has_actions' , 'actions_id', 'roles_id')

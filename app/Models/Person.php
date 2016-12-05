@@ -25,6 +25,10 @@ class Person extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'birthday', 'created_at', 'updated_at', 'deleted_at' ,
+    ];
+
 
     public function privacyLevel()
     {

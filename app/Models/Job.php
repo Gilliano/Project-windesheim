@@ -30,6 +30,10 @@ class Job extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'started_at', 'created_at', 'updated_at', 'deleted_at' ,
+    ];
+
 
     public function privacyLevel()
     {
