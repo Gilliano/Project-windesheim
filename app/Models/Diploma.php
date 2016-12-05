@@ -30,16 +30,12 @@ class Diploma extends Model
 
     public function school()
     {
-        return $this->belongsTo('App\Models\School', 'schools_id');
+        return $this->belongsTo('App\Models\School');
     }
 
     public function person()
     {
-        return $this->belongsTo('App\Models\Person', 'persons_id');
+        return $this->belongsTo('App\Models\Person');
     }
 
-    public function educationCoordinator()
-    {
-        return $this->belongsTo('App\Models\Person', 'education_coordinator');
-    }
 }

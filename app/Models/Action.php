@@ -27,13 +27,13 @@ class Action extends Model
 
     public function roles()
     {
-        return $this->belongsToMany('App\Models\Role', 'roles_has_actions' , 'actions_id', 'roles_id')
+        return $this->belongsToMany('App\Models\Role', 'roles_has_actions')
             ->withTimestamps();
     }
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\User', 'users_has_actions' , 'actions_id', 'users_id')
+        return $this->belongsToMany('App\Models\User', 'users_has_actions')
             ->withTimestamps();
     }
 

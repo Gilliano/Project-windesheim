@@ -33,8 +33,12 @@ class UsersInformation extends Model
 
     public function privacyLevel()
     {
-        return $this->belongsTo('App\Models\PrivacyLevel', 'privacy_levels_id');
+        return $this->belongsTo('App\Models\PrivacyLevel');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
         
 }

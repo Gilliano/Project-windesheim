@@ -28,7 +28,7 @@ class Achievement extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\User', 'users_has_achievements' , 'achievement_id', 'user_id')
+        return $this->belongsToMany('App\Models\User', 'users_has_achievements')
             ->withTimestamps();
     }
 }

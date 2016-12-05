@@ -30,4 +30,13 @@ class School extends Model
         'created_at', 'updated_at', 'deleted_at' ,
     ];
 
+    public function educations()
+    {
+        return $this->hasMany('App\Models\Education');
+    }
+
+    public function diplomas()
+    {
+        return $this->hasMany('App\Models\Diploma');
+    }
 }

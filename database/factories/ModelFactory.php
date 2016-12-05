@@ -111,7 +111,7 @@ $factory->define(App\Models\Group::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'description' => $faker->text($maxNbChars = 45),
-        'coordinator' => $faker->randomElement($array = array ($person['id'], null)),
+        'coordinator' => $person['id'],
         'cohort_start' => $faker->randomElement($array = array (Carbon::now(), Carbon::now()->subYears(2))),
         'cohort_end' => $faker->randomElement($array = array (Carbon::now(), Carbon::now()->subYear())),
         'education_id' => $education['id'],
@@ -156,7 +156,7 @@ $factory->define(App\Models\Person::class, function (Faker\Generator $faker) {
         'lastname' => $faker->lastName,
         'birthday' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'autobiography' => $faker->text($maxNbChars = 200),
-        'users_id' => $faker->unique()->numberBetween($min = 1, $max = ($user -100)),
+        'user_id' => $faker->unique()->numberBetween($min = 1, $max = ($user -100)),
         'privacy_level_id' => $privacyLevel['id'],
         'group_id' => $group['id'],
     ];

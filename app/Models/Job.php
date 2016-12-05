@@ -37,12 +37,12 @@ class Job extends Model
 
     public function privacyLevel()
     {
-        return $this->belongsTo('App\Models\PrivacyLevel', 'privacy_levels_id');
+        return $this->belongsTo('App\Models\PrivacyLevel');
     }
 
     public function person()
     {
-        return $this->belongsTo('App\Models\Person', 'persons_id');
+        return $this->belongsTo('App\Models\Person');
     }
         
 }
