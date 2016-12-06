@@ -4,19 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Achievement
- */
-class Achievement extends Model
+class Education extends Model
 {
-    protected $table = 'achievements';
+    protected $table = 'educations';
 
     public $timestamps = true;
 
     protected $fillable = [
         'name',
         'description',
-        'points'
+        'school_id',
     ];
 
     protected $guarded = [];
@@ -25,10 +22,13 @@ class Achievement extends Model
         'created_at', 'updated_at', 'deleted_at' ,
     ];
 
-
-    public function users()
+    public function school()
     {
-        return $this->belongsToMany('App\Models\User', 'users_has_achievements')
-            ->withTimestamps();
+        return $this->belongsTo('App\Models\School');
+    }
+
+    public function groups()
+    {
+        return $this->hasMany('App\Models\Group');
     }
 }

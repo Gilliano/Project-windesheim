@@ -24,14 +24,19 @@ class Certificate extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'earned_at', 'valid_until', 'created_at', 'updated_at', 'deleted_at' ,
+    ];
+
+
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'users_id');
+        return $this->belongsTo('App\Models\User');
     }
 
     public function privacyLevel()
     {
-        return $this->belongsTo('App\Models\PrivacyLevel', 'privacy_levels_id');
+        return $this->belongsTo('App\Models\PrivacyLevel');
     }
 }
