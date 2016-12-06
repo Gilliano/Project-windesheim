@@ -9,21 +9,6 @@
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
-                        {{--<input name="roles_id" type="hidden" value="1">--}}
-
-                        {{--<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">--}}
-                            {{--<label for="name" class="col-md-4 control-label">Name</label>--}}
-
-                            {{--<div class="col-md-6">--}}
-                                {{--<input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>--}}
-
-                                {{--@if ($errors->has('name'))--}}
-                                    {{--<span class="help-block">--}}
-                                        {{--<strong>{{ $errors->first('name') }}</strong>--}}
-                                    {{--</span>--}}
-                                {{--@endif--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
@@ -58,20 +43,6 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('roles_id') ? ' has-error' : '' }}">
-                            <label for="roles_id" class="col-md-4 control-label">Role ID</label>
-
-                            <div class="col-md-6">
-                                <input id="roles_id" type="number" class="form-control" name="roles_id" value="{{ old('roles_id') }}" required>
-
-                                @if ($errors->has('roles_id'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('roles_id') }}</strong>
-                                    </span>
-                                @endif
                             </div>
                         </div>
 
