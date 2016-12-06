@@ -1,15 +1,17 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class School
  */
 class School extends Model
 {
+    use SoftDeletes;
     protected $table = 'schools';
+    protected $dates = ['deleted_at'];
 
     public $timestamps = true;
 
@@ -24,6 +26,4 @@ class School extends Model
     ];
 
     protected $guarded = [];
-
-        
 }
