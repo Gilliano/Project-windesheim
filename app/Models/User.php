@@ -23,29 +23,44 @@ class User extends Authenticatable
 
     protected $guarded = [];
 
+    protected $dates = [
+        'created_at', 'updated_at', 'deleted_at' ,
+    ];
+
     public function getRole()
     {
-        return $this->belongsTo('App\Models\Role', 'roles_id');
+        return $this->belongsTo('App\Models\Role');
     }
 
     public function company()
     {
-        return $this->hasOne('App\Models\Company', 'id');
+        return $this->hasOne('App\Models\Company');
     }
+
+    public function person()
+    {
+        return $this->hasOne('App\Models\Person');
+    }
+
+    public function userInformation()
+    {
+        return $this->hasOne('App\Models\UserInformation');
+    }
+
     public function certificates()
     {
-        return $this->hasMany('App\Models\Certificate', 'id');
+        return $this->hasMany('App\Models\Certificate');
     }
 
     public function achievements()
     {
-        return $this->belongsToMany('App\Models\Achievement', 'users_has_achievements' , 'users_id', 'achievements_id')
+        return $this->belongsToMany('App\Models\Achievement', 'users_has_achievements')
             ->withTimestamps();
     }
 
     public function actions()
     {
-        return $this->belongsToMany('App\Models\Actions', 'users_has_actions' , 'users_id', 'actions_id')
+        return $this->belongsToMany('App\Models\Actions', 'users_has_actions')
             ->withTimestamps();
     }
 

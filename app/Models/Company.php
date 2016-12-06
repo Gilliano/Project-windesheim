@@ -22,15 +22,19 @@ class Company extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'created_at', 'updated_at', 'deleted_at' ,
+    ];
+
 
     public function privacyLevel()
     {
-        return $this->belongsTo('App\Models\PrivacyLevel', 'privacy_levels_id');
+        return $this->belongsTo('App\Models\PrivacyLevel');
     }
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'users_id');
+        return $this->belongsTo('App\Models\User');
     }
         
 }

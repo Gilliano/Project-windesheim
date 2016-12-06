@@ -23,18 +23,18 @@ class CreateUsersInformationTable extends Migration
             $table->string('alternative_email', 120)->nullable();
             $table->string('mobile_number', 16)->nullable();
             $table->string('additional_number', 16)->nullable();
-            $table->integer('users_id')->unsigned();
-            $table->integer('privacy_levels_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->integer('privacy_level_id')->unsigned();
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('users_id', 'fk_users_information_users1_idx')
+            $table->foreign('user_id', 'fk_users_information_users1_idx')
                 ->references('id')->on('users')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('privacy_levels_id', 'fk_users_information_privacy_levels1_idx')
+            $table->foreign('privacy_level_id', 'fk_users_information_privacy_levels1_idx')
                 ->references('id')->on('privacy_levels')
                 ->onDelete('no action')
                 ->onUpdate('no action');
