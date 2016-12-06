@@ -20,13 +20,43 @@ class Person extends Model
         'autobiography',
         'users_id',
         'privacy_levels_id',
+        'classes_id'
     ];
 
     protected $guarded = [];
 
+    protected $dates = [
+        'birthday', 'created_at', 'updated_at', 'deleted_at' ,
+    ];
+
 
     public function privacyLevel()
     {
-        return $this->belongsTo('App\Models\PrivacyLevel', 'privacy_levels_id');
+        return $this->belongsTo('App\Models\PrivacyLevel');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function group()
+    {
+        return $this->belongsTo('App\Models\Group');
+    }
+
+    public function coordinatorGroup()
+    {
+        return $this->hasMany('App\Models\Group');
+    }
+
+    public function job()
+    {
+        return $this->hasMany('App\Models\Job');
+    }
+
+    public function diploma()
+    {
+        return $this->hasMany('App\Models\Dimploma');
     }
 }

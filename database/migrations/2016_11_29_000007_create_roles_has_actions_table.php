@@ -15,19 +15,19 @@ class CreateRolesHasActionsTable extends Migration
     {
         Schema::create('roles_has_actions', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->integer('roles_id')->unsigned();
-            $table->integer('actions_id')->unsigned();
+            $table->integer('role_id')->unsigned();
+            $table->integer('action_id')->unsigned();
             $table->softDeletes();
             $table->nullableTimestamps();
 
-            $table->primary(['roles_id', 'actions_id']);
+            $table->primary(['role_id', 'action_id']);
 
-            $table->foreign('roles_id', 'fk_role_has_actions_role1_idx')
+            $table->foreign('role_id', 'fk_role_has_actions_role1_idx')
                 ->references('id')->on('roles')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('actions_id', 'fk_role_has_actions_actions1_idx')
+            $table->foreign('action_id', 'fk_role_has_actions_actions1_idx')
                 ->references('id')->on('actions')
                 ->onDelete('no action')
                 ->onUpdate('no action');

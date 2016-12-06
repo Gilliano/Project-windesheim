@@ -47,8 +47,8 @@ $factory->define(App\Models\Certificate::class, function (Faker\Generator $faker
         'description' => $faker->sentence,
         'earned_at' => $faker->randomElement($array = array (Carbon::now(), Carbon::now()->subYear())),
         'valid_until' => $faker->randomElement($array = array (Carbon::now(), Carbon::now()->addMonth(), null)),
-        'users_id' => $user['id'],
-        'privacy_levels_id' => $privacyLevel['id'],
+        'user_id' => $user['id'],
+        'privacy_level_id' => $privacyLevel['id'],
     ];
 });
 
@@ -63,8 +63,8 @@ $factory->define(App\Models\Company::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
         'description' => $faker->sentence,
-        'users_id' => $faker->unique()->numberBetween($min = ($user -99), $max = $user),
-        'privacy_levels_id' => $privacyLevel['id'],
+        'user_id' => $faker->unique()->numberBetween($min = ($user -99), $max = $user),
+        'privacy_level_id' => $privacyLevel['id'],
     ];
 });
 
@@ -77,15 +77,44 @@ $factory->define(App\Models\Diploma::class, function (Faker\Generator $faker) {
     $school = App\Models\School::orderByRaw('RAND()')->first();
 
     return [
-        'cohort_start' => $faker->randomElement($array = array (Carbon::now(), Carbon::now()->subYears(2))),
-        'cohort_end' => $faker->randomElement($array = array (Carbon::now(), Carbon::now()->subYear())),
         'graduated_year' => $faker->randomElement($array = array (Carbon::now(), Carbon::now()->subYear())),
         'education' => $faker->text($maxNbChars = 45),
-        'education_coordinator' => $faker->randomElement($array = array ($person['id'], null)),
         'education_classcode' => $faker->word,
-        'persons_id' => $person['id'],
+        'person_id' => $person['id'],
         'school_id' => $school['id'],
         'school_name' => $faker->name,
+    ];
+});
+
+/*
+ *  Model Educations  REQUIRES table: schools;
+ */
+$factory->define(App\Models\Education::class, function (Faker\Generator $faker) {
+
+    $school = App\Models\School::orderByRaw('RAND()')->first();
+
+    return [
+        'name' => $faker->name,
+        'description' => $faker->text($maxNbChars = 45),
+        'school_id' => $school['id'],
+    ];
+});
+
+/*
+ *  Model Groups  REQUIRES table: persons, educations;
+ */
+$factory->define(App\Models\Group::class, function (Faker\Generator $faker) {
+
+    $person = App\Models\Person::orderByRaw('RAND()')->first();
+    $education = App\Models\Education::orderByRaw('RAND()')->first();
+
+    return [
+        'name' => $faker->name,
+        'description' => $faker->text($maxNbChars = 45),
+        'coordinator' => $person['id'],
+        'cohort_start' => $faker->randomElement($array = array (Carbon::now(), Carbon::now()->subYears(2))),
+        'cohort_end' => $faker->randomElement($array = array (Carbon::now(), Carbon::now()->subYear())),
+        'education_id' => $education['id'],
     ];
 });
 
@@ -108,48 +137,28 @@ $factory->define(App\Models\Job::class, function (Faker\Generator $faker) {
         'salary_max' => $faker->numberBetween($min = 10001, $max = 50000),
         'started_at' => $faker->randomElement($array = array (Carbon::now(), Carbon::now()->subYear())),
         'current_job' => $faker->numberBetween($min = 0, $max = 1),
-        'persons_id' => $person['id'],
-        'privacy_levels_id' => $privacyLevel['id'],
+        'person_id' => $person['id'],
+        'privacy_level_id' => $privacyLevel['id'],
     ];
 });
 
 /*
- *  Model Person  REQUIRES table: users, privacy_levels;
+ *  Model Person  REQUIRES table: users, privacy_levels, groups;
  */
 $factory->define(App\Models\Person::class, function (Faker\Generator $faker) {
 
     $user = App\Models\User::count();
     $privacyLevel = App\Models\PrivacyLevel::orderByRaw('RAND()')->first();
+    $group = App\Models\Group::orderByRaw('RAND()')->first();
 
     return [
         'firstname' => $faker->firstName($gender = null|'male'|'female'),
         'lastname' => $faker->lastName,
         'birthday' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'autobiography' => $faker->text($maxNbChars = 200),
-        'users_id' => $faker->unique()->numberBetween($min = 1, $max = ($user -100)),
-        'privacy_levels_id' => $privacyLevel['id'],
-    ];
-});
-
-/*
- *  Model PrivacyLevel ;
- */
-$factory->define(App\Models\PrivacyLevel::class, function (Faker\Generator $faker) {
-
-    return [
-        'name' => $faker->word,
-        'description' => $faker->sentence,
-    ];
-});
-
-/*
- *  Model Role ;
- */
-$factory->define(App\Models\Role::class, function (Faker\Generator $faker) {
-
-    return [
-        'name' => $faker->word,
-        'description' => $faker->sentence,
+        'user_id' => $faker->unique()->numberBetween($min = 1, $max = ($user -100)),
+        'privacy_level_id' => $privacyLevel['id'],
+        'group_id' => $group['id'],
     ];
 });
 
@@ -181,7 +190,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
-        'roles_id' => $role['id'],
+        'role_id' => $role['id'],
         'remember_token' => str_random(10),
     ];
 });
@@ -203,7 +212,7 @@ $factory->define(App\Models\UsersInformation::class, function (Faker\Generator $
         'alternative_email' => $faker->safeEmail,
         'mobile_number' => $faker->tollFreePhoneNumber,
         'additional_number' => $faker->tollFreePhoneNumber,
-        'users_id' => $faker->unique($reset = true)->numberBetween($min = 1, $max = $user),
-        'privacy_levels_id' => $privacyLevel['id'],
+        'user_id' => $faker->unique($reset = true)->numberBetween($min = 1, $max = $user),
+        'privacy_level_id' => $privacyLevel['id'],
     ];
 });
