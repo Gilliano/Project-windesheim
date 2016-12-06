@@ -21,9 +21,9 @@ class Person extends Model
         'lastname',
         'birthday',
         'autobiography',
-        'users_id',
-        'privacy_levels_id',
-        'classes_id'
+        'user_id',
+        'privacy_level_id',
+        'group_id'
     ];
 
     protected $guarded = [];

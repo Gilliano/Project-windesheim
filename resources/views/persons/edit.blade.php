@@ -44,7 +44,7 @@
                         <label for="user">User</label>
                         <select id="user" name="user" class="form-control">
                             @foreach($users as $user)
-                                {{ $selected = $user->id==$current_person->users_id?'selected':'' }}
+                                {{ $selected = $user->id==$current_person->user_id?'selected':'' }}
                                 <option {{$selected}}>{{ $user->id }}</option>
                             @endforeach
                         </select>
@@ -52,7 +52,7 @@
                         <label for="privacy">Privacy</label>
                         <select id="privacy" name="privacy" class="form-control">
                             @foreach($privacys as $privacy)
-                                {{ $selected = $privacy->id==$current_person->privacy_levels_id?'selected':'' }}
+                                {{ $selected = $privacy->id==$current_person->privacy_level_id?'selected':'' }}
                                 <option {{$selected}}>{{ $privacy->id }}</option>
                             @endforeach
                         </select>

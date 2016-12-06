@@ -28,8 +28,8 @@ class PersonsController extends Controller
             'lastname' => $request->input('lastname'),
             'birthday' => $request->input('birthday')==''?null:$request->input('birthday'),
             'autobiography' => $request->input('biography'),
-            'users_id' => $request->input('user'),
-            'privacy_levels_id' => $request->input('privacy'),
+            'user_id' => $request->input('user'),
+            'privacy_level_id' => $request->input('privacy'),
 //            'classes_id' => $request->input('class'),
         ]);
 
@@ -65,8 +65,8 @@ class PersonsController extends Controller
             $person->lastname = $request->input('lastname');
             $person->birthday = $request->input('birthday') == '' ? null : $request->input('birthday');
             $person->autobiography = $request->input('biography');
-            $person->users_id = $request->input('user');
-            $person->privacy_levels_id = $request->input('privacy');
+            $person->user_id = $request->input('user');
+            $person->privacy_level_id = $request->input('privacy');
 //        $person->classes_id = $request->input('class');
 
             $person->save();
