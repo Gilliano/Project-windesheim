@@ -28,7 +28,7 @@ class School extends Model
 
     protected $guarded = [];
 
-        protected $dates = [
+    protected $dates = [
         'created_at', 'updated_at', 'deleted_at' ,
     ];
 

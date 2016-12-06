@@ -23,8 +23,11 @@
 		  			<input type="email" class="form-control" name="email" placeholder="Email" maxlength="120" />
 		  		</div>
 		  		<div class="form-group">
-		  			<input type="text" class="form-control" name="city" placeholder="Vestiging" maxlength="35"  />
+		  			<input type="text" class="form-control" name="city" placeholder="Vestiging" maxlength="35" required/>
 		  		</div>
+		  		<div class="form-group">
+			  		<textarea name="description" class="form-control" placeholder="Beschrijving" rows="4"></textarea>
+			  	</div>
 
 			  	<div class="form-group">
 			  		<button type="submit" class="btn btn-success form-control">Voeg school toe</button>

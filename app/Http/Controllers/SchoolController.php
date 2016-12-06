@@ -14,13 +14,14 @@ class SchoolController extends Controller
 
     public function saveSchool(Request $request, School $school) {
     	$this->validate($request, [
-    		'name' => 'max:45',
+    		'name' => 'unique:schools,name|max:45',
+    		'description' => 'min:1',
     		'address' => 'max:45',
     		'address_number' => 'max:10',
+    		'city' => 'required',
     		'zip_code' => 'max:9',
     		'telephone_number' => 'max:16',
-    		'email' => 'exists:schools,email|unxique',
-    		'city' => 'required'
+    		'email' => 'email|unique:schools,email'
     	]);
     	$school = new School;
     	$school->create($request->all());

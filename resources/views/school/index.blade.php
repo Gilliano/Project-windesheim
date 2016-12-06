@@ -7,6 +7,7 @@
 				<thead>
 					<tr>
 						<th>Naam</th>
+						<th>Beschijving</th>
 						<th>Adres</th>
 						<th>Adresnummer</th>
 						<th>Postcode</th>
@@ -20,6 +21,7 @@
 				@foreach ($schools as $school)
 					<tr>
 						<td>{{ $school->name }}</td>
+						<td>{{ $school->description }}</td>
 						<td>{{ $school->address }}</td>
 						<td>{{ $school->address_number }}</td>
 						<td>{{ $school->zip_code }}</td>
