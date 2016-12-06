@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePerson;
 use App\Models\User;
@@ -14,10 +15,10 @@ class PersonsController extends Controller
     {
         $users = User::all();
         $privacys = PrivacyLevel::all();
-        // TODO: Get all classes
+        $groups = Group::all();
         $persons = Person::orderBy('created_at', 'desc')->get();
 
-        return view("/persons/index", compact('users', 'privacys', 'persons'));
+        return view("/persons/index", compact('users', 'privacys', 'groups', 'persons'));
     }
 
     public function store(StorePerson $request)
@@ -30,7 +31,7 @@ class PersonsController extends Controller
             'autobiography' => $request->input('biography'),
             'user_id' => $request->input('user'),
             'privacy_level_id' => $request->input('privacy'),
-//            'classes_id' => $request->input('class'),
+            'group_id' => $request->input('class'),
         ]);
 
         $person->save();
@@ -42,11 +43,11 @@ class PersonsController extends Controller
     {
         $users = User::all();
         $privacys = PrivacyLevel::all();
-        // TODO: Get all classes
+        $groups = Group::all();
         $persons = Person::all();
         $current_person = Person::find($id);
 
-        return view('/persons/edit', compact('users', 'privacys', 'persons', 'current_person'));
+        return view('/persons/edit', compact('users', 'privacys', 'groups', 'persons', 'current_person'));
     }
 
     public function update(StorePerson $request, $id)
@@ -67,7 +68,7 @@ class PersonsController extends Controller
             $person->autobiography = $request->input('biography');
             $person->user_id = $request->input('user');
             $person->privacy_level_id = $request->input('privacy');
-//        $person->classes_id = $request->input('class');
+            $person->group_id = $request->input('class');
 
             $person->save();
 

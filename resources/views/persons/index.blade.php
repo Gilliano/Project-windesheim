@@ -56,7 +56,9 @@
 
                     <label for="class">Class</label>
                     <select id="class" name="class" class="form-control">
-                        <option selected>Empty</option>
+                        @foreach($groups as $group)
+                            <option>{{ $group->id }}</option>
+                        @endforeach
                     </select>
 
                     <br>

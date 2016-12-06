@@ -59,7 +59,10 @@
 
                         <label for="class">Class</label>
                         <select id="class" name="class" class="form-control">
-                            <option selected>Empty</option>
+                            @foreach($groups as $group)
+                                {{ $selected = $group->id==$current_person->group_id?'selected':'' }}
+                                <option {{$selected}}>{{ $group->id }}</option>
+                            @endforeach
                         </select>
 
                         <br>
