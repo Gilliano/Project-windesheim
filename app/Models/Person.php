@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Person
  */
 class Person extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'persons';
 
     public $timestamps = true;
