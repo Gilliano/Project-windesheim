@@ -62,4 +62,11 @@ class Person extends Model
     {
         return $this->hasMany('App\Models\Dimploma');
     }
+
+    public function Surveys()
+    {
+        return $this->belongsToMany('App\Models\Survey', 'persons_has_surveys')
+            ->withPivot('rating', 'comment')
+            ->withTimestamps();
+    }
 }

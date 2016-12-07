@@ -163,6 +163,19 @@ $factory->define(App\Models\Person::class, function (Faker\Generator $faker) {
 });
 
 /*
+ *  Model Questions  REQUIRES table: surveys;
+ */
+$factory->define(App\Models\Question::class, function (Faker\Generator $faker) {
+
+    $survey = App\Models\Survey::orderByRaw('RAND()')->first();
+
+    return [
+        'question' => $faker->text($maxNbChars = 80),
+        'survey_id' => $survey['id'],
+    ];
+});
+
+/*
  *  Model School ;
  */
 $factory->define(App\Models\School::class, function (Faker\Generator $faker) {
@@ -175,6 +188,17 @@ $factory->define(App\Models\School::class, function (Faker\Generator $faker) {
         'telephone_number' => $faker->tollFreePhoneNumber,
         'email' => $faker->unique()->safeEmail,
         'city' => $faker->randomElement($array = array ('almere','lelystad','amsterdam')),
+    ];
+});
+
+/*
+ *  Model Survey ;
+ */
+$factory->define(App\Models\Survey::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->unique()->text($maxNbChars = 45),
+        'description' => $faker->text($maxNbChars = 200),
     ];
 });
 
