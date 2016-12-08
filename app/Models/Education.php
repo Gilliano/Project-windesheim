@@ -16,6 +16,7 @@ class Education extends Model
     protected $fillable = [
         'name',
         'description',
+        'length',
         'school_id',
     ];
 
@@ -33,5 +34,12 @@ class Education extends Model
     public function groups()
     {
         return $this->hasMany('App\Models\Group');
+    }
+
+    public function personsRating()
+    {
+        return $this->belongsToMany('App\Models\Person', 'persons_rate_educations')
+            ->withPivot('rating', 'comment')
+            ->withTimestamps();
     }
 }

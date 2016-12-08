@@ -20,6 +20,7 @@ class Person extends Model
         'firstname',
         'lastname',
         'birthday',
+        'sex',
         'autobiography',
         'users_id',
         'privacy_levels_id',
@@ -66,6 +67,13 @@ class Person extends Model
     public function Surveys()
     {
         return $this->belongsToMany('App\Models\Survey', 'persons_has_surveys')
+            ->withPivot('rating', 'comment')
+            ->withTimestamps();
+    }
+
+    public function rateEducation()
+    {
+        return $this->belongsToMany('App\Models\Education', 'persons_rate_educations')
             ->withPivot('rating', 'comment')
             ->withTimestamps();
     }

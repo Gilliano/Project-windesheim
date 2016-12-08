@@ -19,6 +19,7 @@ class Group extends Model
         'coordinator',
         'cohort_start',
         'cohort_end',
+        'started_amount',
         'education_id'
     ];
 
