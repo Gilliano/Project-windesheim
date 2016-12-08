@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-		<div class="col-md-9 col-md-offset-1">
+		<div class="col-md-10 col-md-offset-1">
 		<div class="page-header"><h3><b>Scholen</b></h3></div>
 			<table class="table table-hover">
 				<thead>
@@ -12,7 +12,7 @@
 						<th>Adresnummer</th>
 						<th>Postcode</th>
 						<th>Telefoon</th>
-						<th>Gevestigd in</th>
+						<th>Vestiging</th>
 						<th>Wijzigen</th>
 						<th>Info</th>
 					</tr>

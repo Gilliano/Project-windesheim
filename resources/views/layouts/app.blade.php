@@ -77,7 +77,8 @@
                 </div>
             </div>
         </nav>
-
+        @include('/sessions.success')
+        @include('/sessions.error')
         @yield('content')
     </div>
 

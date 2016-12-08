@@ -13,7 +13,7 @@ class SchoolController extends Controller
     }
 
     public function saveSchool(Request $request, School $school) {
-    	$this->validate($request, [
+    	$validate = $this->validate($request, [
     		'name' => 'unique:schools,name|max:45',
     		'description' => 'min:1',
     		'address' => 'max:45',
@@ -25,6 +25,7 @@ class SchoolController extends Controller
     	]);
     	$school = new School;
     	$school->create($request->all());
+    	\Session::flash('success', 'De school: ' .  $request->name . ' is succesvol toegevoegd.');
     	return redirect()->action('SchoolController@getSchools');
     }
 
@@ -38,16 +39,20 @@ class SchoolController extends Controller
 
     public function updateSchool(Request $request, School $school) {
     	$school->update($request->all());
+    	\Session::flash('success', 'De school: ' .  $request->name . ' is succesvol gewijzigd.');
     	return redirect()->action('SchoolController@getSchools');
     }
 
     public function restoreSchool($id) {
         School::onlyTrashed()->where('id', $id)->restore();
+        $school = School::find($id);
+        \Session::flash('success', 'De school: ' .  $school->name . ' is succesvol hersteld.');
         return back();
     }
 
     public function deleteSchool(School $school) {
     	$school->delete();
+    	\Session::flash('success', 'De school: ' .  $school->name . ' is succesvol verwijderd.');
     	return back();
     }
 }
