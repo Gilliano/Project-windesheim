@@ -18,7 +18,8 @@ class CreatePersonsTable extends Migration
             $table->increments('id');
             $table->string('firstname', 45);
             $table->string('lastname', 45);
-            $table->timestamp('birthday')->nullable();
+            $table->timestamp('birthday');
+            $table->boolean('sex');
             $table->text('autobiography')->nullable();
             $table->integer('user_id')->unsigned();
             $table->integer('privacy_level_id')->unsigned();
