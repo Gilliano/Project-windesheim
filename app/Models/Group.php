@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Group extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'groups';
 
     public $timestamps = true;
@@ -16,6 +19,7 @@ class Group extends Model
         'coordinator',
         'cohort_start',
         'cohort_end',
+        'started_amount',
         'education_id'
     ];
 

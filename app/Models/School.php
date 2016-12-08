@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class School
  */
 class School extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'schools';
 
     public $timestamps = true;

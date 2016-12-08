@@ -96,6 +96,7 @@ $factory->define(App\Models\Education::class, function (Faker\Generator $faker) 
     return [
         'name' => $faker->name,
         'description' => $faker->text($maxNbChars = 45),
+        'length' => $faker->randomElement($array = array (2, 4)),
         'school_id' => $school['id'],
     ];
 });
@@ -114,6 +115,7 @@ $factory->define(App\Models\Group::class, function (Faker\Generator $faker) {
         'coordinator' => $person['id'],
         'cohort_start' => $faker->randomElement($array = array (Carbon::now(), Carbon::now()->subYears(2))),
         'cohort_end' => $faker->randomElement($array = array (Carbon::now(), Carbon::now()->subYear())),
+        'started_amount' => 5,
         'education_id' => $education['id'],
     ];
 });
@@ -155,10 +157,24 @@ $factory->define(App\Models\Person::class, function (Faker\Generator $faker) {
         'firstname' => $faker->firstName($gender = null|'male'|'female'),
         'lastname' => $faker->lastName,
         'birthday' => $faker->date($format = 'Y-m-d', $max = 'now'),
+        'sex' => $faker->numberBetween($min = 0, $max = 1),
         'autobiography' => $faker->text($maxNbChars = 200),
         'user_id' => $faker->unique()->numberBetween($min = 1, $max = ($user -100)),
         'privacy_level_id' => $privacyLevel['id'],
         'group_id' => $group['id'],
+    ];
+});
+
+/*
+ *  Model Questions  REQUIRES table: surveys;
+ */
+$factory->define(App\Models\Question::class, function (Faker\Generator $faker) {
+
+    $survey = App\Models\Survey::orderByRaw('RAND()')->first();
+
+    return [
+        'question' => $faker->text($maxNbChars = 80),
+        'survey_id' => $survey['id'],
     ];
 });
 
@@ -175,6 +191,17 @@ $factory->define(App\Models\School::class, function (Faker\Generator $faker) {
         'telephone_number' => $faker->tollFreePhoneNumber,
         'email' => $faker->unique()->safeEmail,
         'city' => $faker->randomElement($array = array ('almere','lelystad','amsterdam')),
+    ];
+});
+
+/*
+ *  Model Survey ;
+ */
+$factory->define(App\Models\Survey::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->unique()->text($maxNbChars = 45),
+        'description' => $faker->text($maxNbChars = 200),
     ];
 });
 
