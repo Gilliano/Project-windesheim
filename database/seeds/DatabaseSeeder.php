@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         });
 
         factory(App\Models\School::class, 10)->create();
-        factory(App\Models\Education::class, 20)->create();
+        factory(App\Models\Education::class, 9)->create();
         factory(App\Models\Group::class, 20)->create();
         factory(App\Models\Company::class, 50)->create();
         factory(App\Models\Person::class, 350)->create();
@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
             $u->persons()->attach(App\Models\Person::all()->random(5), ['answer' => rand(1, 5), 'optional' => 'lala']);
         });
 
-        factory(App\Models\Education::class, 30)->create()->each(function ($u) {
+        factory(App\Models\Education::class, 9)->create()->each(function ($u) {
             $u->personsRating()->attach(App\Models\Person::all()->random(5), ['rating' => rand(1, 5), 'comment' => 'lala']);
         });
     }

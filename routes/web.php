@@ -18,6 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/menu', 'MenuController@index');
+
 Route::get('/schools', 'SchoolController@getSchools');
 Route::get('/schools/add', 'SchoolController@addSchool');
 Route::post('/schools/add', 'SchoolController@saveSchool');
@@ -32,4 +35,4 @@ Route::get('/persons/{id}', 'PersonsController@edit'); // TODO: Is 'edit' a good
 Route::post('/persons/{id}', 'PersonsController@update');
 
 Route::get('/charts', 'ChartsController@index');
-Route::get('/json/charts/{functionName}', 'JSONController@decide');
+Route::post('/json/charts', 'JSONController@decide');
