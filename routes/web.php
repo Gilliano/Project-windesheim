@@ -23,7 +23,7 @@ Route::get('/persons/{id}', 'PersonsController@edit'); // TODO: Is 'edit' a good
 Route::post('/persons/{id}', 'PersonsController@update');
 
 Route::get('/charts', 'ChartsController@index');
-Route::get('/json/charts/{functionName}', 'JSONController@decide');
+Route::post('/json/charts', 'JSONController@decide');
 
 Route::group(['middleware' => ['web']], function() {
 	Route::get('/home', 'HomeController@index');
