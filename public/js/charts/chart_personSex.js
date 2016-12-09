@@ -20,20 +20,23 @@ function setupChart(){
             data: {
                 labels: ["Man", "Vrouw"],
                 datasets: [{
-                    label: 'Geslacht van gebruikers',
                     data: [man_slice, female_slice],
                     backgroundColor: [
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(255, 99, 132, 0.2)'
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(244, 66, 209, 0.5)'
                     ],
                     borderColor: [
                         'rgba(75, 192, 192, 1)',
-                        'rgba(255,99,132,1)'
+                        'rgba(244, 66, 209,1)'
                     ],
                     borderWidth: 1
                 }]
             },
             options: {
+                title: {
+                    display: true,
+                    text: 'Geslacht van geregistreerde gebruikers'
+                },
                 tooltips: {
                     callbacks: {
                         label: function(item, data){
