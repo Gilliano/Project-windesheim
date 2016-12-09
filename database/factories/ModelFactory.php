@@ -115,7 +115,7 @@ $factory->define(App\Models\Group::class, function (Faker\Generator $faker) {
         'coordinator' => $person['id'],
         'cohort_start' => $faker->randomElement($array = array (Carbon::now(), Carbon::now()->subYears(2))),
         'cohort_end' => $faker->randomElement($array = array (Carbon::now(), Carbon::now()->subYear())),
-        'started_amount' => 5,
+        'started_amount' => $faker->numberBetween(15, 30),
         'education_id' => $education['id'],
     ];
 });

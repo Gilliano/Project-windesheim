@@ -22,9 +22,9 @@ class Person extends Model
         'birthday',
         'sex',
         'autobiography',
-        'users_id',
-        'privacy_levels_id',
-        'classes_id'
+        'user_id',
+        'privacy_level_id',
+        'group_id'
     ];
 
     protected $guarded = [];
@@ -32,7 +32,6 @@ class Person extends Model
     protected $dates = [
         'birthday', 'created_at', 'updated_at', 'deleted_at' ,
     ];
-
 
     public function privacyLevel()
     {
