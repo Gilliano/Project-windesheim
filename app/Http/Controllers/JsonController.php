@@ -37,9 +37,9 @@ class JsonController extends Controller
     // Return data for the Education chart
     // that shows the percentage of students
     // that completed the education
-    public function educationChartAlumni()
+    public function educationChartAlumni($educationName)
     {
-        $groups = Education::find(1)->groups; // TODO: Find by dynamic value
+        $groups = Education::where('name', $educationName)->first()->groups; // Find by dynamic value
         $start_amount = 0;
         $final_amount = 0;
         foreach ($groups as $group)
