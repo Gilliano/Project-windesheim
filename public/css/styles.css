@@ -1,0 +1,177 @@
+body {
+    background: #E2BE5A url("/img/windesheim_logo.png") no-repeat fixed center;
+    font-size: 16px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #ffffff;
+    margin: 0;
+}
+
+h1, h2, h3, p {
+    margin: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.demo {
+    margin: 3em 0;
+    padding: 7.5em 0 5.5em;
+    background: #26941f;
+}
+
+.demo:hover .gridster {
+    /*margin: 0 auto;*/
+    opacity: .8;
+    -webkit-transition: opacity .6s;
+    -moz-transition: opacity .6s;
+    -o-transition: opacity .6s;
+    -ms-transition: opacity .6s;
+    transition: opacity .6s;
+}
+
+.content {
+    color: white;
+}
+
+.gridster {
+    /*margin: auto;*/
+
+}
+
+.gridster .gs-w {
+    /*background: #61A9CF;*/
+    cursor: pointer;
+    /*-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
+    /*box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
+}
+
+/*#tile_0 {*/
+    /*background: #99B433;*/
+/*}*/
+
+/*#tile_1 {*/
+    /*background: #EE1111;*/
+/*}*/
+
+/*#tile_2 {*/
+    /*background: #00A300;*/
+/*}*/
+
+/*#tile_3 {*/
+    /*background: #B91D47;*/
+/*}*/
+
+/*#tile_4 {*/
+    /*background: #525252;*/
+/*}*/
+
+/*#tile_5 {*/
+    /*background: #1E7145;*/
+/*}*/
+
+/*#tile_6 {*/
+    /*background: #DA532C;*/
+/*}*/
+
+/*#tile_7 {*/
+    /*background: #FF0097;*/
+/*}*/
+
+/*#tile_8 {*/
+    /*background: #E3A21A;*/
+/*}*/
+
+/*#tile_9 {*/
+    /*background: #9F00A7;*/
+/*}*/
+
+/*#tile_10 {*/
+    /*background: #FFC40D;*/
+/*}*/
+
+/*#tile_11 {*/
+    /*background: #7E3878;*/
+/*}*/
+
+/*#tile_12 {*/
+    /*background: #2B5797;*/
+/*}*/
+
+/*#tile_13 {*/
+    /*background: #603CBA;*/
+/*}*/
+
+/*#tile_14 {*/
+    /*background: #2D89EF;*/
+/*}*/
+
+/*#tile_15 {*/
+    /*background: #1D1D1D;*/
+/*}*/
+
+/*#tile_16 {*/
+    /*background: #00ABA9;*/
+/*}*/
+
+.gridster .player {
+    -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    background: #BBB;
+}
+
+.gridster .gs-w.try {
+    /*background-image: url(../img/sprite.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: 37px -169px;*/
+}
+
+.gridster .preview-holder {
+    border: none !important;
+    border-radius: 0 !important;
+    background: red !important;
+}
+
+.gridster ul {
+    /*background-color: #EFEFEF;*/
+}
+
+.gridster li {
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 100%;
+    /*background: #61A9CF;*/
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    list-style: none;
+    font-weight: bold;
+}
+
+.gridster-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.controls {
+    margin-bottom: 20px;
+}
+
+.tile-icon {
+    max-height: 60%;
+    max-width: 60%;
+}
+
+.tile-title {
+    font-size: 1em;
+    font-size: 3vh;
+}
+
+/*# sourceMappingURL=demos/assets/css/demo.css.map */
