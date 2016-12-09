@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class UsersInformation
  */
-class UsersInformation extends Model
+class UserInformation extends Model
 {
     use SoftDeletes;
     

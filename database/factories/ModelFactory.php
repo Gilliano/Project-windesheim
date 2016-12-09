@@ -229,7 +229,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 /*
  *  Model UserInformation ;
  */
-$factory->define(App\Models\UsersInformation::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\UserInformation::class, function (Faker\Generator $faker) {
 
     $user = App\Models\User::count();
     $privacyLevel = App\Models\PrivacyLevel::orderByRaw('RAND()')->first();
