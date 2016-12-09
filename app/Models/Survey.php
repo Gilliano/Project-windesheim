@@ -31,7 +31,7 @@ class Survey extends Model
 
     public function persons()
     {
-        return $this->belongsToMany('App\Models\Person', 'persons_has_surveys')
+        return $this->belongsToMany('App\Models\Person', 'persons_rate_surveys')
             ->withPivot('rating', 'comment')
             ->withTimestamps();
     }
