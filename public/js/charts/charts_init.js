@@ -11,10 +11,11 @@ $(document).ready(function () {
     $.post("/json/charts", sendData, function(data){
         console.log(data);
         var data = $.parseJSON(data);
-        var non_graduated_slice = data[0] / (data[0]+data[1]) * 360;
-        var graduated_slice = data[1] / (data[0]+data[1]) * 360;
+        var non_graduated_slice = data[0] / (data[0]+data[1]) * 360; // Calculate the angle for this pie_slice
+        var graduated_slice = data[1] / (data[0]+data[1]) * 360; // Calculate the angle for this pie_slice
 
-        var canvas = $("#canvas");
+        var canvas = $("#canvas"); // Retrieve the canvas to draw our pie on
+        // Create a new chart
         var chart = new Chart(canvas, {
             type: 'pie',
             data: {
