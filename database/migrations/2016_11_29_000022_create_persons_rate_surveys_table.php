@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePersonsHasSurveysTable extends Migration
+class CreatePersonsRateSurveysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePersonsHasSurveysTable extends Migration
      */
     public function up()
     {
-        Schema::create('persons_has_surveys', function (Blueprint $table) {
+        Schema::create('persons_rate_surveys', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->integer('person_id')->unsigned();
             $table->integer('survey_id')->unsigned();
@@ -24,12 +24,12 @@ class CreatePersonsHasSurveysTable extends Migration
 
             $table->primary(['person_id', 'survey_id']);
 
-            $table->foreign('person_id', 'fk_persons_has_surveys_persons1_idx')
+            $table->foreign('person_id', 'fk_persons_rate_surveys_persons1_idx')
                 ->references('id')->on('persons')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('survey_id', 'fk_persons_has_surveys_surveys1_idx')
+            $table->foreign('survey_id', 'fk_persons_rate_surveys_surveys1_idx')
                 ->references('id')->on('surveys')
                 ->onDelete('no action')
                 ->onUpdate('no action');
@@ -43,6 +43,6 @@ class CreatePersonsHasSurveysTable extends Migration
      */
      public function down()
      {
-       Schema::dropIfExists('persons_has_surveys');
+       Schema::dropIfExists('persons_rate_surveys');
      }
 }
