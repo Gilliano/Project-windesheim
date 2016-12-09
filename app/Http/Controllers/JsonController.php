@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Education;
 use App\Models\Group;
+use App\Models\Person;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,10 +28,10 @@ class JsonController extends Controller
             return "$functionName not found!";
     }
 
-    // Return data for the Education chart
+    // Return data for the Alumni chart
     // that shows the percentage of students
     // that completed the education
-    public function educationChartAlumni($params)
+    public function educationAlumniChart($params)
     {
         $educationName = $params[0];
         $groups = Education::where('name', $educationName)->first()->groups; // Find by dynamic value
@@ -47,5 +48,17 @@ class JsonController extends Controller
         }
 
         return json_encode([$start_amount, $final_amount]);
+    }
+
+    // Return data for the Sex chart
+    // that show the difference in sex
+    // for all the persons in de dbase
+    public function personSexChart()
+    {
+        $totalPersons = Person::all();
+        $personsFemale = count($totalPersons->where('sex', 0));
+        $personsMale = count($totalPersons->where('sex', 1));
+
+        return json_encode([$personsFemale, $personsMale]);
     }
 }

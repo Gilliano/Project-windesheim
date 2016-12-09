@@ -89,12 +89,15 @@ $factory->define(App\Models\Diploma::class, function (Faker\Generator $faker) {
 /*
  *  Model Educations  REQUIRES table: schools;
  */
-$factory->define(App\Models\Education::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Education::class, function (Faker\Generator $faker, $education_names) {
 
     $school = App\Models\School::orderByRaw('RAND()')->first();
+    $education_names = ["HBO-ICT", "AD Software Devleopment", "Bedrijfseconomie",
+        "Bedrijfskunde MER", "Bouwkunde", "Commerciële Economie", "Communicatie",
+        "Engineering", "HBO-Rechten"];
 
     return [
-        'name' => $faker->name,
+        'name' => $faker->unique()->randomElement($array = $education_names),
         'description' => $faker->text($maxNbChars = 45),
         'length' => $faker->randomElement($array = array (2, 4)),
         'school_id' => $school['id'],
