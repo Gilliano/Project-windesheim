@@ -19,6 +19,9 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
+    {{-- jQuery --}}
+    <script src="/js/jquery/jquery-3.1.1.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -84,8 +87,5 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
-
-    {{-- jQuery --}}
-    <script src="/js/jquery/jquery-3.1.1.min.js"></script>
 </body>
 </html>

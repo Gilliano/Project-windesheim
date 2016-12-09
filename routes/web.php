@@ -22,6 +22,9 @@ Route::post('/persons', 'PersonsController@store');
 Route::get('/persons/{id}', 'PersonsController@edit'); // TODO: Is 'edit' a good name?
 Route::post('/persons/{id}', 'PersonsController@update');
 
+Route::get('/charts', 'ChartsController@index');
+Route::get('/json/charts/{functionName}', 'JSONController@decide');
+
 Route::group(['middleware' => ['web']], function() {
 	Route::get('/home', 'HomeController@index');
 	Route::get('/schools', 'SchoolController@getSchools');
