@@ -18,6 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/menu', 'MenuController@index');
+
 Route::get('/schools', 'SchoolController@getSchools');
 Route::get('/schools/add', 'SchoolController@addSchool');
 Route::post('/schools/add', 'SchoolController@saveSchool');
