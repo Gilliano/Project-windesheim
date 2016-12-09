@@ -20,10 +20,11 @@ class Person extends Model
         'firstname',
         'lastname',
         'birthday',
+        'sex',
         'autobiography',
-        'users_id',
-        'privacy_levels_id',
-        'classes_id'
+        'user_id',
+        'privacy_level_id',
+        'group_id'
     ];
 
     protected $guarded = [];
@@ -31,7 +32,6 @@ class Person extends Model
     protected $dates = [
         'birthday', 'created_at', 'updated_at', 'deleted_at' ,
     ];
-
 
     public function privacyLevel()
     {
@@ -66,6 +66,13 @@ class Person extends Model
     public function Surveys()
     {
         return $this->belongsToMany('App\Models\Survey', 'persons_has_surveys')
+            ->withPivot('rating', 'comment')
+            ->withTimestamps();
+    }
+
+    public function rateEducation()
+    {
+        return $this->belongsToMany('App\Models\Education', 'persons_rate_educations')
             ->withPivot('rating', 'comment')
             ->withTimestamps();
     }

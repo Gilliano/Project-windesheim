@@ -43,5 +43,9 @@ class DatabaseSeeder extends Seeder
         factory(App\Models\Question::class, 30)->create()->each(function ($u) {
             $u->persons()->attach(App\Models\Person::all()->random(5), ['answer' => rand(1, 5), 'optional' => 'lala']);
         });
+
+        factory(App\Models\Education::class, 30)->create()->each(function ($u) {
+            $u->personsRating()->attach(App\Models\Person::all()->random(5), ['rating' => rand(1, 5), 'comment' => 'lala']);
+        });
     }
 }

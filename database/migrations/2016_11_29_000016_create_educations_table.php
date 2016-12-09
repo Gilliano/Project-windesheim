@@ -18,6 +18,7 @@ class CreateEducationsTable extends Migration
             $table->increments('id');
             $table->string('name', 45)->nullable();
             $table->text('description')->nullable();
+            $table->integer('length');
             $table->integer('school_id')->unsigned();
             $table->softDeletes();
             $table->nullableTimestamps();

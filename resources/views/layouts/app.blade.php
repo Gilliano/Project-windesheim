@@ -19,6 +19,9 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
+    {{-- jQuery --}}
+    <script src="/js/jquery/jquery-3.1.1.min.js"></script>
 </head>
 <body>
     <div id="app">
