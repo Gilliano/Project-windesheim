@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class PrivacyLevel
  */
 class PrivacyLevel extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'privacy_levels';
 
     public $timestamps = true;

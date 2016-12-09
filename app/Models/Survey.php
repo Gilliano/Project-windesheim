@@ -5,21 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * Class Achievement
- */
-class Achievement extends Model
+class Survey extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'achievements';
+    protected $table = 'surveys';
 
     public $timestamps = true;
 
     protected $fillable = [
         'name',
-        'description',
-        'points'
+        'description'
     ];
 
     protected $guarded = [];
@@ -28,10 +24,16 @@ class Achievement extends Model
         'created_at', 'updated_at', 'deleted_at' ,
     ];
 
-
-    public function users()
+    public function questions()
     {
-        return $this->belongsToMany('App\Models\User', 'users_has_achievements')
+        return $this->hasMany('App\Models\Question');
+    }
+
+    public function persons()
+    {
+        return $this->belongsToMany('App\Models\Person', 'persons_has_surveys')
+            ->withPivot('rating', 'comment')
             ->withTimestamps();
     }
+
 }
