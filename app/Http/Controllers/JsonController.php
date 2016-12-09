@@ -10,26 +10,19 @@ use Illuminate\Support\Facades\DB;
 
 class JsonController extends Controller
 {
-    // Return all data from the given db table name
-    // in JSON format
-//    public function index($tableName)
-//    {
-//        // Get all records form table that matches the param
-//        try
-//        {
-//            $result = DB::table($tableName)->select('*')->get();
-//        } catch (QueryException $e) {
-//            return "Table \"$tableName\" not found!"; // Return error
-//        }
-//
-//        return json_encode($result); // Return the fetched records
-//    }
-
     // Call the function if its callable
-    public function decide($functionName)
+    public function decide(Request $request)
     {
+        // TODO: Get function name and params from request
+        $functionName = $request->function;
+        $params = $request->params;
+
+        // TODO: Call function with/without params
         if(is_callable(array($this, $functionName)))
-            return call_user_func(array($this, $functionName));
+            if(isset($params) && count($params) > 0)
+                return call_user_func(array($this, $functionName), $params);
+            else
+                return call_user_func(array($this, $functionName));
         else
             return "$functionName not found!";
     }
@@ -37,8 +30,9 @@ class JsonController extends Controller
     // Return data for the Education chart
     // that shows the percentage of students
     // that completed the education
-    public function educationChartAlumni($educationName)
+    public function educationChartAlumni($params)
     {
+        $educationName = $params[0];
         $groups = Education::where('name', $educationName)->first()->groups; // Find by dynamic value
         $start_amount = 0;
         $final_amount = 0;

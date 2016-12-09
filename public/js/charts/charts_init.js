@@ -1,8 +1,14 @@
 // Initialize charts
 $(document).ready(function () {
-    // TODO: Get data from json
-    $.get("/json/charts/educationChartAlumni", function(data){
-        // console.log(data);
+    // Setup data for post
+    var sendData = {
+        _token: window.Laravel.csrfToken,
+        function: "educationChartAlumni",
+        params: ["Rosalee Schamberger PhD"]
+    };
+
+    // Get json values from method
+    $.post("/json/charts", sendData, function(data){
         console.log(data);
         var data = $.parseJSON(data);
         var non_graduated_slice = data[0] / (data[0]+data[1]) * 360;
