@@ -35,6 +35,11 @@ Route::get('/persons/{id}', 'PersonsController@edit'); // TODO: Is 'edit' a good
 Route::post('/persons/{id}', 'PersonsController@update');
 
 Route::get('/users', 'UserController@getUsers');
+Route::get('/users/add', 'UserController@addUser');
+Route::get('/users/{user}/edit', 'UserController@editUser');
+Route::get('/users/{user}/delete', 'UserController@deleteUser');
+Route::get('/users/{user}/restore', 'UserController@restoreUser');
+Route::patch('/users/{user}', 'UserController@updateUser');
 
 Route::get('/charts', 'ChartsController@index');
 Route::get('/json/charts/{functionName}', 'JSONController@decide');
