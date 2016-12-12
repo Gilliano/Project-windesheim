@@ -35,4 +35,4 @@ Route::get('/persons/{id}', 'PersonsController@edit'); // TODO: Is 'edit' a good
 Route::post('/persons/{id}', 'PersonsController@update');
 
 Route::get('/charts', 'ChartsController@index');
-Route::post('/json/charts', 'JSONController@decide');
+Route::get('/json/charts', 'JSONController@decide');

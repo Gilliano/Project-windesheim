@@ -9,9 +9,8 @@ function setupChart(){
     };
 
     // Get json values from method
-    $.post("/json/charts", sendData, function(data){
+    $.getJSON("/json/charts", sendData, function(data){
         console.log(data);
-        var data = $.parseJSON(data);
         var non_graduated_slice = data[0] / (data[0]+data[1]) * 360; // Calculate the angle for this pie_slice
         var graduated_slice = data[1] / (data[0]+data[1]) * 360; // Calculate the angle for this pie_slice
 
