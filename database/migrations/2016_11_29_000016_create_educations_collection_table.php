@@ -3,31 +3,23 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEducationsTable extends Migration
+class CreateEducationsCollectionTable extends Migration
 {
     /**
      * Run the migrations.
-     * @table educations
+     * @table persons_has_surveys
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('educations', function (Blueprint $table) {
+        Schema::create('educations_collection', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('name', 45)->nullable();
+            $table->string('name', 45);
             $table->text('description')->nullable();
-            $table->integer('length');
-            $table->integer('school_id')->unsigned();
             $table->softDeletes();
             $table->nullableTimestamps();
-
-
-            $table->foreign('school_id', 'fk_educations_schools1_idx')
-                ->references('id')->on('schools')
-                ->onDelete('no action')
-                ->onUpdate('no action');
         });
     }
 
@@ -38,6 +30,6 @@ class CreateEducationsTable extends Migration
      */
      public function down()
      {
-       Schema::dropIfExists('educations');
+       Schema::dropIfExists('educations_collection');
      }
 }

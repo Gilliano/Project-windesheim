@@ -87,20 +87,22 @@ $factory->define(App\Models\Diploma::class, function (Faker\Generator $faker) {
 });
 
 /*
- *  Model Educations  REQUIRES table: schools;
+ *  Model Educations  REQUIRES table: schools educations_collection ;
  */
-$factory->define(App\Models\Education::class, function (Faker\Generator $faker, $education_names) {
+$factory->define(App\Models\Education::class, function (Faker\Generator $faker) {
 
-    $school = App\Models\School::orderByRaw('RAND()')->first();
-    $education_names = ["HBO-ICT", "AD Software Devleopment", "Bedrijfseconomie",
-        "Bedrijfskunde MER", "Bouwkunde", "Commerciële Economie", "Communicatie",
-        "Engineering", "HBO-Rechten"];
+    $school = App\Models\School::first();
+    $education_names = [1 => [ "HBO-ICT", 1],2 => ["AD Software Devleopment", '1'], 3 => ["Bedrijfseconomie", '2'],
+        4 => ["Bedrijfskunde MER", '2'], 5 => ["Bouwkunde",'3'], 6 => ["Commerciële Economie", '2'], 7 => [ "Communicatie", '4'],
+       8 => [ "Engineering", '5'], 9 => ["HBO-Rechten", '6']];
+    $data = $faker->unique()->randomElement($array = $education_names);
 
     return [
-        'name' => $faker->unique()->randomElement($array = $education_names),
+        'name' => $data[0],
         'description' => $faker->text($maxNbChars = 45),
         'length' => $faker->randomElement($array = array (2, 4)),
         'school_id' => $school['id'],
+        'education_collection_id' => $data[1],
     ];
 });
 
@@ -187,7 +189,8 @@ $factory->define(App\Models\Question::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\School::class, function (Faker\Generator $faker) {
 
     return [
-        'name' => $faker->unique()->word,
+        'name' => $faker->unique()->company,
+        'description' => $faker->sentence,
         'address' => $faker->streetAddress,
         'address_number' => $faker->buildingNumber,
         'zip_code' => $faker->regexify('[0-9]{4}[A-Z]{2}'),

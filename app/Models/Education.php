@@ -18,6 +18,7 @@ class Education extends Model
         'description',
         'length',
         'school_id',
+        'education_collection_id',
     ];
 
     protected $guarded = [];
@@ -29,6 +30,11 @@ class Education extends Model
     public function school()
     {
         return $this->belongsTo('App\Models\School');
+    }
+
+    public function education_collection()
+    {
+        return $this->belongsTo('App\Models\EducationCollection');
     }
 
     public function groups()
