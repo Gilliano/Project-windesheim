@@ -1,9 +1,11 @@
 function setupChart(){
     // Setup data for post
+    var functionName = "educationAlumniChart";
+    var educationName = "HBO-ICT";
     var sendData = {
         _token: window.Laravel.csrfToken,
-        function: "educationAlumniChart",
-        params: ["Rosalee Schamberger PhD"]
+        function: functionName,
+        params: [educationName]
     };
 
     // Get json values from method
@@ -20,20 +22,23 @@ function setupChart(){
             data: {
                 labels: ["Afgestudeerd", "Niet afgestudeerd"],
                 datasets: [{
-                    label: 'Studenten Afgestudeerd',
                     data: [graduated_slice, non_graduated_slice],
                     backgroundColor: [
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(255, 99, 132, 0.2)'
+                        'rgba(98, 244, 66, 0.5)',
+                        'rgba(255, 99, 132, 0.5)'
                     ],
                     borderColor: [
-                        'rgba(75, 192, 192, 1)',
+                        'rgba(98, 244, 66, 1)',
                         'rgba(255,99,132,1)'
                     ],
                     borderWidth: 1
                 }]
             },
             options: {
+                title: {
+                    display: true,
+                    text: 'Studenten Afgestudeerd '+educationName
+                },
                 tooltips: {
                     callbacks: {
                         label: function(item, data){
