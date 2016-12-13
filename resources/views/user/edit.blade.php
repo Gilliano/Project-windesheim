@@ -2,35 +2,35 @@
 
 @section('content')
 	<div class="col-md-9 col-md-offset-1">
-		<form method="post" action="/users/{{ $user->id }}">
+		<form method="post" action="/users_information/{{ $userInformation->id }}">
 				{{ csrf_field() }}
 				{{ method_field('PATCH') }}
 				<div class="form-group">
-		  			<input type="text" class="form-control" name="address" value="{{ $user->address }}" maxlength="45" />
+		  			<input type="text" class="form-control" name="address" value="{{ $userInformation->address }}" maxlength="45" />
 		  		</div>
 		  		<div class="form-group">
-		  			<input type="text" class="form-control" name="address_number" value="{{ $user->address_number }}" maxlength="10" />
+		  			<input type="text" class="form-control" name="address_number" value="{{ $userInformation->address_number }}" maxlength="10" />
 		  		</div>
 		  		<div class="form-group">
-		  			<input type="text" class="form-control" name="city" value="{{ $user->city }}" maxlength="35" required/>
+		  			<input type="text" class="form-control" name="city" value="{{ $userInformation->city }}" maxlength="35" required/>
 		  		</div>
 		  		<div class="form-group">
-		  			<input type="text" class="form-control" name="zip_code" value="{{ $user->zip_code }}" maxlength="9" />
+		  			<input type="text" class="form-control" name="zip_code" value="{{ $userInformation->zip_code }}" maxlength="9" />
 		  		</div>
 		  		<div class="form-group">
-		  			<input type="text" class="form-control" name="alternative_email" value="{{ $user->alternative_email }}" maxlength="120" />
+		  			<input type="text" class="form-control" name="alternative_email" value="{{ $userInformation->alternative_email }}" maxlength="120" />
 		  		</div>
 		  		<div class="form-group">
-		  			<input type="text" class="form-control" name="mobile_number" value="{{ $user->mobile_number }}" maxlength="16" />
+		  			<input type="text" class="form-control" name="mobile_number" value="{{ $userInformation->mobile_number }}" maxlength="16" />
 		  		</div>
 		  		<div class="form-group">
-		  			<input type="text" class="form-control" name="additional_number" value="{{ $user->additional_number }}" maxlength="16" />
+		  			<input type="text" class="form-control" name="additional_number" value="{{ $userInformation->additional_number }}" maxlength="16" />
 		  		</div>
 		  		<div class="form-group">
 		  			<select name="privacy_level_id" class="form-control">
 		  				@foreach ($levels as $level)
-		  					@if ($level->id === $user->privacy_level_id)
-			  					<option value="{{ $user->privacy_level_id }}" name="privacy_level_id" selected>{{ $user->privacyLevel->name }}</option>
+		  					@if ($level->id === $userInformation->privacy_level_id)
+			  					<option value="{{ $userInformation->privacy_level_id }}" name="privacy_level_id" selected>{{ $userInformation->privacyLevel->name }}</option>
 			  				@else
 			  					<option value="{{ $level->id }}" name="privacy_level_id" >{{ $level->name }}</option>
 			  				@endif

@@ -3,7 +3,7 @@
 @section('content')
 @include('/errors._form_errors')
 	<div class="col-md-9 col-md-offset-1">
-		<form method="post" action="/users/add">
+		<form method="post" action="/users_information/add">
 				{{ csrf_field() }}
 				<div class="form-group">
 		  			<input type="text" class="form-control" name="address" placeholder="Address" value="{{ old('address') }}" maxlength="45" />

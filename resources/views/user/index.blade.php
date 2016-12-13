@@ -16,20 +16,20 @@
 					</tr>
 				</thead>
 				<tbody>
-				@foreach ($users as $user)
+				@foreach ($usersInformation as $userInformation)
 					<tr>
-						<td>{{ $user->userInformation->address }}</td>
-						<td>{{ $user->userInformation->address_number }}</td>
-						<td>{{ $user->userInformation->city }}</td>
-						<td>{{ $user->userInformation->zip_code }}</td>
-						<td>{{ $user->userInformation->alternative_email }}</td>
-						<td>{{ $user->userInformation->mobile_number }}</td>
-						<td>{{ $user->userInformation->additional_number }}</td>						
-						<td>{{ $user->userInformation->privacyLevel->name }}</td>						
-						<td><a href="/users/{{ $user->userInformation->id }}/edit"><button type="button" class="btn btn-primary">Wijzigen</button></a></td>
+						<td>{{ $userInformation->address }}</td>
+						<td>{{ $userInformation->address_number }}</td>
+						<td>{{ $userInformation->city }}</td>
+						<td>{{ $userInformation->zip_code }}</td>
+						<td>{{ $userInformation->alternative_email }}</td>
+						<td>{{ $userInformation->mobile_number }}</td>
+						<td>{{ $userInformation->additional_number }}</td>						
+						<td>{{ $userInformation->privacyLevel->name }}</td>						
+						<td><a href="/users_information/{{ $userInformation->id }}/edit"><button type="button" class="btn btn-primary">Wijzigen</button></a></td>
 						<td>
-							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#verwijderen{{ $user->userInformation->id }}">Verwijderen</button>
-							<div class="modal fade" id="verwijderen{{ $user->userInformation->id }}" tabindex="-1" role="dialog">
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#verwijderen{{ $userInformation->id }}">Verwijderen</button>
+							<div class="modal fade" id="verwijderen{{ $userInformation->id }}" tabindex="-1" role="dialog">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -38,7 +38,7 @@
 										</div>
 										<div class="modal-body">
 
-											<a href="/users/{{ $user->userInformation->id }}/delete"><button type="button" class="btn btn-danger">Ja</button></a>
+											<a href="/users_information/{{ $userInformation->id }}/delete"><button type="button" class="btn btn-danger">Ja</button></a>
 											<button type="button" class="btn btn-success" data-dismiss="modal">Nee</button>
 										</div>
 									</div>
@@ -74,7 +74,7 @@
 						<td>{{ $userInformation->alternative_email }}</td>
 						<td>{{ $userInformation->mobile_number }}</td>
 						<td>{{ $userInformation->additional_number }}</td>						
-						<td><a href="/users/{{ $userInformation->id }}/restore"<button type="button" class="btn btn-success">Herstellen</button></td>
+						<td><a href="/users_information/{{ $userInformation->id }}/restore"<button type="button" class="btn btn-success">Herstellen</button></td>
 					</tr>
 				@endforeach
 				</tbody>

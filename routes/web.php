@@ -34,13 +34,13 @@ Route::post('/persons', 'PersonsController@store');
 Route::get('/persons/{id}', 'PersonsController@edit'); // TODO: Is 'edit' a good name?
 Route::post('/persons/{id}', 'PersonsController@update');
 
-Route::get('/users', 'UserController@getUsers');
-Route::get('/users/add', 'UserController@addUser');
-Route::post('/users/add', 'UserController@saveUser');
-Route::get('/users/{user}/edit', 'UserController@editUser');
-Route::get('/users/{user}/delete', 'UserController@deleteUser');
-Route::get('/users/{user}/restore', 'UserController@restoreUser');
-Route::patch('/users/{user}', 'UserController@updateUser');
+Route::get('/users_information', 'UserInformationController@getUsers');
+Route::get('/users_information/add', 'UserInformationController@addUser');
+Route::post('/users_information/add', 'UserInformationController@saveUser');
+Route::get('/users_information/{user_information}/edit', 'UserInformationController@editUser');
+Route::get('/users_information/{user_information}/delete', 'UserInformationController@deleteUser');
+Route::get('/users_information/{user_information}/restore', 'UserInformationController@restoreUser');
+Route::patch('/users_information/{user_information}', 'UserInformationController@updateUser');
 
 Route::get('/charts', 'ChartsController@index');
 Route::get('/json/charts/{functionName}', 'JSONController@decide');
