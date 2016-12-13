@@ -25,7 +25,7 @@ class UserInformation extends Model
         'mobile_number',
         'additional_number',
         'users_id',
-        'privacy_levels_id'
+        'privacy_level_id'
     ];
 
     protected $guarded = [];

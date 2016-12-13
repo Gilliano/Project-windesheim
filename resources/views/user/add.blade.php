@@ -6,10 +6,10 @@
 		<form method="post" action="/users/add">
 				{{ csrf_field() }}
 				<div class="form-group">
-		  			<input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}" maxlength="120" />
+		  			<input type="text" class="form-control" name="address" placeholder="Address" value="{{ old('address') }}" maxlength="45" />
 		  		</div>
 		  		<div class="form-group">
-		  			<input type="password" class="form-control" name="address_number" placeholder="Adresnummer" value="{{ old('address_number') }}" maxlength="10" />
+		  			<input type="text" class="form-control" name="address_number" placeholder="Adresnummer" value="{{ old('address_number') }}" maxlength="10" />
 		  		</div>
 		  		<div class="form-group">
 		  			<input type="text" class="form-control" name="city" placeholder="Plaats" value="{{ old('city') }}" maxlength="35" required/>
@@ -26,12 +26,16 @@
 		  		<div class="form-group">
 		  			<input type="text" class="form-control" name="additional_number" placeholder="Eventueel nummer" value="{{ old('additional_number') }}" maxlength="16"/>
 		  		</div>
-		  		<div class="form-group">
-			  		<textarea name="description" class="form-control" placeholder="Beschrijving" rows="4">{{ old('description') }}</textarea>
+			  	<div class="form-group">
+			  		<select name="privacy_level_id" class="form-control">
+			  			@foreach ($levels as $level)
+			  				<option value="{{ $level->id }}">{{ $level->name }}</option>
+			  			@endforeach
+			  		</select>
 			  	</div>
 
 			  	<div class="form-group">
-			  		<button type="submit" class="btn btn-success form-control">Voeg school toe</button>
+			  		<button type="submit" class="btn btn-success form-control">Informatie opslaan</button>
 			  	</div>
 			</form>
 	</div>

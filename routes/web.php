@@ -36,6 +36,7 @@ Route::post('/persons/{id}', 'PersonsController@update');
 
 Route::get('/users', 'UserController@getUsers');
 Route::get('/users/add', 'UserController@addUser');
+Route::post('/users/add', 'UserController@saveUser');
 Route::get('/users/{user}/edit', 'UserController@editUser');
 Route::get('/users/{user}/delete', 'UserController@deleteUser');
 Route::get('/users/{user}/restore', 'UserController@restoreUser');

@@ -26,6 +26,17 @@
 		  		<div class="form-group">
 		  			<input type="text" class="form-control" name="additional_number" value="{{ $user->additional_number }}" maxlength="16" />
 		  		</div>
+		  		<div class="form-group">
+		  			<select name="privacy_level_id" class="form-control">
+		  				@foreach ($levels as $level)
+		  					@if ($level->id === $user->privacy_level_id)
+			  					<option value="{{ $user->privacy_level_id }}" name="privacy_level_id" selected>{{ $user->privacyLevel->name }}</option>
+			  				@else
+			  					<option value="{{ $level->id }}" name="privacy_level_id" >{{ $level->name }}</option>
+			  				@endif
+		  				@endforeach
+		  			</select>
+		  		</div>
 
 			  	<div class="form-group">
 			  		<button type="submit" class="btn btn-success form-control">Wijzigen</button>
