@@ -26,7 +26,9 @@ class DatabaseSeeder extends Seeder
             $u->users()->sync(App\Models\User::all()->random(5));
         });
 
+        $this->call(WindesheimInSchoolSeeder::class);
         factory(App\Models\School::class, 10)->create();
+        $this->call(EducationsCollectionSeeder::class);
         factory(App\Models\Education::class, 9)->create();
         factory(App\Models\Group::class, 20)->create();
         factory(App\Models\Company::class, 50)->create();
@@ -44,8 +46,13 @@ class DatabaseSeeder extends Seeder
             $u->persons()->attach(App\Models\Person::all()->random(5), ['answer' => rand(1, 5), 'optional' => 'lala']);
         });
 
-        factory(App\Models\Education::class, 9)->create()->each(function ($u) {
+        App\Models\Education::all()->random(9)->each(function ($u) {
             $u->personsRating()->attach(App\Models\Person::all()->random(5), ['rating' => rand(1, 5), 'comment' => 'lala']);
-        });
+        }); # TODO: personen aanpassen zodat je personen alleen hun eigen opleiding mogen raten.
+
+        # $p->group()->get();
+        # $p->group()->pluck('education_id');
+
+
     }
 }
