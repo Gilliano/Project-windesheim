@@ -42,6 +42,14 @@ Route::get('/users_information/{user_information}/delete', 'UserInformationContr
 Route::get('/users_information/{user_information}/restore', 'UserInformationController@restoreUser');
 Route::patch('/users_information/{user_information}', 'UserInformationController@updateUser');
 
+Route::get('/companies', 'CompanyController@getCompanies');
+Route::get('/companies/add', 'CompanyController@addCompany');
+Route::post('/companies/add', 'CompanyController@saveCompany');
+Route::get('/companies/{company}/edit', 'CompanyController@editCompany');
+Route::patch('/companies/{company}/update', 'CompanyController@updateCompany');
+Route::get('/companies/{company}/delete', 'CompanyController@deleteCompany');
+Route::get('/companies/{company}/restore', 'CompanyController@restoreCompany');
+
 Route::get('/charts', 'ChartsController@index');
 Route::get('/json/charts/{functionName}', 'JSONController@decide');
 Route::post('/json/charts', 'JSONController@decide');
