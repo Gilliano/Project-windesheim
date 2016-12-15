@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        if(count(App\Models\ZipInfo::all()) == 0)
+            $this->call(ZipInfoTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         factory(App\Models\User::class, 450)->create();
         $this->call(UsersTableSeeder::class);

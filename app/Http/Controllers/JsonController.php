@@ -6,6 +6,8 @@ use App\Models\Education;
 use App\Models\Group;
 use App\Models\Job;
 use App\Models\Person;
+use App\Models\UserInformation;
+use App\Models\ZipInfo;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -63,36 +65,121 @@ class JsonController extends Controller
         return json_encode([$personsFemale, $personsMale]);
     }
 
-    // TODO: Check if this is better than client-sided (js)
-    // TODO: Somehow returned data is random??
     // Return data for the Leaflet
-    // that show where people work (city)
+    // that show where people work
     public function mapJobs()
     {
         $jobs = Job::all();
+
         $return_array = [];
         foreach ($jobs as $job)
         {
-//            $location = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=$job->zip_code"));
-            $location = json_decode(file_get_contents("https://maps.googleapis.com/maps/api/place/textsearch/json?query=$job->zip_code&key=AIzaSyCjX5yhW2EjfBMTo8PByyDBmOXIFSSPXDw"));
+            $zipInfo = $this->getZipInfo($job);
 
-            // Check if max api calls error is returned
-            // so we can terminate early
-            if(isset($location->error_message))
+            // Save result
+            if($zipInfo != null && count($zipInfo) > 0)
             {
-                if(strpos($location->error_message, 'exceeded') !== true)
-                    break;
+                $result = ["lat"=>$zipInfo[0]->latitude, "lng"=>$zipInfo[0]->longitude];
+                $data_object = [$result];
+                array_push($return_array, $data_object);
             }
-
-            // Save lat/long
-            if(count($location->results) > 0)
+            else
             {
-                $result = $location->results[0];
-                $data_object = ["zip"=>$job->zip_code, "lat"=>$result->geometry->location->lat, "lng"=> $result->geometry->location->lng, "count" => 1];
+                $data_object = [null, "error"=>"Nothing found for zip_code: ".$job->zip_code];
                 array_push($return_array, $data_object);
             }
         }
 
         return json_encode($return_array);
+    }
+
+    // Return data for the leaflet
+    // that shows where people live
+    public function mapLiving()
+    {
+        $users_information = UserInformation::all();
+
+        $return_array = [];
+        foreach ($users_information as $person)
+        {
+            // Get zip info
+            $zipInfo = $this->getZipInfo($person);
+
+            // Save result
+            if($zipInfo != null && count($zipInfo) > 0)
+            {
+                $result = ["lat"=>$zipInfo[0]->latitude, "lng"=>$zipInfo[0]->longitude];
+                $data_object = [$result];
+                array_push($return_array, $data_object);
+            }
+            else
+            {
+                $data_object = [null, "error"=>"Nothing found for zip_code: ".$person->zip_code];
+                array_push($return_array, $data_object);
+            }
+        }
+
+        return json_encode($return_array);
+    }
+
+    // Returns data for the leaflet
+    // that show how many people work
+    // in the city that they live in
+    public function mapJobsAndLiving()
+    {
+        $persons = Person::all();
+        $return_array = [];
+        foreach($persons as $person)
+        {
+            $jobs = $person->job;
+            foreach ($jobs as $job)
+            {
+                // Check if user has user_information
+                if($person->user->userInformation != null)
+                {
+                    if(strtolower($job->city) == strtolower($person->user->userInformation->city))
+                    {
+                        $zipInfo = $this->getZipInfo($job);
+                        if($zipInfo != null)
+                        {
+                            $result = ["lat"=>$zipInfo[0]->latitude, "lng"=>$zipInfo[0]->longitude];
+                            $data_object = [$result];
+                            array_push($return_array, $data_object);
+                        }
+                    }
+                }
+            }
+        }
+
+        return json_encode($return_array);
+    }
+
+    /*
+     * UTIL FUNCTIONS
+     */
+    // Returns a ZipInfo object for a given
+    // person or job
+    private function getZipInfo($eloquentObj)
+    {
+        $zipInfo = null;
+
+        // Check if we have a zip code
+        if($eloquentObj->zip_code != null)
+        {
+            // Strip zip_code to match '[1-9][0-9][0-9][0-9]'
+            $stripped_zip = substr(preg_replace('/\s+/', '', $eloquentObj->zip_code), 0, -2);
+
+            // Create a location object with the lat and longitude
+            $zipInfo = ZipInfo::where('zip_code', $stripped_zip)->limit(1)->get();
+        }
+
+        // Check if zip_code is valid/found
+        if(count($zipInfo) == 0 || $zipInfo == null)
+        {
+            // Get city field and get its lat/long
+            $zipInfo = ZipInfo::where('city', $eloquentObj->city)->limit(1)->get();
+        }
+
+        return $zipInfo;
     }
 }
