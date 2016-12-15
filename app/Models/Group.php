@@ -39,8 +39,10 @@ class Group extends Model
         return $this->belongsTo('App\Models\Person');
     }
 
-    public function persons()
+    public function person()
     {
-        return $this->hasMany('App\Models\Person');
+        return $this->belongsToMany('App\Models\Person', 'persons_has_groups')
+            ->withPivot('minor')
+            ->withTimestamps();
     }
 }

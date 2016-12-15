@@ -19,7 +19,6 @@ class PersonsTableSeeder extends Seeder
             'sex' => 1,
             'user_id' => 451,
             'privacy_level_id' => '1',
-            'group_id' => null,
         ));
 
         Person::create(array(
@@ -29,7 +28,6 @@ class PersonsTableSeeder extends Seeder
             'sex' => 1,
             'user_id' => 452,
             'privacy_level_id' => '1',
-            'group_id' => null,
         ));
 
         Person::create(array(
@@ -39,7 +37,6 @@ class PersonsTableSeeder extends Seeder
             'sex' => 1,
             'user_id' => 453,
             'privacy_level_id' => '1',
-            'group_id' => null,
         ));
 
         Person::create(array(
@@ -49,7 +46,6 @@ class PersonsTableSeeder extends Seeder
             'sex' => 1,
             'user_id' => 454,
             'privacy_level_id' => '1',
-            'group_id' => null,
         ));
     }
 }
