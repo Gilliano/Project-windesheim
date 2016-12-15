@@ -23,8 +23,7 @@ class Person extends Model
         'sex',
         'autobiography',
         'user_id',
-        'privacy_level_id',
-        'group_id'
+        'privacy_level_id'
     ];
 
     protected $guarded = [];
@@ -43,10 +42,6 @@ class Person extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function group()
-    {
-        return $this->belongsTo('App\Models\Group');
-    }
 
     public function coordinatorGroup()
     {
@@ -74,6 +69,13 @@ class Person extends Model
     {
         return $this->belongsToMany('App\Models\Education', 'persons_rate_educations')
             ->withPivot('rating', 'comment')
+            ->withTimestamps();
+    }
+
+    public function group()
+    {
+        return $this->belongsToMany('App\Models\Group', 'persons_has_groups')
+            ->withPivot('minor')
             ->withTimestamps();
     }
 }

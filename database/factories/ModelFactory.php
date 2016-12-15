@@ -92,17 +92,17 @@ $factory->define(App\Models\Diploma::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\Education::class, function (Faker\Generator $faker) {
 
     $school = App\Models\School::first();
-    $education_names = [1 => [ "HBO-ICT", 1],2 => ["AD Software Devleopment", '1'], 3 => ["Bedrijfseconomie", '2'],
-        4 => ["Bedrijfskunde MER", '2'], 5 => ["Bouwkunde",'3'], 6 => ["Commerciële Economie", '2'], 7 => [ "Communicatie", '4'],
-       8 => [ "Engineering", '5'], 9 => ["HBO-Rechten", '6']];
+    $education_names = [1 => [ "HBO-ICT", 4,  1],2 => ["AD Software Devleopment", 2,  '1'], 3 => ["Bedrijfseconomie", 4, '2'],
+        4 => ["Bedrijfskunde MER", 4, '2'], 5 => ["Bouwkunde", 4, '3'], 6 => ["Commerciële Economie", 4, '2'], 7 => [ "Communicatie", 4, '4'],
+       8 => [ "Engineering", 4, '5'], 9 => ["HBO-Rechten", 4, '6']];
     $data = $faker->unique()->randomElement($array = $education_names);
 
     return [
         'name' => $data[0],
         'description' => $faker->text($maxNbChars = 45),
-        'length' => $faker->randomElement($array = array (2, 4)),
+        'length' => $data[1],
         'school_id' => $school['id'],
-        'education_collection_id' => $data[1],
+        'education_collection_id' => $data[2],
     ];
 });
 
@@ -150,13 +150,12 @@ $factory->define(App\Models\Job::class, function (Faker\Generator $faker) {
 });
 
 /*
- *  Model Person  REQUIRES table: users, privacy_levels, groups;
+ *  Model Person  REQUIRES table: users, privacy_levels;
  */
 $factory->define(App\Models\Person::class, function (Faker\Generator $faker) {
 
     $user = App\Models\User::count();
     $privacyLevel = App\Models\PrivacyLevel::orderByRaw('RAND()')->first();
-    $group = App\Models\Group::orderByRaw('RAND()')->first();
 
     return [
         'firstname' => $faker->firstName($gender = null|'male'|'female'),
@@ -166,7 +165,6 @@ $factory->define(App\Models\Person::class, function (Faker\Generator $faker) {
         'autobiography' => $faker->text($maxNbChars = 200),
         'user_id' => $faker->unique()->numberBetween($min = 1, $max = ($user -100)),
         'privacy_level_id' => $privacyLevel['id'],
-        'group_id' => $group['id'],
     ];
 });
 

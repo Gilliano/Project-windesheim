@@ -38,6 +38,12 @@ class DatabaseSeeder extends Seeder
         factory(App\Models\Diploma::class, 450)->create();
         factory(App\Models\UserInformation::class, 400)->create();
 
+        $this->call(PersonHasGroupSeeder::class);
+
+        App\Models\Person::all()->take(4)->each(function ($u) {
+            $u->group()->attach(App\Models\Group::where('name', 'ADSD')->get(), ['minor' => null]);
+        });
+
         factory(App\Models\Survey::class, 10)->create()->each(function ($u) {
             $u->persons()->attach(App\Models\Person::all()->random(5), ['rating' => rand(1, 5), 'comment' => 'lala']);
         });
@@ -46,13 +52,22 @@ class DatabaseSeeder extends Seeder
             $u->persons()->attach(App\Models\Person::all()->random(5), ['answer' => rand(1, 5), 'optional' => 'lala']);
         });
 
-        App\Models\Education::all()->random(9)->each(function ($u) {
-            $u->personsRating()->attach(App\Models\Person::all()->random(5), ['rating' => rand(1, 5), 'comment' => 'lala']);
-        }); # TODO: personen aanpassen zodat je personen alleen hun eigen opleiding mogen raten.
+        App\Models\Person::all()->random(200)->each(function ($u){
+           $u->group()->attach(App\Models\Group::all()->random(1), ['minor' => 'minor']);
+        });
 
-        # $p->group()->get();
-        # $p->group()->pluck('education_id');
-
+        App\Models\Education::all()->each(function ($Education){
+            $educations = $Education->groups()->has('person')->with('person')->get()->toArray();
+            foreach ($educations as $education){
+                foreach ($education as $persons){
+                    if( $persons[0] > 11){
+                        foreach ($persons as $person){
+                            $Education->personsRating()->attach($person['id'], ['rating' => rand(1, 5), 'comment' => 'lala']);
+                        }
+                    }
+                }
+            }
+        });
 
     }
 }

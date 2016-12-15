@@ -23,7 +23,6 @@ class CreatePersonsTable extends Migration
             $table->text('autobiography')->nullable();
             $table->integer('user_id')->unsigned();
             $table->integer('privacy_level_id')->unsigned();
-            $table->integer('group_id')->nullable()->unsigned();
             $table->softDeletes();
             $table->nullableTimestamps();
 
