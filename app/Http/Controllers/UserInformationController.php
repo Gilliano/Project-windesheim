@@ -26,12 +26,12 @@ class UserInformationController extends Controller
     	$validate = $this->validate($request, [
     		'address' => 'max:45',
     		'address_number' => 'max:10',
-    		'city' => 'max:35|required',
+    		'city' => 'min:1|max:35|required',
     		'zip_code' => 'max:9',
     		'alternative_email' => 'max:120',
     		'mobile_number' => 'max:16',
     		'additional_number' => 'max:16',
-    		'privacy_level_id' => 'required'
+    		'privacy_level_id' => 'numeric|required|exists:privacy_levels,id'
     	]);
     	$userInformation = new UserInformation;
     	$userInformation->address = $request->address;
@@ -56,6 +56,16 @@ class UserInformationController extends Controller
 
     public function updateUser(Request $request, $id) {
     	$userInformation = UserInformation::find($id);
+        $validate = $this->validate($request, [
+            'address' => 'max:45',
+            'address_number' => 'max:10',
+            'city' => 'min:1|max:35|required',
+            'zip_code' => 'max:9',
+            'alternative_email' => 'max:120',
+            'mobile_number' => 'max:16',
+            'additional_number' => 'max:16',
+            'privacy_level_id' => 'numeric|required|exists:privacy_levels,id'
+        ]);
     	$userInformation->address = $request->address;
     	$userInformation->address_number = $request->address_number;
     	$userInformation->city = $request->city;

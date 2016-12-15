@@ -38,6 +38,16 @@ class SchoolController extends Controller
     }
 
     public function updateSchool(Request $request, School $school) {
+        $this->validate($request, [
+            'name' => 'max:45|unique:schools,name,' . $school->id,
+            'description' => 'min:1',
+            'address' => 'max:45',
+            'address_number' => 'max:10',
+            'city' => 'required',
+            'zip_code' => 'max:9',
+            'telephone_number' => 'max:16',
+            'email' => 'email|unique:schools,email,' . $school->id
+        ]);
     	$school->update($request->all());
     	\Session::flash('success', 'De school: ' .  $request->name . ' is succesvol gewijzigd.');
     	return redirect()->action('SchoolController@getSchools');
