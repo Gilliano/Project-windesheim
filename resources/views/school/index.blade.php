@@ -50,6 +50,7 @@
 				</tbody>
 			</table>
 			<hr>
+			@if (!$deletedSchools->isEmpty())
 			<div class="page-header"><h3><b>Verwijderde scholen</b></h3></div>
 			<table class="table table-hover">
 				<thead>
@@ -77,5 +78,6 @@
 				@endforeach
 				</tbody>
 			</table>
+			@endif
 		</div>
 @stop

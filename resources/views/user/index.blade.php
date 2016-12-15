@@ -49,7 +49,7 @@
 				@endforeach
 				</tbody>
 			</table>
-			
+			@if (!$deletedUsers->isEmpty())
 			<hr>
 			<div class="page-header"><h3><b>Verwijderde gebruikers</b></h3></div>
 			<table class="table table-hover">
@@ -79,5 +79,6 @@
 				@endforeach
 				</tbody>
 		</table>
+		@endif
 	</div>
 @stop

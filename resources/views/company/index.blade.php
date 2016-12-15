@@ -40,7 +40,7 @@
 				@endforeach
 				</tbody>
 			</table>
-			
+			@if (!$deletedCompanies->isEmpty())
 			<hr>
 			<div class="page-header"><h3><b>Verwijderde bedrijven</b></h3></div>
 			<table class="table table-hover">
