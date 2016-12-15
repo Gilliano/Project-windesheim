@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('email', 120);
             $table->string('password', 80);
+            $table->enum('status', ['active', 'passive', 'blocked']);
             $table->integer('role_id')->unsigned();
 
             $table->unique(["email"], 'unique_users');

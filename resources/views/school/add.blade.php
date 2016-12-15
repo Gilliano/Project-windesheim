@@ -15,10 +15,10 @@
 		  			<input type="text" class="form-control" name="address_number" placeholder="Adresnummer" value="{{ old('address_number') }}" maxlength="10" />
 		  		</div>
 		  		<div class="form-group">
-		  			<input type="text" class="form-control" name="zip_code" placeholder="Postcode" value="{{ old('zip_code') }}"maxlength="9" />
+		  			<input type="text" class="form-control" name="zip_code" placeholder="Postcode" value="{{ old('zip_code') }}" maxlength="9" />
 		  		</div>
 		  		<div class="form-group">
-		  			<input type="text" class="form-control" name="telephone_number" placeholder="Telefoon" value="{{ old('telephone_number') }}"maxlength="16" />
+		  			<input type="text" class="form-control" name="telephone_number" placeholder="Telefoon" value="{{ old('telephone_number') }}" maxlength="16" />
 		  		</div>
 		  		<div class="form-group">
 		  			<input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}" maxlength="120" />
