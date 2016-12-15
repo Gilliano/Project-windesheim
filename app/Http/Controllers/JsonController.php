@@ -45,7 +45,7 @@ class JsonController extends Controller
             // Get the start amount for a education
             $start_amount += $group->started_amount;
             // Get the current amount of persons that have completed this education
-            $persons = $group->persons;
+            $persons = $group->person;
             foreach ($persons as $person)
                 $final_amount++;
         }
