@@ -19,13 +19,17 @@ class DatabaseSeeder extends Seeder
         $this->call(PrivacyLevelTableSeeder::class);
         $this->call(PersonsTableSeeder::class);
 
-        factory(App\Models\Achievement::class, 30)->create()->each(function ($u) {
-            $u->users()->sync(App\Models\User::all()->random(5));
+        App\Models\User::all()->each(function ($user){
+            factory(App\Models\UserInformation::class, 1)->create(['user_id' => $user->id]);
         });
 
-        factory(App\Models\Action::class, 25)->create()->each(function ($u) {
-            $u->roles()->sync(App\Models\Role::all()->random(5));
-            $u->users()->sync(App\Models\User::all()->random(5));
+        factory(App\Models\Achievement::class, 30)->create()->each(function ($achievement) {
+            $achievement->users()->sync(App\Models\User::all()->random(5));
+        });
+
+        factory(App\Models\Action::class, 25)->create()->each(function ($action) {
+            $action->roles()->sync(App\Models\Role::all()->random(5));
+            $action->users()->sync(App\Models\User::all()->random(5));
         });
 
         $this->call(WindesheimInSchoolSeeder::class);
@@ -36,26 +40,25 @@ class DatabaseSeeder extends Seeder
         factory(App\Models\Company::class, 50)->create();
         factory(App\Models\Person::class, 350)->create();
         factory(App\Models\Certificate::class, 150)->create();
-        factory(App\Models\Job::class, 160)->create();
+        factory(App\Models\Job::class, 230)->create();
         factory(App\Models\Diploma::class, 450)->create();
-        factory(App\Models\UserInformation::class, 400)->create();
 
         $this->call(PersonHasGroupSeeder::class);
 
-        App\Models\Person::all()->take(4)->each(function ($u) {
-            $u->group()->attach(App\Models\Group::where('name', 'ADSD')->get(), ['minor' => null]);
+        App\Models\Person::all()->take(4)->each(function ($person) {
+            $person->group()->attach(App\Models\Group::where('name', 'ADSD')->get(), ['minor' => null]);
         });
 
-        factory(App\Models\Survey::class, 10)->create()->each(function ($u) {
-            $u->persons()->attach(App\Models\Person::all()->random(5), ['rating' => rand(1, 5), 'comment' => 'lala']);
+        factory(App\Models\Survey::class, 10)->create()->each(function ($survey) {
+            $survey->persons()->attach(App\Models\Person::all()->random(5), ['rating' => rand(1, 5), 'comment' => 'lala']);
         });
 
-        factory(App\Models\Question::class, 30)->create()->each(function ($u) {
-            $u->persons()->attach(App\Models\Person::all()->random(5), ['answer' => rand(1, 5), 'optional' => 'lala']);
+        factory(App\Models\Question::class, 30)->create()->each(function ($question) {
+            $question->persons()->attach(App\Models\Person::all()->random(5), ['answer' => rand(1, 5), 'optional' => 'lala']);
         });
 
-        App\Models\Person::all()->random(200)->each(function ($u){
-           $u->group()->attach(App\Models\Group::all()->random(1), ['minor' => 'minor']);
+        App\Models\Person::all()->random(200)->each(function ($person){
+            $person->group()->attach(App\Models\Group::all()->random(1), ['minor' => 'minor']);
         });
 
         App\Models\Education::all()->each(function ($Education){
