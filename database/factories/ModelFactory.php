@@ -229,7 +229,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 
 
 /*
- *  Model UserInformation ;
+ *  Model UserInformation REQUIRES table: users;
  */
 $factory->define(App\Models\UserInformation::class, function (Faker\Generator $faker) {
 
@@ -244,7 +244,7 @@ $factory->define(App\Models\UserInformation::class, function (Faker\Generator $f
         'alternative_email' => $faker->safeEmail,
         'mobile_number' => $faker->tollFreePhoneNumber,
         'additional_number' => $faker->tollFreePhoneNumber,
-        'user_id' => $faker->unique($reset = true)->numberBetween($min = 1, $max = $user),
+//        'user_id' => $faker->unique($reset = false)->numberBetween($min = 1, $max = ($user - 10)),  #Deze is niet meer nodig.
         'privacy_level_id' => $privacyLevel['id'],
     ];
 });

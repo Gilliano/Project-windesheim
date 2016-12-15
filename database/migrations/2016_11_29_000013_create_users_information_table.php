@@ -28,7 +28,7 @@ class CreateUsersInformationTable extends Migration
             $table->softDeletes();
             $table->nullableTimestamps();
 
-
+            $table->unique(["user_id"], 'unique_user');
             $table->foreign('user_id', 'fk_users_information_users1_idx')
                 ->references('id')->on('users')
                 ->onDelete('no action')
