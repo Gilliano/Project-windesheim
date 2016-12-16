@@ -18,7 +18,7 @@ function setupLeaflet(){
 
     var locations = [];
     $.getJSON("/json/charts", sendData, function(response){
-        console.log(response);
+        // console.log(response);
 
         $.each(response, function(index, value){
             if(value.error == null)

@@ -8,11 +8,11 @@ function setupChart(){
 
     // Get json values from method
     $.getJSON("/json/charts", sendData, function(data){
-        console.log(data);
+        // console.log(data);
         var man_slice = data[0] / (data[0]+data[1]) * 360; // Calculate the angle for this pie_slice
         var female_slice = data[1] / (data[0]+data[1]) * 360; // Calculate the angle for this pie_slice
 
-        var canvas = $("#canvas_personSex"); // Retrieve the canvas to draw our pie on
+        var canvas = $("#canvas_pie_personSex"); // Retrieve the canvas to draw our pie on
         // Create a new chart
         var chart = new Chart(canvas, {
             type: 'pie',

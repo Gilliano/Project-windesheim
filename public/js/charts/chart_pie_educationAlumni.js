@@ -10,12 +10,26 @@ function setupChart(){
 
     // Get json values from method
     $.getJSON("/json/charts", sendData, function(data){
-        console.log(data);
-        var non_graduated_slice = data[0] / (data[0]+data[1]) * 360; // Calculate the angle for this pie_slice
-        var graduated_slice = data[1] / (data[0]+data[1]) * 360; // Calculate the angle for this pie_slice
+        // console.log(data.results[educationName]);
 
-        var canvas = $("#canvas_educationAlumni"); // Retrieve the canvas to draw our pie on
-        // Create a new chart
+        // Retrieve the amount of people that have
+        // finished the education and the amount
+        // that have not finished it (for all groups)
+        var groups = data.results[educationName];
+        var non_graduated_total = 0;
+        var graduated_total = 0;
+        $.each(groups, function(index, value){
+             non_graduated_total += value['start_amount'] - value['final_amount'];
+             graduated_total += value['final_amount'];
+        });
+
+        // Calculate the angle for the pie
+        var non_graduated_slice = non_graduated_total / (non_graduated_total+graduated_total) * 360;
+        var graduated_slice = graduated_total / (non_graduated_total+graduated_total) * 360;
+
+        var canvas = $("#canvas_pie_educationAlumni"); // Retrieve the canvas to draw our pie on
+
+        // Create a new pie chart
         var chart = new Chart(canvas, {
             type: 'pie',
             data: {
