@@ -15,11 +15,12 @@ class MailController extends Controller
 
     public function sendMail(Request $request)
     {
-        $from = $request->email_from;
-        $to = $request->email_to;
-        $subject = $request->subject;
-        $body = $request->body;
+        $mail = [];
+        $mail['from'] = $request->email_from;
+        $mail['to'] = $request->email_to;
+        $mail['subject'] = $request->subject;
+        $mail['body'] = $request->body;
 
-        Mail::to($to)->send(new WelcomeAlumni($from, $subject, $body));
+        Mail::to($mail['to'])->send(new WelcomeAlumni($mail));
     }
 }

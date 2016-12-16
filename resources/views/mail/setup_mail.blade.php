@@ -30,8 +30,24 @@
                 </div>
             </div>
 
-
             <button type="submit" class="btn btn-lg btn-default">Send mail</button>
         </form>
     </div>
+@stop
+
+
+@section('additionalJS')
+    <!-- include summernote css/js-->
+    <link href="/summernote_0.8.2/summernote.css" rel="stylesheet">
+    <script src="/summernote_0.8.2/summernote.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#body').summernote({
+                height:300,
+            });
+        });
+    </script>
+
 @stop

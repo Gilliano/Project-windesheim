@@ -20,11 +20,11 @@ class WelcomeAlumni extends Mailable
      *
      * @return void
      */
-    public function __construct($from, $subject, $body)
+    public function __construct($mail)
     {
-        $this->_from = $from;
-        $this->subject = $subject;
-        $this->body = $body;
+        $this->_from = $mail['from'];
+        $this->subject = $mail['subject'];
+        $this->body = $mail['body'];
     }
 
     /**
