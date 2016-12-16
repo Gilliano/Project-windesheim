@@ -53,3 +53,8 @@ Route::get('/companies/{company}/restore', 'CompanyController@restoreCompany');
 Route::get('/charts', 'ChartsController@index');
 Route::get('/json/charts/{functionName}', 'JSONController@decide');
 Route::post('/json/charts', 'JSONController@decide');
+
+use App\Mail\WelcomeAlumni;
+
+Route::get('/mail', 'MailController@setupMail');
+Route::post('/mail/setup', 'MailController@sendMail');
