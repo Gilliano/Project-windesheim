@@ -59,6 +59,5 @@ Route::get('/educations/{education}/delete', 'EducationController@deleteEducatio
 Route::get('/educations/{education}/restore', 'EducationController@restoreEducation');
 
 Route::get('/charts', 'ChartsController@index');
-
 Route::get('/json/charts', 'JSONController@decide');
 
