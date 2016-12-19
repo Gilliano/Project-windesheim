@@ -31,12 +31,12 @@ class MailController extends Controller
     public function getClassmates($id = 21)
     {
         $data = [];
-
         $classmates = Group::find($id)->person;
 
         foreach ($classmates as $classmate){
 
-            $data[$classmate->user->id] = $classmate->user->email;
+//            $data[$classmate->user->id] = $classmate->user->email;
+            array_push($data, ["person_id"=>$classmate->user->id, "person_email"=>$classmate->user->email]);
         }
 
         return $data ;
@@ -48,8 +48,8 @@ class MailController extends Controller
         $groups = Group::all();
 
         foreach ($groups as $group){
-            $data[$group->id] = $this->getClassmates($group->id);
-
+//            $data[$group->id] = $this->getClassmates($group->id);
+            array_push($data, ["group_id"=>$group->id, 'name' => $group->name, "persons"=>$this->getClassmates($group->id)]);
         }
 
         return $data;
