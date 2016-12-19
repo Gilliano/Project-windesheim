@@ -88,7 +88,6 @@ function createGrid(itemCollection) {
         else if(itemAction == 'edit')
         {
             // Open modal to edit the grid items properties
-            // TODO: Improve performance
             $("#edit_id").val(gridItem.id);
             $("#edit_link").val(gridItem.link!==(null)?gridItem.link:'');
             $("#edit_image").val(gridItem.image!==(null)?gridItem.image:'');
@@ -100,6 +99,7 @@ function createGrid(itemCollection) {
     $('#edit_save').on('click', function(e){
         // Update grid item and refresh the grid
         // TODO: Expand Form validation
+        // TODO: Improve performance
         var gridItem = gridItems[$("#edit_id").val()];
         if($("#edit_link").val() != '')
             gridItem.createHTML($("#edit_link").val());
