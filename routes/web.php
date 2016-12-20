@@ -50,11 +50,17 @@ Route::patch('/companies/{company}/update', 'CompanyController@updateCompany');
 Route::get('/companies/{company}/delete', 'CompanyController@deleteCompany');
 Route::get('/companies/{company}/restore', 'CompanyController@restoreCompany');
 
-Route::get('/charts', 'ChartsController@index');
-Route::get('/json/charts/{functionName}', 'JSONController@decide');
-Route::post('/json/charts', 'JSONController@decide');
+Route::get('/educations', 'EducationController@getEducations');
+Route::get('/educations/add', 'EducationController@addEducation');
+Route::post('educations/add', 'EducationController@saveEducation');
+Route::get('educations/{education}/edit', 'EducationController@editEducation');
+Route::patch('/educations/{education}/update', 'EducationController@updateEducation');
+Route::get('/educations/{education}/delete', 'EducationController@deleteEducation');
+Route::get('/educations/{education}/restore', 'EducationController@restoreEducation');
 
-use App\Mail\WelcomeAlumni;
+Route::get('/charts', 'ChartsController@index');
+Route::get('/json/charts', 'JSONController@decide');
 
 Route::get('/mail', 'MailController@setupMail');
 Route::post('/mail/setup', 'MailController@sendMail');
+
