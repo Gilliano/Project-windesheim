@@ -23,7 +23,7 @@
                     <form class="form-group">
                         <input type="hidden" id="edit_id">
                         <label for="edit_link">Link</label>
-                        <input type="text" name="link" id="edit_link" placeholder="www.google.com" class="form-control">
+                        <input type="text" name="link" id="edit_link" placeholder="https://www.google.com" class="form-control">
                         <label for="edit_image">Image</label>
                         <input type="text" name="image" id="edit_image" placeholder="http://www.w3schools.com/css/trolltunga.jpg" class="form-control">
                     </form>

@@ -101,10 +101,12 @@ function createGrid(itemCollection) {
         // TODO: Expand Form validation
         // TODO: Improve performance
         var gridItem = gridItems[$("#edit_id").val()];
+        var link = null, image = null;
         if($("#edit_link").val() != '')
-            gridItem.createHTML($("#edit_link").val());
+            link = $("#edit_link").val(); // TODO: Check if we need to add 'http' prefix? Otherwise laravel returns an error...
         if($("#edit_image").val() != '')
-            gridItem.createHTML($("#edit_image").val());
+            image = $("#edit_image").val();
+        gridItem.createHTML(link, image);
         gridItems[gridItem.id] = gridItem;
 
         // Recreate the grid
