@@ -1,4 +1,4 @@
-function setupChart(){
+function setupBarEducationAlumni(){
     // Setup data for post
     var functionName = "educationAlumniChart";
     var educationName = "*";

@@ -1,5 +1,5 @@
-function setupLeaflet(){
-    var map = L.map('leaflet_mapJobsAndLiving',{
+function setupMapJobs(){
+    var map = L.map('leaflet_mapJobs',{
         center: [52.370464, 5.222064],
         zoom: 13
     });
@@ -12,7 +12,7 @@ function setupLeaflet(){
     // Get locations from JsonController
     var sendData = {
         _token: window.Laravel.csrfToken,
-        function: "mapJobsAndLiving",
+        function: "mapJobs",
         params: []
     };
 

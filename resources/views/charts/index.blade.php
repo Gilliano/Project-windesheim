@@ -1,28 +1,6 @@
 @extends('layouts\app')
 
-{{-- For Leaflet --}}
-<link rel="stylesheet" href="css/leaflet/leaflet.css"/>
-<script src="js/leaflet/leaflet.js"></script>
-{{-- For Leaflet plugin: Marker Cluster --}}
-<link rel="stylesheet" href="css/leaflet/markerCluster/MarkerCluster.css"/>
-<link rel="stylesheet" href="css/leaflet/markerCluster/MarkerCluster.Default.css"/>
-<script src="js/leaflet/markerCluster/leaflet.markercluster.js"></script>
-
-{{-- TODO: Needs to be in seperate file --}}
-{{-- Custom style --}}
-<style>
-    .row {
-        margin-left: 0px !important;
-        margin-right: 0px !important;
-        margin-top: 0px !important;
-        margin-bottom: 15px !important;
-    }
-
-    .leaflet {
-        width: 50em;
-        height: 50em;
-    }
-</style>
+<link rel="stylesheet" href="css/leaflet.css">
 
 @section('content')
     {{-- Create canvas for statistics --}}
@@ -58,11 +36,9 @@
             </div>
         </div>
     </div>
+@stop
 
-    {{-- For Charts --}}
-    <script src="/js/charts/Chart.bundle.min.js"></script>
-    {{-- Chart initialization --}}
-    <script src="/js/charts/charts_init.js"></script>
-    {{-- Leaflet initialization --}}
-    <script src="js/leaflet/leaflets_init.js"></script>
+@section('additionalJS')
+    <script src="/js/charts.js"></script>
+    <script src="/js/leaflet.js"></script>
 @stop

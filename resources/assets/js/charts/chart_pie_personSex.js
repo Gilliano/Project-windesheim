@@ -1,4 +1,4 @@
-function setupChart(){
+function setupPiePersonSex(){
     // Setup data for post
     var sendData = {
         _token: window.Laravel.csrfToken,

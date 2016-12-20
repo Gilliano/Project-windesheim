@@ -1,4 +1,4 @@
-function setupChart(){
+function setupPieEducationAlumni(){
     // Setup data for post
     var functionName = "educationAlumniChart";
     var educationName = "HBO-ICT";

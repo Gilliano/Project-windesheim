@@ -1,4 +1,4 @@
-function setupLeaflet(){
+function setupMapLiving(){
     var map = L.map('leaflet_mapLiving',{
         center: [52.370464, 5.222064],
         zoom: 13
