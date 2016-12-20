@@ -60,7 +60,18 @@ function createGrid(itemCollection) {
                 gridItem.x = item.x;
                 gridItem.y = item.y;
                 gridItems[gridItem.id] = gridItem;
-            })
+            });
+
+            // Convert to JSON
+            // console.log(JSON.stringify(gridItems));
+            // TODO: Save the JSON string to a cookie
+            var username = 'JohnDoe'; // TODO: Get logged in username
+            var grid = JSON.stringify(gridItems);
+
+            var date_obj = new Date();
+            date_obj.setMonth(date_obj.getMonth() + 1); // Define lifetime of the cookie
+            var exp_date = date_obj.toUTCString();//.setMonth(new Date().getMonth() + 1);//.toUTCString();
+            console.log(exp_date);
         }
     });
 

@@ -61,3 +61,6 @@ Route::get('/educations/{education}/restore', 'EducationController@restoreEducat
 Route::get('/charts', 'ChartsController@index');
 Route::get('/json/charts', 'JSONController@decide');
 
+Route::get('/mail', 'MailController@setupMail');
+Route::post('/mail/setup', 'MailController@sendMail');
+

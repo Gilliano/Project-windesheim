@@ -1,4 +1,5 @@
 // Class for easily creating grid elements
+// TODO: Add save (serialize) function to serialize all gridItems(with their pos) to a cookie
 class GridItem {
     constructor(width, height, x, y, image = null, link = null){
         this.id = gridItems.length; // Make sure it has a unique id
@@ -31,6 +32,19 @@ class GridItem {
                 '</div>' +
             '</li>'
         );
+    }
+
+    toJSON(){
+        return {
+            id: this.id,
+            width: this.width,
+            height: this.height,
+            x: this.x,
+            y: this.y,
+            image: this.image,
+            link: this.link,
+            // html: this.html
+        };
     }
 }
 

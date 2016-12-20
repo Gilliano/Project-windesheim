@@ -1,4 +1,5 @@
 // Class for easily creating grid elements
+// TODO: Add save (serialize) function to serialize all gridItems(with their pos) to a cookie
 class GridItem {
     constructor(width, height, x, y, image = null, link = null){
         this.id = gridItems.length; // Make sure it has a unique id
@@ -31,6 +32,19 @@ class GridItem {
                 '</div>' +
             '</li>'
         );
+    }
+
+    toJSON(){
+        return {
+            id: this.id,
+            width: this.width,
+            height: this.height,
+            x: this.x,
+            y: this.y,
+            image: this.image,
+            link: this.link,
+            // html: this.html
+        };
     }
 }
 
@@ -117,7 +131,18 @@ function createGrid(itemCollection) {
                 gridItem.x = item.x;
                 gridItem.y = item.y;
                 gridItems[gridItem.id] = gridItem;
-            })
+            });
+
+            // Convert to JSON
+            // console.log(JSON.stringify(gridItems));
+            // TODO: Save the JSON string to a cookie
+            var username = 'JohnDoe'; // TODO: Get logged in username
+            var grid = JSON.stringify(gridItems);
+
+            var date_obj = new Date();
+            date_obj.setMonth(date_obj.getMonth() + 1); // Define lifetime of the cookie
+            var exp_date = date_obj.toUTCString();//.setMonth(new Date().getMonth() + 1);//.toUTCString();
+            console.log(exp_date);
         }
     });
 
@@ -160,7 +185,7 @@ function createGrid(itemCollection) {
         var gridItem = gridItems[$("#edit_id").val()];
         var link = null, image = null;
         if($("#edit_link").val() != '')
-            link = $("#edit_link").val();
+            link = $("#edit_link").val(); // TODO: Check if we need to add 'http' prefix? Otherwise laravel returns an error...
         if($("#edit_image").val() != '')
             image = $("#edit_image").val();
         gridItem.createHTML(link, image);
@@ -185,5 +210,4 @@ function createGrid(itemCollection) {
     //     Grid.resize(Math.max(1, Grid.currentSize - 1));
     // });
 };
-
 //# sourceMappingURL=grid-list.js.map
