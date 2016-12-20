@@ -64,5 +64,6 @@ Route::post('/jobs/add', 'JobController@saveJob');
 Route::get('/jobs/{job}/edit', 'JobController@editJob');
 
 Route::get('/charts', 'ChartsController@index');
-Route::get('/json/charts/{functionName}', 'JSONController@decide');
-Route::post('/json/charts', 'JSONController@decide');
+
+Route::get('/json/charts', 'JSONController@decide');
+

@@ -137,8 +137,8 @@ $factory->define(App\Models\Job::class, function (Faker\Generator $faker) {
         'name' => $faker->word,
         'address' => $faker->streetAddress,
         'address_number' => $faker->buildingNumber,
-        'zip_code' => $faker->regexify('[0-9]{4}[A-Z]{2}'),
-        'city' => $faker->randomElement($array = array ('almere','lelystad','amsterdam')),
+        'zip_code' => $faker->regexify('[1-9][0-9]{3}[a-z]{2}'), // Does not consider 'illegal' chars for NL codes (ss, sa and sd)
+        'city' => $faker->randomElement($array = array ('almere','lelystad','amsterdam')), // TODO: Does not match zip_code...
         'function' => $faker->jobTitle,
         'salary_min' => $faker->numberBetween($min = 1000, $max = 10000),
         'salary_max' => $faker->numberBetween($min = 10001, $max = 50000),
@@ -229,7 +229,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 
 
 /*
- *  Model UserInformation ;
+ *  Model UserInformation REQUIRES table: users;
  */
 $factory->define(App\Models\UserInformation::class, function (Faker\Generator $faker) {
 
@@ -244,7 +244,7 @@ $factory->define(App\Models\UserInformation::class, function (Faker\Generator $f
         'alternative_email' => $faker->safeEmail,
         'mobile_number' => $faker->tollFreePhoneNumber,
         'additional_number' => $faker->tollFreePhoneNumber,
-        'user_id' => $faker->unique($reset = true)->numberBetween($min = 1, $max = $user),
+//        'user_id' => $faker->unique($reset = false)->numberBetween($min = 1, $max = ($user - 10)),  #Deze is niet meer nodig.
         'privacy_level_id' => $privacyLevel['id'],
     ];
 });
