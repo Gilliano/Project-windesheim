@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Mail\WelcomeAlumni;
 use Mail;
 use App\Models\Group;
+use App\Models\Education;
 
 
 class MailController extends Controller
 {
     public function setupMail()
     {
-        dd($this->getGroups());
+//        dd($this->getEducation(7));
 //        dd($this->getClassmates());
         return view('mail.setup_mail');
     }
@@ -28,7 +29,7 @@ class MailController extends Controller
         Mail::to($mail['to'])->send(new WelcomeAlumni($mail));
     }
 
-    public function getClassmates($id = 21)
+    public function getClassmates($id)
     {
         $data = [];
         $classmates = Group::find($id)->person;
@@ -42,10 +43,15 @@ class MailController extends Controller
         return $data ;
     }
 
-    public function getGroups()
+    public function getGroups($id = null)
     {
         $data = [];
-        $groups = Group::all();
+        if (is_int($id) ){
+            $groups = Group::where('education_id', $id)->get();
+        }
+        else {
+            $groups = Group::all();
+        }
 
         foreach ($groups as $group){
 //            $data[$group->id] = $this->getClassmates($group->id);
@@ -53,5 +59,26 @@ class MailController extends Controller
         }
 
         return $data;
+    }
+
+    public function getEducation($id = null)
+    {
+        $data = [];
+        if (is_int($id) ){
+            $educations = [Education::find($id)];
+        }
+        else {
+            $educations = Education::all();
+        }
+
+        foreach ($educations as $education){
+            var_dump($education->id);
+            array_push($data, ["education_id"=>$education->id, 'name' => $education->name, "groups"=>$this->getGroups($education->id)]);
+        }
+
+
+        return $data;
+
+
     }
 }
