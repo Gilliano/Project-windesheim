@@ -58,6 +58,14 @@ Route::patch('/educations/{education}/update', 'EducationController@updateEducat
 Route::get('/educations/{education}/delete', 'EducationController@deleteEducation');
 Route::get('/educations/{education}/restore', 'EducationController@restoreEducation');
 
+Route::get('/jobs', 'JobController@getJobs');
+Route::get('/jobs/add', 'JobController@addJob');
+Route::post('/jobs/add', 'JobController@saveJob');
+Route::get('/jobs/{job}/edit', 'JobController@editJob');
+Route::patch('/jobs/{job}/update', 'JobController@updateJob');
+Route::get('/jobs/{job}/delete', 'JobController@deleteJob');
+Route::get('/jobs/{job}/restore', 'JobController@restoreJob');
+
 Route::get('/charts', 'ChartsController@index');
 Route::get('/json/charts', 'JSONController@decide');
 
