@@ -62,12 +62,9 @@ Route::get('/jobs', 'JobController@getJobs');
 Route::get('/jobs/add', 'JobController@addJob');
 Route::post('/jobs/add', 'JobController@saveJob');
 Route::get('/jobs/{job}/edit', 'JobController@editJob');
-<<<<<<< HEAD
-=======
 Route::patch('/jobs/{job}/update', 'JobController@updateJob');
 Route::get('/jobs/{job}/delete', 'JobController@deleteJob');
 Route::get('/jobs/{job}/restore', 'JobController@restoreJob');
->>>>>>> 885a805278e797a53c4df2d765a1ced37415bee7
 
 Route::get('/charts', 'ChartsController@index');
 Route::get('/json/charts', 'JSONController@decide');
