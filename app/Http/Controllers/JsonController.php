@@ -36,21 +36,43 @@ class JsonController extends Controller
     // that completed the education
     public function educationAlumniChart($params)
     {
+        $educations = [];
+        $return_array = [];
         $educationName = $params[0];
-        $groups = Education::where('name', $educationName)->first()->groups; // Find by dynamic value
-        $start_amount = 0;
-        $final_amount = 0;
-        foreach ($groups as $group)
+        if($educationName == '*')
+            $educations = Education::all(); // Find by dynamic value
+        else
+            $educations = Education::where('name', $educationName)->get(); // Find by dynamic value
+
+        if($educations != null && count($educations) > 0)
         {
-            // Get the start amount for a education
-            $start_amount += $group->started_amount;
-            // Get the current amount of persons that have completed this education
-            $persons = $group->person;
-            foreach ($persons as $person)
-                $final_amount++;
+            foreach($educations as $education)
+            {
+                $groups = $education->groups;
+                $groups_info = [];
+                foreach ($groups as $group)
+                {
+                    // Get the start amount for a education
+                    $start_amount = $group->started_amount;
+                    // Get the current amount of persons that have completed this education
+                    $persons = $group->person;
+                    $final_amount = count($persons);
+
+                    // Pack all this information into an array
+                    $groups_info[$group->name] = ['start_amount'=>$start_amount, 'final_amount'=>$final_amount];
+                }
+
+                // Push the array into the array for this education
+                $return_array['results'][$education->name] = $groups_info;
+            }
+        }
+        else
+        {
+            $return_array['error'] = "No education found with name: \"$educationName\"";
         }
 
-        return json_encode([$start_amount, $final_amount]);
+//        dd($return_array);
+        return json_encode($return_array);
     }
 
     // Return data for the Sex chart

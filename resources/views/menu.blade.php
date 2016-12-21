@@ -1,55 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>gridster test</title>
-    <link rel="stylesheet" type="text/css" href="/css/jquery.gridster.css">
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
-</head>
-<body>
-<section class="demo">
-    <div class="gridster">
-        <ul>
-            <li data-row="1" data-col="1" data-sizex="1" data-sizey="1"><div id="tile1" class="tile">
+@extends('layouts.app')
 
-                    <div class="carousel slide" data-ride="carousel">
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="http://handsontek.net/demoimages/tiles/twitter1.png" class="img-responsive"/>
-                            </div>
-                            <div class="item">
-                                <img src="http://handsontek.net/demoimages/tiles/twitter2.png" class="img-responsive"/>
-                            </div>
-                        </div>
-                    </div>
+<link href="css/grid-list.css" rel="stylesheet">
 
-                </div></li>
-            <li data-row="2" data-col="1" data-sizex="1" data-sizey="2"><h1>WORLD</h1></li>
-            <li data-row="3" data-col="1" data-sizex="1" data-sizey="1"><h1>OR ELSE<h1></l>
-            <li data-row="1" data-col="2" data-sizex="2" data-sizey="1"></li>
-            <li data-row="2" data-col="2" data-sizex="2" data-sizey="2"></li>
-            <li data-row="1" data-col="4" data-sizex="1" data-sizey="1"></li>
-            <li data-row="2" data-col="4" data-sizex="2" data-sizey="1"></li>
-            <li data-row="3" data-col="4" data-sizex="1" data-sizey="1"></li>
-            <li data-row="1" data-col="5" data-sizex="1" data-sizey="1"></li>
-            <li data-row="3" data-col="5" data-sizex="1" data-sizey="1"></li>
-            <li data-row="1" data-col="6" data-sizex="1" data-sizey="1"></li>
-            <li data-row="2" data-col="6" data-sizex="1" data-sizey="2"></li>
+@section('content')
+    <div class="grid-container">
+        <ul id="grid" class="grid">
         </ul>
     </div>
-</section>
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/jquery.gridster.js" charster="utf-8"></script>
-<script type="text/javascript">
-    var gridster;
+@endsection
 
-    $(function() {
-        gridster = $(".gridster > ul").gridster({
-            widget_margins: [10, 10],
-            widget_base_dimensions: [140, 140],
-            min_cols: 6
-        }).data('gridster');
-    });
-</script>
-</body>
-</html>
+@section('modals')
+    <div class="modal fade" id="modal_edit">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Edit GridElement</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group">
+                        <input type="hidden" id="edit_id">
+                        <label for="edit_link">Link</label>
+                        <input type="text" name="link" id="edit_link" placeholder="https://www.google.com" class="form-control">
+                        <label for="edit_image">Image</label>
+                        <input type="text" name="image" id="edit_image" placeholder="http://www.w3schools.com/css/trolltunga.jpg" class="form-control">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="edit_save">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('additionalJS')
+    <script src="js/grid-list.js"></script>
+@stop

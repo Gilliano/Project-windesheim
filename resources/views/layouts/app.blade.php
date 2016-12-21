@@ -19,9 +19,6 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
-
-    {{-- jQuery --}}
-    <script src="/js/jquery/jquery-3.1.1.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -83,10 +80,13 @@
         @include('/sessions.success')
         @include('/sessions.error')
         @yield('content')
+        @yield('modals')
     </div>
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
-        @yield('additionalJS')
+    <script src="js/app.js"></script>
+    <script src="js/dependencies.js"></script>
+    <script src="js/utility.js"></script>
+    @yield('additionalJS')
 </body>
 </html>
