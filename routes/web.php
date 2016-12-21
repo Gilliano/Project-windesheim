@@ -64,3 +64,6 @@ Route::get('/json/charts', 'JSONController@decide');
 Route::get('/mail', 'MailController@setupMail');
 Route::post('/mail/setup', 'MailController@sendMail');
 
+Route::get('/profile', 'ProfileController@index');
+Route::post('/profile/addSkill', 'ProfileController@addSkill');
+
