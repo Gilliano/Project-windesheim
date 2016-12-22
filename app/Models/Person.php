@@ -58,6 +58,11 @@ class Person extends Model
         return $this->hasMany('App\Models\Dimploma');
     }
 
+    public function skill()
+    {
+        return $this->hasMany('App\Models\Skill');
+    }
+
     public function Surveys()
     {
         return $this->belongsToMany('App\Models\Survey', 'persons_rate_surveys')
