@@ -26,13 +26,15 @@ elixir(mix => {
         .copy('node_modules/chart.js/dist/Chart.bundle.js', 'resources/assets/js/charts')
         .copy('node_modules/leaflet/dist/leaflet.js', 'resources/assets/js/leaflet')
         .copy('node_modules/leaflet.markercluster/dist/leaflet.markercluster.js', 'resources/assets/js/leaflet')
-        .copy('node_modules/fastselect/dist/fastselect.js', 'resources/assets/js/fastselect');
+        .copy('node_modules/fastselect/dist/fastselect.js', 'resources/assets/js/fastselect')
+        .copy('node_modules/fastselect/dist/fastselect.css', 'resources/assets/css/fastselect');
 
     // Styles
     mix.sass('app.scss', 'public/css/app.css')
         .styles('styles.css', 'public/css/styles.css')
         .stylesIn('resources/assets/css/leaflet', 'public/css/leaflet.css') // Leaflet styles
-        .stylesIn('resources/assets/css/grid-list', 'public/css/grid-list.css'); // Grid-list syles
+        .stylesIn('resources/assets/css/grid-list', 'public/css/grid-list.css') // Grid-list syles
+        .stylesIn('resources/assets/css/fastselect', 'public/css/fastselect.css'); // Fastselect syles
 
     // Scripts
     mix.webpack('app.js','public/js/app.js')

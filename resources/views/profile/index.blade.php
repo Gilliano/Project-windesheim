@@ -26,9 +26,10 @@
                                         type="text"
                                         multiple
                                         class="tagsInput"
-                                        value="@foreach($skills as $skill){{ $skill->skill }},@endforeach"
+                                        value="Algeria,Angola"
                                         data-initial-value='[{"text": "Algeria", "value" : "Algeria"}, {"text": "Angola", "value" : "Angola"}]'
                                         data-user-option-allowed="true"
+                                        data-url="demo/data.json"
                                         data-load-once="true"
                                         name="language"/>
                                 <input type="text" id="skill" name="skill" placeholder="skill" class="form-control">
