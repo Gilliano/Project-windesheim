@@ -97,7 +97,7 @@
 						@else
 							<td>Nee</td>
 						@endif
-						<td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#restore{{ $job->id }}">Herstellen</button></td>
+						<td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#restore{{ $job->id }}">Herstellen</button></td>
 							<div class="modal fade" id="restore{{ $job->id }}" tabindex="-1" role="dialog">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
@@ -106,8 +106,8 @@
 											<h4 class="modal-title">Weet je zeker dat je de baan: {{ $job->name }} wilt herstellen?</h4>
 										</div>
 										<div class="modal-body">
-											<a href="/jobs/{{ $job->id }}/restore"><button type="button" class="btn btn-danger">Ja</button></a>
-											<button type="button" class="btn btn-success" data-dismiss="modal">Nee</button>
+											<a href="/jobs/{{ $job->id }}/restore"><button type="button" class="btn btn-success">Ja</button></a>
+											<button type="button" class="btn btn-danger" data-dismiss="modal">Nee</button>
 										</div>
 									</div>
 								</div>
