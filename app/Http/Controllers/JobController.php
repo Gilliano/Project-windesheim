@@ -67,7 +67,7 @@ class JobController extends Controller
     public function editJob(Job $job) {
         $levels = PrivacyLevel::all();
         $user = User::has('person')->find(Auth::id());
-        if($job->person->id === $user->person->id) {
+        if($job->person_id === $user->person->id) {
             return view('job.edit', compact('job', 'levels'));
         }
         else {
