@@ -22,20 +22,15 @@
                                 {{ csrf_field() }}
 
                                 <label for="skill">Add Skill</label>
-                                {{--<input--}}
-                                        {{--type="text"--}}
-                                        {{--multiple--}}
-                                        {{--class="tagsInput"--}}
-                                        {{--value="--}}
-                                            {{--@foreach($skills as $skill)--}}
-                                                {{--{{ $skill->skill }},--}}
-                                            {{--@endforeach--}}
-                                            {{--"--}}
-                                        {{--data-initial-value='[{"text": "Algeria", "value" : "Algeria"}, {"text": "Angola", "value" : "Angola"}]'--}}
-                                        {{--data-user-option-allowed="true"--}}
-                                        {{--data-load-once="true"--}}
-                                        {{--name="skills"--}}
-                                {{--/>--}}
+                                <input
+                                        type="text"
+                                        multiple
+                                        class="tagsInput"
+                                        value="@foreach($skills as $skill){{ $skill->skill }},@endforeach"
+                                        data-initial-value='[{"text": "Algeria", "value" : "Algeria"}, {"text": "Angola", "value" : "Angola"}]'
+                                        data-user-option-allowed="true"
+                                        data-load-once="true"
+                                        name="language"/>
                                 <input type="text" id="skill" name="skill" placeholder="skill" class="form-control">
                                 @foreach($skills as $skill)
                                     {{ $skill->skill }}<br/>
@@ -49,7 +44,13 @@
             </div>
         </div>
     </div>
-    {{--<Script>--}}
-        {{--$('.tagsInput').fastselect();--}}
-    {{--</Script>--}}
 @endsection
+
+@section('additionalJS')
+    <script src="js/fastselect.js"></script>
+    <Script>
+        $('.tagsInput').fastselect();
+    </Script>
+@endsection
+
+
