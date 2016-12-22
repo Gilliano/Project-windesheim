@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-//use App\Skill;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
+use App\Models\Skill;
 
 class ProfileController extends Controller
 {
@@ -18,16 +18,26 @@ class ProfileController extends Controller
     {
         $user_name = User::find(Auth::user()->id)->person->firstname . " " . User::find(Auth::user()->id)->person->lastname;
 
-        return view("/profile/index", compact('user_name'));
+//        dd(User::find(Auth::user()->id)->person->id);
+
+//        return Skill::get('skill', 'person_id');
+//        return Skill::where('skill', 'person_id');
+//
+        $skills = Skill::where('person_id', User::find(Auth::user()->id)->person->id)->get();
+
+        return view("/profile/index", compact('user_name', 'skills'));
     }
 
     public function addSkill(Request $request)
     {
-//        $skill = new Skill;
-//
-//        $skill->skill = $request->skill;
-//        $skill->person_id = Auth::person()->id;
+        $skill = new Skill;
 
-        dd(User::find(Auth::user()->id)->person->firstname);
+        $skill->skill = $request->skill;
+        $skill->person_id = User::find(Auth::user()->id)->person->id;
+
+        $skill->save();
+
+        return back();
+
     }
 }
