@@ -12,7 +12,7 @@
                         </div>
                     @endif
 
-                    <div class="panel-heading">Profile</div>
+                    <div class="panel-heading">Profile of {{ $user_name }}</div>
 
                     <div class="panel-body">
                         <div class="panel-heading">Skills</div>
