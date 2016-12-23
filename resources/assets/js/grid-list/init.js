@@ -65,13 +65,35 @@ function createGrid(itemCollection) {
             // Convert to JSON
             // console.log(JSON.stringify(gridItems));
             // TODO: Save the JSON string to a cookie
-            var username = 'JohnDoe'; // TODO: Get logged in username
             var grid = JSON.stringify(gridItems);
 
-            var date_obj = new Date();
-            date_obj.setMonth(date_obj.getMonth() + 1); // Define lifetime of the cookie
-            var exp_date = date_obj.toUTCString();//.setMonth(new Date().getMonth() + 1);//.toUTCString();
-            console.log(exp_date);
+            // var date_obj = new Date();
+            // date_obj.setMonth(date_obj.getMonth() + 1); // Define lifetime of the cookie;
+            // var exp_date = date_obj.toUTCString();//.setMonth(new Date().getMonth() + 1);//.toUTCString();
+
+            // TODO: Call CookieController to create a cookie
+            // document.cookie = "grid="+grid+"; expires="+exp_date+";";
+            var sendData = {
+                _token: window.Laravel.csrfToken,
+                name: 'grid_layout',
+                value: grid
+            };
+            $.post("/api/v1/cookies", sendData, function(data){
+                console.log("Cookie saved!");
+
+                $.get("/api/v1/cookies/grid_layout", function (data) {
+                    console.log(data);
+
+                    sendData._method = "delete";
+                    $.post("/api/v1/cookies/grid_layout", sendData, function(data){
+                        console.log("Cookie deleted!");
+
+                        $.get("/api/v1/cookies/grid_layout", function (data) {
+                            console.log(data);
+                        });
+                    });
+                });
+            });
         }
     });
 
