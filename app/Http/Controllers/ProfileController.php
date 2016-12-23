@@ -24,9 +24,9 @@ class ProfileController extends Controller
 //        return Skill::where('skill', 'person_id');
 //
         $skills = Skill::where('person_id', User::find(Auth::user()->id)->person->id)->get();
-        $allSkills = Skill::where('person_id', User::find(Auth::user()->id)->person->id)->get();
+//        $allSkills = Skill::all();
 
-        return view("/profile/index", compact('user_name', 'skills'));
+        return view("/profile/index", compact('user_name', 'skills', 'allSkills'));
     }
 
     public function addSkill(Request $request)
@@ -40,5 +40,12 @@ class ProfileController extends Controller
 
         return back();
 
+    }
+
+    public function selectData()
+    {
+        $allSkills = Skill::all();
+
+        dd($allSkills->skill);
     }
 }

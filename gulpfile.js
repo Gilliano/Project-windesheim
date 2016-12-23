@@ -27,7 +27,8 @@ elixir(mix => {
         .copy('node_modules/leaflet/dist/leaflet.js', 'resources/assets/js/leaflet')
         .copy('node_modules/leaflet.markercluster/dist/leaflet.markercluster.js', 'resources/assets/js/leaflet')
         .copy('node_modules/fastselect/dist/fastselect.js', 'resources/assets/js/fastselect')
-        .copy('node_modules/fastselect/dist/fastselect.css', 'resources/assets/css/fastselect');
+        .copy('node_modules/fastselect/dist/fastselect.css', 'resources/assets/css/fastselect')
+        .copy('node_modules/fastsearch/dist/fastsearch.js', 'resources/assets/js/fastsearch');
 
     // Styles
     mix.sass('app.scss', 'public/css/app.css')
@@ -48,5 +49,6 @@ elixir(mix => {
         .scriptsIn('resources/assets/js/grid-list', 'public/js/grid-list.js') // Grid-list scripts
         .scriptsIn('resources/assets/js/charts', 'public/js/charts.js') // Chart scripts
         .scriptsIn('resources/assets/js/leaflet', 'public/js/leaflet.js') // Leaflet scripts
-        .scriptsIn('resources/assets/js/fastselect', 'public/js/fastselect.js'); // Fastselect scripts
+        .scriptsIn('resources/assets/js/fastselect', 'public/js/fastselect.js') // Fastselect scripts
+        .scriptsIn('resources/assets/js/fastsearch', 'public/js/fastsearch.js'); // Fastsearch scripts
 });

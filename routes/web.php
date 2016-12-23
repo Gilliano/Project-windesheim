@@ -74,4 +74,5 @@ Route::post('/mail/setup', 'MailController@sendMail');
 
 Route::get('/profile', 'ProfileController@index');
 Route::post('/profile/addSkill', 'ProfileController@addSkill');
+Route::post('/profile/selectData', 'ProfileController@selectData');
 
