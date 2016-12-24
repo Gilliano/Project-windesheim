@@ -1,5 +1,4 @@
 // Class for easily creating grid elements
-// TODO: Add save (serialize) function to serialize all gridItems(with their pos) to a cookie
 class GridItem {
     constructor(width, height, x, y, image = null, link = null){
         this.id = gridItems.length; // Make sure it has a unique id
@@ -9,14 +8,14 @@ class GridItem {
         this.y = y;
         this.image = image;
         this.link = link;
-        this.createHTML(link, image);
+        this.html = this.createHTML(link, image);
 
         // Push this object to the gridItems list
         gridItems.push(this);
     }
 
     createHTML(link = null, image = null){
-        this.html = $(
+        return $(
             '<li data-id='+this.id+'>' +
                 '<div class="inner">' +
                     '<div class="controls">' +
@@ -43,7 +42,7 @@ class GridItem {
             y: this.y,
             image: this.image,
             link: this.link,
-            // html: this.html
+            // html: this.html // cycling object error
         };
     }
 }

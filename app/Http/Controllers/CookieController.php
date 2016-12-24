@@ -20,7 +20,9 @@ class CookieController extends Controller
     // Return a cookie by name
     public function show(Request $request, $cookie_name)
     {
-        return $request->cookie($cookie_name);
+        $return = $request->cookie($cookie_name);
+
+        return $return==""?'null':$return;
     }
 
     // Delete a cookie by name

@@ -1,5 +1,4 @@
 // Class for easily creating grid elements
-// TODO: Add save (serialize) function to serialize all gridItems(with their pos) to a cookie
 class GridItem {
     constructor(width, height, x, y, image = null, link = null){
         this.id = gridItems.length; // Make sure it has a unique id
@@ -9,14 +8,14 @@ class GridItem {
         this.y = y;
         this.image = image;
         this.link = link;
-        this.createHTML(link, image);
+        this.html = this.createHTML(link, image);
 
         // Push this object to the gridItems list
         gridItems.push(this);
     }
 
     createHTML(link = null, image = null){
-        this.html = $(
+        return $(
             '<li data-id='+this.id+'>' +
                 '<div class="inner">' +
                     '<div class="controls">' +
@@ -43,7 +42,7 @@ class GridItem {
             y: this.y,
             image: this.image,
             link: this.link,
-            // html: this.html
+            // html: this.html // cycling object error
         };
     }
 }
@@ -765,8 +764,25 @@ return GridList;
 
 }));
 
+// TODO: Somehow when reloading from a cookie the grid is duplicated (move items to see duplication)
 $(document).ready(function(){
-    createGrid(fixtures.GRID1);
+    // Check if there is a cookie saved
+    $.getJSON("/api/v1/cookies/grid_layout", function(data){
+        if(data != null)
+        {
+            var items = [];
+            $.each(data, function(index, value){
+                var item = new GridItem(value.width, value.height, value.x, value.y, value.image, value.link);
+                items.push(item);
+            });
+            createGrid(items);
+        }
+        else
+        {
+            console.log("No saved grid_layout found");
+            createGrid(fixtures.GRID1);
+        }
+    });
 });
 
 var Grid = {
@@ -826,19 +842,12 @@ function createGrid(itemCollection) {
                 var gridItem = gridItems[item.id];
                 gridItem.x = item.x;
                 gridItem.y = item.y;
+                gridItem.width = item.w;
+                gridItem.height = item.h;
                 gridItems[gridItem.id] = gridItem;
             });
 
-            // Convert to JSON
-            // console.log(JSON.stringify(gridItems));
-            // TODO: Save the JSON string to a cookie
-            var username = 'JohnDoe'; // TODO: Get logged in username
-            var grid = JSON.stringify(gridItems);
-
-            var date_obj = new Date();
-            date_obj.setMonth(date_obj.getMonth() + 1); // Define lifetime of the cookie
-            var exp_date = date_obj.toUTCString();//.setMonth(new Date().getMonth() + 1);//.toUTCString();
-            console.log(exp_date);
+            saveGridLayout();
         }
     });
 
@@ -862,6 +871,7 @@ function createGrid(itemCollection) {
             gridItem.height = $(e.currentTarget).data('h');
             // gridItem.createHTML();
             gridItems[gridItem.id] = gridItem;
+            $('#grid').gridList('reflow');
         }
         else if(itemAction == 'edit')
         {
@@ -877,15 +887,19 @@ function createGrid(itemCollection) {
     $('#edit_save').on('click', function(e){
         // Update grid item and refresh the grid
         // TODO: Expand Form validation
-        // TODO: Improve performance
         var gridItem = gridItems[$("#edit_id").val()];
         var link = null, image = null;
-        if($("#edit_link").val() != '')
+        if($("#edit_link").val() != "")
             link = $("#edit_link").val(); // TODO: Check if we need to add 'http' prefix? Otherwise laravel returns an error...
-        if($("#edit_image").val() != '')
+        if($("#edit_image").val() != "")
             image = $("#edit_image").val();
-        gridItem.createHTML(link, image);
+        gridItem.link = link;
+        gridItem.image = image;
+        gridItem.html = gridItem.createHTML(link, image);
         gridItems[gridItem.id] = gridItem;
+
+        // Save
+        saveGridLayout();
 
         // Recreate the grid
         createGrid(gridItems);
@@ -906,6 +920,23 @@ function createGrid(itemCollection) {
     //     Grid.resize(Math.max(1, Grid.currentSize - 1));
     // });
 };
+
+function saveGridLayout() {
+    // Convert to JSON
+    // Save the JSON string to a cookie
+    var grid = JSON.stringify(gridItems);
+    console.log(grid);
+
+    // Call CookieController to create a cookie
+    var sendData = {
+        _token: window.Laravel.csrfToken,
+        name: 'grid_layout',
+        value: grid
+    };
+    $.post("/api/v1/cookies", sendData, function(data){
+        // console.log("Cookie saved!");
+    });
+}
 // It does not try to register in a CommonJS environment since jQuery is not
 // likely to run in those environments.
 (function (factory) {

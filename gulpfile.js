@@ -1,3 +1,4 @@
+process.env.DISABLE_NOTIFIER = true;
 const elixir = require('laravel-elixir');
 
 require('laravel-elixir-vue-2');
@@ -16,6 +17,10 @@ require('laravel-elixir-vue-2');
 // TODO: Use 'mix.combine' instead of 'mix.scripts' to improve compile time?
 // https://laravel.com/docs/5.3/elixir#working-with-scripts
 elixir(mix => {
+    mix.sass('app.scss')
+       .webpack('app.js');
+       mix.scripts(['test.js', 'iets.js'], 'public/js/merge.js');
+
     // Important copies that need to be done FIRST
     mix.copy('node_modules/grid-list/src/gridList.js', 'resources/assets/js/grid-list')
         .copy('node_modules/grid-list/src/jquery.gridList.js', 'resources/assets/js/grid-list')
