@@ -72,12 +72,9 @@ Route::get('/json/charts', 'JSONController@decide');
 Route::get('/mail', 'MailController@setupMail');
 Route::post('/mail/setup', 'MailController@sendMail');
 
-<<<<<<< HEAD
 Route::get('/profile', 'ProfileController@index');
 Route::post('/profile/addSkill', 'ProfileController@addSkill');
-=======
-Route::group(['prefix' => 'api/v1', 'middleware' => 'api'], function() {
-    Route::resource('/cookies', 'CookieController');
-});
->>>>>>> c86adaf3b706c62f4d2c77cbd511d2d3829a659d
 
+Route::group(['prefix' => 'api/v1', 'middleware' => 'api'], function() {
+Route::resource('/cookies', 'CookieController');
+});
