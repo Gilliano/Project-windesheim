@@ -26,26 +26,50 @@ class ProfileController extends Controller
         $skills = Skill::where('person_id', User::find(Auth::user()->id)->person->id)->get();
 //        $allSkills = Skill::all();
 
-        return view("/profile/index", compact('user_name', 'skills', 'allSkills'));
+        return view('profile.index', compact('user_name', 'skills', 'allSkills'));
     }
 
     public function addSkill(Request $request)
     {
-        $skill = new Skill;
+//        dd($request->skills);
 
-        $skill->skill = $request->skill;
-        $skill->person_id = User::find(Auth::user()->id)->person->id;
+        $newSkills = $request->skills;
+        $newSkillsArray = explode(',', $newSkills);
 
-        $skill->save();
+        foreach ($newSkillsArray as $newSkill) {
+            $query = Skill::where('skill', $newSkill)->get();
+//
+//            dd($query);
+
+            if($query->count()){
+                \Session::flash('error', 'De skill "' . $newSkill . '" bestaat al in uw skills.');
+            } else {
+                $skill = new Skill;
+
+                $skill->skill = $newSkill;
+                $skill->person_id = User::find(Auth::user()->id)->person->id;
+
+                $skill->save();
+                \Session::flash('success', 'De skill "' . $newSkill . '" is toegevoegd aan uw skills.');
+            }
+
+//            $skill = new Skill;
+//
+//            $skill->skill = $newSkill;
+//            $skill->person_id = User::find(Auth::user()->id)->person->id;
+//
+//            $skill->save();
+        }
+
+//        $skill = new Skill;
+//
+//        $skill->skill = $request->skill;
+//        $skill->person_id = User::find(Auth::user()->id)->person->id;
+//
+//        $skill->save();
 
         return back();
 
     }
 
-    public function selectData()
-    {
-        $allSkills = Skill::all();
-
-        dd($allSkills->skill);
-    }
 }
