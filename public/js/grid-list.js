@@ -764,18 +764,18 @@ return GridList;
 
 }));
 
-// TODO: Somehow when reloading from a cookie the grid is duplicated (move items to see duplication)
 $(document).ready(function(){
     // Check if there is a cookie saved
     $.getJSON("/api/v1/cookies/grid_layout", function(data){
         if(data != null)
         {
-            var items = [];
+            // var items = [];
+            gridItems = []; // Clear the gridItems cache
             $.each(data, function(index, value){
                 var item = new GridItem(value.width, value.height, value.x, value.y, value.image, value.link);
-                items.push(item);
+                // items.push(item);
             });
-            createGrid(items);
+            createGrid(gridItems);
         }
         else
         {
