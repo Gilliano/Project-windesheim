@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
 use App\Models\Skill;
+use App\Models\Education;
 
 class ProfileController extends Controller
 {
@@ -18,13 +19,14 @@ class ProfileController extends Controller
     {
         $user_name = User::find(Auth::user()->id)->person->firstname . " " . User::find(Auth::user()->id)->person->lastname;
 
-//        dd(User::find(Auth::user()->id)->person->id);
-
-//        return Skill::get('skill', 'person_id');
-//        return Skill::where('skill', 'person_id');
-//
         $skills = Skill::where('person_id', User::find(Auth::user()->id)->person->id)->get();
-//        $allSkills = Skill::all();
+
+        $personData = User::find(Auth::user()->id)->person->all();
+        $groupData = User::find(Auth::user()->id)->person->group->all();
+//        $educationData = User::find(Auth::user()->id)->person->group->education->all();
+//        $schoolData = User::find(Auth::user()->id)->person->group->all();
+
+        dd(Education::find(User::find(Auth::user()->id)->person->group->education_id)->all());
 
         return view('profile.index', compact('user_name', 'skills', 'allSkills'));
     }
@@ -41,7 +43,7 @@ class ProfileController extends Controller
 //
 //            dd($query);
 
-            if($query->count()){
+            if ($query->count()) {
                 \Session::flash('error', 'De skill "' . $newSkill . '" bestaat al in uw skills.');
             } else {
                 $skill = new Skill;
