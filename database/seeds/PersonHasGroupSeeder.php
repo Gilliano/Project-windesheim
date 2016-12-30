@@ -12,7 +12,7 @@ class PersonHasGroupSeeder extends Seeder
      */
     public function run()
     {
-        $education = App\Models\Education::where('name', 'AD Software Devleopment')->pluck('id');
+        $education = App\Models\Education::where('name', 'AD Software Development')->pluck('id');
 
         Group::create(array(
             'name' => 'ADSD',
