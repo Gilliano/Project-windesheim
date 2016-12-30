@@ -9,6 +9,7 @@ class GridItem {
         this.image = image;
         this.link = link;
         this.html = this.createHTML(link, image);
+        this.contextmenu = this.createContextmenu();
 
         // Push this object to the gridItems list
         gridItems.push(this);
@@ -18,19 +19,16 @@ class GridItem {
         return $(
             '<li data-id='+this.id+'>' +
                 '<div class="inner">' +
-                    '<div class="controls">' +
-                        '<a href="#zoom1" class="edit" data-a="resize" data-w="1" data-h="1">1x1</a>' +
-                        '<a href="#zoom2" class="edit" data-a="resize" data-w="2" data-h="1">2x1</a>' +
-                        '<a href="#zoom1" class="edit" data-a="resize" data-w="1" data-h="2">1x2</a>' +
-                        '<a href="#zoom2" class="edit" data-a="resize" data-w="2" data-h="2">2x2</a>' +
-                        '<a href="#edit" class="edit" data-a="edit">edit</a>' +
-                    '</div>' +
-                    (link!==(null)?'<a href='+link+'>':'') +
+                    (link!==(null)?'<a href='+link+' target=_blank>':'') +
                         (image!==(null)?'<img src='+image+' class="image">':'<div style="width:100%; height:100%; background-color: '+randomColor('rgb')+'"></div>') +
                     (link!==(null)?'</a>':'') +
                 '</div>' +
             '</li>'
         );
+    }
+
+    createContextmenu(){
+        // return
     }
 
     toJSON(){
@@ -56,9 +54,27 @@ fixtures.GRID1 = [
         new GridItem(1,1,2,0),
         new GridItem(1,1,3,0),
         new GridItem(1,1,4,0),
+        new GridItem(1,1,5,0),
+        new GridItem(1,1,6,0),
+        new GridItem(1,1,7,0),
+        new GridItem(1,1,8,0),
+        new GridItem(1,1,9,0),
         new GridItem(1,1,0,1),
         new GridItem(1,1,2,1),
-        new GridItem(1,1,3,1),
+        new GridItem(2,2,3,1),
+        new GridItem(1,1,5,1),
+        new GridItem(1,1,6,1),
+        new GridItem(1,1,7,1),
+        new GridItem(1,1,8,1),
+        new GridItem(1,1,9,1),
+        new GridItem(1,1,0,2),
+        new GridItem(1,1,1,2),
+        new GridItem(1,1,2,2),
+        new GridItem(1,1,5,2),
+        new GridItem(1,1,6,2),
+        new GridItem(1,1,7,2),
+        new GridItem(1,1,8,2),
+        new GridItem(1,1,9,2),
     ];
 
 // Enable Node module

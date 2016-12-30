@@ -19,20 +19,24 @@ require('laravel-elixir-vue-2');
 elixir(mix => {
     mix.sass('app.scss')
        .webpack('app.js');
-       mix.scripts(['test.js', 'iets.js'], 'public/js/merge.js');
 
     // Important copies that need to be done FIRST
     mix.copy('node_modules/grid-list/src/gridList.js', 'resources/assets/js/grid-list')
         .copy('node_modules/grid-list/src/jquery.gridList.js', 'resources/assets/js/grid-list')
         .copy('node_modules/chart.js/dist/Chart.bundle.js', 'resources/assets/js/charts')
         .copy('node_modules/leaflet/dist/leaflet.js', 'resources/assets/js/leaflet')
-        .copy('node_modules/leaflet.markercluster/dist/leaflet.markercluster.js', 'resources/assets/js/leaflet');
+        .copy('node_modules/leaflet.markercluster/dist/leaflet.markercluster.js', 'resources/assets/js/leaflet')
+        .copy('node_modules/jquery-contextmenu/dist/jquery.contextMenu.js', 'resources/assets/js/contextmenu')
+        .copy('node_modules/jquery-contextmenu/dist/jquery.ui.position.js', 'resources/assets/js/contextmenu')
+        .copy('node_modules/jquery-contextmenu/dist/jquery.contextMenu.css', 'resources/assets/css/contextmenu')
+        .copy('node_modules/jquery-contextmenu/dist/font', 'resources/assets/css/contextmenu');
 
     // Styles
     mix.sass('app.scss', 'public/css/app.css')
         .styles('styles.css', 'public/css/styles.css')
         .stylesIn('resources/assets/css/leaflet', 'public/css/leaflet.css') // Leaflet styles
-        .stylesIn('resources/assets/css/grid-list', 'public/css/grid-list.css'); // Grid-list syles
+        .stylesIn('resources/assets/css/grid-list', 'public/css/grid-list.css') // Grid-list syles
+        .stylesIn('resources/assets/css/contextmenu', 'public/css/contextmenu.css'); // Grid-list syles
 
     // Scripts
     mix.webpack('app.js','public/js/app.js')
@@ -45,5 +49,6 @@ elixir(mix => {
         ], 'public/js/utility.js')
         .scriptsIn('resources/assets/js/grid-list', 'public/js/grid-list.js') // Grid-list scripts
         .scriptsIn('resources/assets/js/charts', 'public/js/charts.js') // Chart scripts
-        .scriptsIn('resources/assets/js/leaflet', 'public/js/leaflet.js'); // Leaflet scripts
+        .scriptsIn('resources/assets/js/leaflet', 'public/js/leaflet.js') // Leaflet scripts
+        .scriptsIn('resources/assets/js/contextmenu', 'public/js/contextmenu.js'); // Contextmenu scripts
 });
