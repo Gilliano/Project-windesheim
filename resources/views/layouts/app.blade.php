@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    @yield('additionalCSS')
 
     <!-- Scripts -->
     <script>

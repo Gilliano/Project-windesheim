@@ -12,11 +12,7 @@
 		  			<input type="text" class="form-control" name="address" placeholder="Adres" value="{{ old('address') }}" maxlength="45"/>
 		  		</div>
 		  		<div class="form-group">
-<<<<<<< HEAD
 		  			<input type="text" class="form-control" name="address_number" placeholder="Adresnummer" value="{{ old('address_number') }}" maxlength="10"/>
-=======
-		  			<input type="text" class="form-control" name="address_number" placeholder="Adresnummer" value="{{ old('address_number') }}"" maxlength="10" required/>
->>>>>>> 885a805278e797a53c4df2d765a1ced37415bee7
 		  		</div>
 		  		<div class="form-group">
 		  			<input type="text" class="form-control" name="zip_code" placeholder="Postcode" value="{{ old('zip_code') }}" maxlength="9"/>
@@ -28,41 +24,28 @@
 		  			<input type="text" class="form-control" name="function" placeholder="Functie" value="{{ old('function') }}" minlength="1" maxlength="80" required/>
 		  		</div>
 		  		<div class="form-group">
-<<<<<<< HEAD
-		  			<input type="number" class="form-control" name="salary_min" placeholder="Minimaal salaris" value="{{ old('salary_min') }}"/>
-		  		</div>
-		  		<div class="form-group">
-		  			<input type="number" class="form-control" name="salary_max" placeholder="Maximaal salaris" value="{{ old('salary_max') }}"/>
-=======
 		  			<input type="number" class="form-control" name="salary_min" placeholder="Minimale salaris" value="{{ old('salary_min') }}" min="1" max="9999999999"/>
 		  		</div>
 		  		<div class="form-group">
 		  			<input type="text" class="form-control" name="salary_max" placeholder="Maximale salaris" value="{{ old('salary_max') }}" min="1" max="9999999999"/>
->>>>>>> 885a805278e797a53c4df2d765a1ced37415bee7
 		  		</div>
 		  		<div class="form-group">
 		  			<input type="date" class="form-control" name="started_at" placeholder="Startdatum" value="{{ old('started_at') }}"/>
 		  		</div>
 			  	<div class="form-group">
-<<<<<<< HEAD
-=======
 			  		<select name="current_job" class="form-control">
 			  				<option value="Ja" name="current_job">Ja</option>
 			  				<option value="Nee" name="current_job">Nee</option>
 			  		</select>
 			  	</div>
 			  	<div class="form-group">
->>>>>>> 885a805278e797a53c4df2d765a1ced37415bee7
 			  		<select name="privacy_level_id" class="form-control">
 			  			@foreach ($levels as $level)
 			  				<option value="{{ $level->id }}" name="privacy_level_id">{{ $level->name }}</option>
 			  			@endforeach
 			  		</select>
 			  	</div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 885a805278e797a53c4df2d765a1ced37415bee7
+			  	
 			  	<div class="form-group">
 			  		<button type="submit" class="btn btn-success form-control">Toevoegen</button>
 			  	</div>
