@@ -17,6 +17,7 @@ class CreateActionsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name', 45);
+            $table->enum('action', ['view','create', 'update', 'delete','else']);
             $table->text('description')->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
