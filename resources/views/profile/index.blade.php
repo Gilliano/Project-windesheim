@@ -41,7 +41,7 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <img src="http://placehold.it/100x100">
+                        <img src="{{ Auth::user()->gravatar }}">
                     </div>
                     <div class="col-md-5">
                         <h1>{{ $fullname }}</h1>
@@ -134,11 +134,6 @@
                                     <th>Geslacht</th>
                                     <td>{{ $sex }}</td>
                                 </tr>
-                                <tr>
-                                    <th></th>
-                                    <td></td>
-                                </tr>
-
                             </table>
                         </div>
                     </div>
@@ -149,7 +144,30 @@
                             <h3>Diploma's</h3>
                         </div>
                         <div class="panel-body">
-
+                            @foreach($diplomas as $diploma)
+                                {{--<div class="row">--}}
+                                <div class="panel col-md-12">
+                                    <div class="panel-heading">
+                                        <h3>{{ $diploma->education }}</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table-condensed">
+                                            <tr>
+                                                <th>Jaar</th>
+                                                <td>{{ Carbon\Carbon::parse($diploma->graduated_year)->format('Y') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Klas</th>
+                                                <td>{{ $diploma->education_classcode }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>School</th>
+                                                <td>{{ $diploma->school->name }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -168,10 +186,44 @@
                     {{-- Jobs --}}
                     <div class="panel col-md-6">
                         <div class="panel-heading">
-                            <h3>Jobs</h3>
+                            <h3>Werk</h3>
                         </div>
                         <div class="panel-body">
-
+                            @foreach($jobs as $job)
+                                {{--<div class="row">--}}
+                                <div class="panel col-md-12">
+                                    <div class="panel-heading">
+                                        <h3>{{ $job->name }}</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table-condensed">
+                                            <tr>
+                                                <th>Adres</th>
+                                                <td>{{ $job->address }}{{ $job->address_number }}
+                                                    , {{ ucfirst($job->city) }}, {{ strtoupper($job->zip_code) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Functie</th>
+                                                <td>{{ $job->function }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Start</th>
+                                                <td>{{ Carbon\Carbon::parse($job->started_at)->formatLocalized('%d %B %Y') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Huidige baan?</th>
+                                                <td>
+                                                    @if($job->current_job == 0)
+                                                        Nee
+                                                    @else
+                                                        Ja
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

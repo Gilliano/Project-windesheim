@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Person;
 use App\Models\Skill;
@@ -12,7 +11,7 @@ use App\Models\Group;
 use App\Models\Education;
 use App\Models\EducationCollection;
 use App\Models\School;
-use App\Models\UserInformation;
+use App\Models\Job;
 
 
 class ProfileController extends Controller
@@ -69,27 +68,26 @@ class ProfileController extends Controller
             array_push($groups, Group::find($group->pivot->group_id)->name);
 
             // Get the name of the education of the current iteration and append it to $educations
-//            array_push($educations, Education::find(Group::find($group->pivot->group_id)->education_id)->name . " (" . EducationCollection::find(Education::find(Group::find($group->pivot->group_id)->education_id)->education_collection_id)->name . ")");
-//            $educations .= Education::find(Group::find($group->pivot->group_id)->education_id)->name . " (" . EducationCollection::find(Education::find(Group::find($group->pivot->group_id)->education_id)->education_collection_id)->name . "), ";
             array_push($educations, Education::find(Group::find($group->pivot->group_id)->education_id)->name . " (" . EducationCollection::find(Education::find(Group::find($group->pivot->group_id)->education_id)->education_collection_id)->name . ")");
         }
-//        dd($groups);
         $school = School::find(Education::find(Group::find($group->pivot->group_id)->education_id)->school_id)->name;
 
-        return view('profile.index', compact('fullname', 'skills', 'school', 'educations', 'groups', 'autobiography', 'birthday', 'age', 'sex', 'address', 'email', 'alternativeEmail', 'phonenumber', 'additionalPhonenumber'));
+        $diplomas = $person->diploma;
+
+        $jobs = Job::where('person_id', $person->id)->get();
+
+
+        return view('profile.index', compact('fullname', 'skills', 'school', 'educations', 'groups', 'autobiography', 'birthday', 'age', 'sex', 'address', 'email', 'alternativeEmail', 'phonenumber', 'additionalPhonenumber', 'diplomas', 'jobs'));
     }
 
-    public function addSkill(Request $request)
+    public
+    function addSkill(Request $request)
     {
-//        dd($request->skills);
-
         $newSkills = $request->skills;
         $newSkillsArray = explode(',', $newSkills);
 
         foreach ($newSkillsArray as $newSkill) {
             $query = Skill::where('skill', $newSkill)->get();
-//
-//            dd($query);
 
             if ($query->count()) {
                 \Session::flash('error', 'De skill "' . $newSkill . '" bestaat al in uw skills.');
@@ -102,24 +100,9 @@ class ProfileController extends Controller
                 $skill->save();
                 \Session::flash('success', 'De skill "' . $newSkill . '" is toegevoegd aan uw skills.');
             }
-
-//            $skill = new Skill;
-//
-//            $skill->skill = $newSkill;
-//            $skill->person_id = User::find(Auth::user()->id)->person->id;
-//
-//            $skill->save();
         }
 
-//        $skill = new Skill;
-//
-//        $skill->skill = $request->skill;
-//        $skill->person_id = User::find(Auth::user()->id)->person->id;
-//
-//        $skill->save();
-
         return back();
-
     }
 
 }
