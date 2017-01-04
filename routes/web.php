@@ -75,6 +75,9 @@ Route::post('/mail/setup', 'MailController@sendMail');
 Route::get('/profile', 'ProfileController@index');
 Route::post('/profile/addSkill', 'ProfileController@addSkill');
 
+Route::get('/search', 'SearchController@index');
+Route::post('/searchResults', 'SearchController@results');
+
 Route::group(['prefix' => 'api/v1', 'middleware' => 'api'], function() {
 Route::resource('/cookies', 'CookieController');
 });
