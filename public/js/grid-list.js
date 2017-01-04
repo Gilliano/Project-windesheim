@@ -1,5 +1,4 @@
 // Class for easily creating grid elements
-// TODO: Add save (serialize) function to serialize all gridItems(with their pos) to a cookie
 class GridItem {
     constructor(width, height, x, y, image = null, link = null){
         this.id = gridItems.length; // Make sure it has a unique id
@@ -9,29 +8,27 @@ class GridItem {
         this.y = y;
         this.image = image;
         this.link = link;
-        this.createHTML(link, image);
+        this.html = this.createHTML(link, image);
+        this.contextmenu = this.createContextmenu();
 
         // Push this object to the gridItems list
         gridItems.push(this);
     }
 
     createHTML(link = null, image = null){
-        this.html = $(
+        return $(
             '<li data-id='+this.id+'>' +
                 '<div class="inner">' +
-                    '<div class="controls">' +
-                        '<a href="#zoom1" class="edit" data-a="resize" data-w="1" data-h="1">1x1</a>' +
-                        '<a href="#zoom2" class="edit" data-a="resize" data-w="2" data-h="1">2x1</a>' +
-                        '<a href="#zoom1" class="edit" data-a="resize" data-w="1" data-h="2">1x2</a>' +
-                        '<a href="#zoom2" class="edit" data-a="resize" data-w="2" data-h="2">2x2</a>' +
-                        '<a href="#edit" class="edit" data-a="edit">edit</a>' +
-                    '</div>' +
-                    (link!==(null)?'<a href='+link+'>':'') +
+                    (link!==(null)?'<a href='+link+' target=_blank>':'') +
                         (image!==(null)?'<img src='+image+' class="image">':'<div style="width:100%; height:100%; background-color: '+randomColor('rgb')+'"></div>') +
                     (link!==(null)?'</a>':'') +
                 '</div>' +
             '</li>'
         );
+    }
+
+    createContextmenu(){
+        // return
     }
 
     toJSON(){
@@ -43,7 +40,7 @@ class GridItem {
             y: this.y,
             image: this.image,
             link: this.link,
-            // html: this.html
+            // html: this.html // cycling object error
         };
     }
 }
@@ -57,9 +54,27 @@ fixtures.GRID1 = [
         new GridItem(1,1,2,0),
         new GridItem(1,1,3,0),
         new GridItem(1,1,4,0),
+        new GridItem(1,1,5,0),
+        new GridItem(1,1,6,0),
+        new GridItem(1,1,7,0),
+        new GridItem(1,1,8,0),
+        new GridItem(1,1,9,0),
         new GridItem(1,1,0,1),
         new GridItem(1,1,2,1),
-        new GridItem(1,1,3,1),
+        new GridItem(2,2,3,1),
+        new GridItem(1,1,5,1),
+        new GridItem(1,1,6,1),
+        new GridItem(1,1,7,1),
+        new GridItem(1,1,8,1),
+        new GridItem(1,1,9,1),
+        new GridItem(1,1,0,2),
+        new GridItem(1,1,1,2),
+        new GridItem(1,1,2,2),
+        new GridItem(1,1,5,2),
+        new GridItem(1,1,6,2),
+        new GridItem(1,1,7,2),
+        new GridItem(1,1,8,2),
+        new GridItem(1,1,9,2),
     ];
 
 // Enable Node module
@@ -766,13 +781,30 @@ return GridList;
 }));
 
 $(document).ready(function(){
-    createGrid(fixtures.GRID1);
+    // Check if there is a cookie saved
+    $.getJSON("/api/v1/cookies/grid_layout", function(data){
+        if(data != null)
+        {
+            gridItems = []; // Clear the gridItems cache
+            $.each(data, function(index, value){
+                var item = new GridItem(value.width, value.height, value.x, value.y, value.image, value.link);
+            });
+            createGrid(gridItems);
+        }
+        else
+        {
+            console.log("No saved grid_layout found");
+            createGrid(fixtures.GRID1);
+        }
+    });
 });
 
 var Grid = {
-    currentSize: 4, // Amount of rows
-    buildElements: function($gridContainer, items) { // Create the items
+    currentSize: 3, // Amount of rows
+    direction: 'horizontal',
+    buildElements: function(items) { // Create the items
         var item, i;
+        var return_array = [];
         for (i = 0; i < items.length; i++) {
             item = items[i];
             $item = item.html;
@@ -782,26 +814,16 @@ var Grid = {
                 'data-x': item.x,
                 'data-y': item.y
             });
-            $gridContainer.append($item);
+            return_array.push($item);
         }
+        return return_array;
     },
     resize: function(size) {
         if (size) {
             this.currentSize = size;
         }
         $('#grid').gridList('resize', this.currentSize);
-    },
-    // flashItems: function(items) {
-    //     // Hack to flash changed items visually
-    //     for (var i = 0; i < items.length; i++) {
-    //         (function($element) {
-    //             $element.addClass('changed');
-    //             setTimeout(function() {
-    //                 $element.removeClass('changed');
-    //             }, 0);
-    //         })(items[i].$element);
-    //     }
-    // }
+    }
 };
 
 $(window).resize(function() {
@@ -813,12 +835,16 @@ function createGrid(itemCollection) {
     $("#grid").empty();
 
     // Build the items
-    Grid.buildElements($('#grid'), itemCollection);
+    var items = Grid.buildElements(itemCollection);
+    $.each(items, function(index, item){
+        $('#grid').append(item);
+    });
 
     // Convert the UL to a gridList
     $('#grid').gridList({
         lanes: Grid.currentSize,
-        widthHeightRatio: 264 / 294,
+        direction: Grid.direction,
+        widthHeightRatio: 0.99,//264 / 294,
         heightToFontSizeRatio: 0.25,
         onChange: function(changedItems) {
             // Save the new positions to the objects
@@ -826,94 +852,131 @@ function createGrid(itemCollection) {
                 var gridItem = gridItems[item.id];
                 gridItem.x = item.x;
                 gridItem.y = item.y;
+                gridItem.width = item.w;
+                gridItem.height = item.h;
+                gridItem.html = gridItem.createHTML();
                 gridItems[gridItem.id] = gridItem;
             });
+            saveGridLayout();
+        }
+    });
 
-            // Convert to JSON
-            // console.log(JSON.stringify(gridItems));
-            // TODO: Save the JSON string to a cookie
-            var grid = JSON.stringify(gridItems);
-
-            // var date_obj = new Date();
-            // date_obj.setMonth(date_obj.getMonth() + 1); // Define lifetime of the cookie;
-            // var exp_date = date_obj.toUTCString();//.setMonth(new Date().getMonth() + 1);//.toUTCString();
-
-            // TODO: Call CookieController to create a cookie
-            // document.cookie = "grid="+grid+"; expires="+exp_date+";";
-            var sendData = {
-                _token: window.Laravel.csrfToken,
-                name: 'grid_layout',
-                value: grid
-            };
-            $.post("/api/v1/cookies", sendData, function(data){
-                console.log("Cookie saved!");
-
-                $.get("/api/v1/cookies/grid_layout", function (data) {
-                    console.log(data);
-
-                    sendData._method = "delete";
-                    $.post("/api/v1/cookies/grid_layout", sendData, function(data){
-                        console.log("Cookie deleted!");
-
-                        $.get("/api/v1/cookies/grid_layout", function (data) {
-                            console.log(data);
-                        });
+    // Create the contextmenu for the grid items
+    $.contextMenu({
+        selector: '.ui-draggable > .inner',
+        trigger: 'right',
+        autoHide: true, // TODO: Sometimes menu doesnt hide.. (https://github.com/swisnl/jQuery-contextMenu/issues/132)
+        callback: function(key, options) {
+            var gridItemID = $(this).parent().data('id');
+            var gridItem = gridItems[gridItemID];
+            switch (key){
+                case 'edit_link':
+                    // Show modal to edit link
+                    $("#edit_modal").find("#edit_link_div").show();
+                    if(gridItem.link != null)
+                    {
+                        if(gridItem.link.startsWith('http://'))
+                            gridItem.link = gridItem.link.replace('http://', "");
+                        else if(gridItem.link.startsWith('https://'))
+                            gridItem.link = gridItem.link.replace('https://', "");
+                    }
+                    $("#edit_modal").find("#edit_link").val(gridItem.link);
+                    $("#edit_modal").find("#edit_link_title").show();
+                    $("#edit_modal").find("#edit_id").val(gridItemID);
+                    $("#edit_modal").modal('toggle');
+                    break;
+                case 'edit_image':
+                    // Show modal to edit image
+                    $("#edit_modal").find("#edit_image_div").show();
+                    $("#edit_modal").find("#edit_image").val(gridItem.image);
+                    $("#edit_modal").find("#edit_image_title").show();
+                    $("#edit_modal").find("#edit_id").val(gridItemID);
+                    $("#edit_modal").modal('toggle');
+                    break;
+                case 'sizes_1x1':
+                case 'sizes_2x1':
+                case 'sizes_1x2':
+                case 'sizes_2x2':
+                    var size = key.replace('sizes_', '').split('x');
+                    gridItem.width = parseInt(size[0]);
+                    gridItem.height = parseInt(size[1]);
+                    var itemElement = $(this).parent();
+                    $('#grid').gridList('resizeItem', itemElement, {
+                        w: gridItem.width,
+                        h: gridItem.height
                     });
-                });
-            });
+                    saveGridLayout();
+                    break;
+                // case 'edit_delete':
+                //     // Delete grid item
+                //     gridItems.splice(gridItemID, 1);
+                //     // TODO: Recalculate collision or something
+                //     // Save
+                //     saveGridLayout();
+                //     createGrid(gridItems);
+                //     break;
+                case 'quit':
+                    break;
+            }
+        },
+        items: {
+            "edit_link": {name: "Change link"},
+            "edit_image": {name: "Change image"},
+            "sizes": {
+                name: "Sizes",
+                items: {
+                    "sizes_1x1": {name: "1x1"},
+                    "sizes_1x2": {name: "1x2"},
+                    "sizes_2x1": {name: "2x1"},
+                    "sizes_2x2": {name: "2x2"}
+                }
+            },
+            "edit_delete": {name: "Delete", disabled: true},
+            "sep1": "---------",
+            "quit": {name: "Quit"}
         }
     });
 
-    // Eventhandler for the control buttons
-    $('#grid li .edit').click(function(e) {
-        e.preventDefault();
-        var itemElement = $(e.currentTarget).closest('li');
-        var gridItem = gridItems[itemElement.data('id')];
-        var itemAction = $(e.currentTarget).data('a');
-
-        if(itemAction == 'resize')
-        {
-            // Resize grid item according to given data
-            $('#grid').gridList('resizeItem', itemElement, {
-                w: $(e.currentTarget).data('w'),
-                h: $(e.currentTarget).data('h')
-            });
-
-            // Save the changes to the object
-            gridItem.width = $(e.currentTarget).data('w');
-            gridItem.height = $(e.currentTarget).data('h');
-            // gridItem.createHTML();
-            gridItems[gridItem.id] = gridItem;
-        }
-        else if(itemAction == 'edit')
-        {
-            // Open modal to edit the grid items properties
-            $("#edit_id").val(gridItem.id);
-            $("#edit_link").val(gridItem.link!==(null)?gridItem.link:'');
-            $("#edit_image").val(gridItem.image!==(null)?gridItem.image:'');
-            $("#modal_edit").modal('show');
-        }
+    // Add eventhandler for modal closing
+    $("#edit_modal").on('hide.bs.modal', function(){
+        // Hide the elements used for link and image editing
+        $("#edit_modal").find("#edit_link_div").hide();
+        $("#edit_modal").find("#edit_link_title").hide();
+        $("#edit_modal").find("#edit_image_div").hide();
+        $("#edit_modal").find("#edit_image_title").hide();
     });
 
-    // Eventhandler for saving edit modal
-    $('#edit_save').on('click', function(e){
-        // Update grid item and refresh the grid
-        // TODO: Expand Form validation
-        // TODO: Improve performance
-        var gridItem = gridItems[$("#edit_id").val()];
-        var link = null, image = null;
-        if($("#edit_link").val() != '')
-            link = $("#edit_link").val(); // TODO: Check if we need to add 'http' prefix? Otherwise laravel returns an error...
-        if($("#edit_image").val() != '')
-            image = $("#edit_image").val();
-        gridItem.createHTML(link, image);
-        gridItems[gridItem.id] = gridItem;
-
-        // Recreate the grid
-        createGrid(gridItems);
-
-        // Hide the modal
-        $("#modal_edit").modal('hide');
+    // Add eventhandler for modal saving
+    $("#edit_save").on('click', function(){
+        // Decide what save function we need to call
+        var method = $("#edit_modal").find(".modal-title:visible").text().toLowerCase();
+        var gridItemID = parseInt($("#edit_modal").find("#edit_id").val());
+        var gridItem = gridItems[gridItemID];
+        switch (method)
+        {
+            case "edit link":
+                // TODO: In modal form validation
+                // TODO: Add dropdown (fastselect) with predefined sites?
+                // Save new link to grid item
+                gridItem.link = $("#edit_modal").find("#edit_link").val();
+                if(!gridItem.link.startsWith('http://') && !gridItem.link.startsWith('https://'))
+                    gridItem.link = "http://" + gridItem.link;
+                console.log(gridItem.link);
+                gridItem.html = gridItem.createHTML(gridItem.link, gridItem.image);
+                saveGridLayout();
+                createGrid(gridItems);
+                $("#edit_modal").modal('hide');
+                break;
+            case "edit image":
+                // TODO: Add image upload?
+                // Save new image to grid item
+                gridItem.image = $("#edit_modal").find("#edit_image").val();
+                gridItem.html = gridItem.createHTML(gridItem.link, gridItem.image);
+                saveGridLayout();
+                createGrid(gridItems);
+                $("#edit_modal").modal('hide');
+                break;
+        }
     });
 
     //// Adds a row to the grid
@@ -928,6 +991,22 @@ function createGrid(itemCollection) {
     //     Grid.resize(Math.max(1, Grid.currentSize - 1));
     // });
 };
+
+function saveGridLayout() {
+    // Convert to JSON
+    // Save the JSON string to a cookie
+    var grid = JSON.stringify(gridItems);
+
+    // Call CookieController to create a cookie
+    var sendData = {
+        _token: window.Laravel.csrfToken,
+        name: 'grid_layout',
+        value: grid
+    };
+    $.post("/api/v1/cookies", sendData, function(data){
+        // console.log("Cookie saved!");
+    });
+}
 // It does not try to register in a CommonJS environment since jQuery is not
 // likely to run in those environments.
 (function (factory) {
