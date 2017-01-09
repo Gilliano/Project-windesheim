@@ -58,10 +58,12 @@
                         @else
                             <form action="/searchResults" method="POST" class="navbar-form navbar-left">
                                 <div class="form-group">
+                                    {{ csrf_field() }}
+
                                     <input type="text" class="form-control" name="search" id="search"
                                            placeholder="Search">
                                 </div>
-                                <button type="submit" name="searchSubmit" id="searchSubmit" class="btn btn-default">
+                                <button type="submit" class="btn btn-default">
                                     Search
                                 </button>
                             </form>
