@@ -1,7 +1,7 @@
-function setupPieEducationAlumni(){
+function setupPieEducationAlumni(educationName, canvas){
     // Setup data for post
     var functionName = "educationAlumniChart";
-    var educationName = "HBO-ICT";
+    // educationName = "HBO-ICT";
     var sendData = {
         _token: window.Laravel.csrfToken,
         function: functionName,
@@ -27,7 +27,7 @@ function setupPieEducationAlumni(){
         var non_graduated_slice = non_graduated_total / (non_graduated_total+graduated_total) * 360;
         var graduated_slice = graduated_total / (non_graduated_total+graduated_total) * 360;
 
-        var canvas = $("#canvas_pie_educationAlumni"); // Retrieve the canvas to draw our pie on
+        //var canvas = $("canvas[name='canvas_pie_educationAlumni'][data-f='"+educationName+"']"); // Retrieve the canvas to draw our pie on
 
         // Create a new pie chart
         var chart = new Chart(canvas, {
