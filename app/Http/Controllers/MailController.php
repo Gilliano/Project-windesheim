@@ -13,13 +13,19 @@ class MailController extends Controller
 {
     public function setupMail()
     {
-//        dd($this->getEducation(7));
-//        dd($this->getClassmates());
-        return view('mail.setup_mail');
+        return view('mail.setup_mail_list');
+    }
+
+    public function setupMailList()
+    {
+        return $this->getGroups();
+//        return $this->getClassmates(21);
+//        dd($this->getClassmates(21));
     }
 
     public function sendMail(Request $request)
     {
+        dd($request);
         $mail = [];
         $mail['from'] = $request->email_from;
         $mail['to'] = $request->email_to;
@@ -35,9 +41,8 @@ class MailController extends Controller
         $classmates = Group::find($id)->person;
 
         foreach ($classmates as $classmate){
-
-//            $data[$classmate->user->id] = $classmate->user->email;
-            array_push($data, ["person_id"=>$classmate->user->id, "person_email"=>$classmate->user->email]);
+            array_push($data, ["text"=>$classmate->firstname . ' ' . $classmate->lastname, "value"=>$classmate->user->email]);
+//            array_push($data, ["person_id"=>$classmate->user->id, "person_email"=>$classmate->user->email]);
         }
 
         return $data ;
@@ -54,8 +59,14 @@ class MailController extends Controller
         }
 
         foreach ($groups as $group){
-//            $data[$group->id] = $this->getClassmates($group->id);
-            array_push($data, ["group_id"=>$group->id, 'name' => $group->name, "persons"=>$this->getClassmates($group->id)]);
+
+            $classmates= $this->getClassmates($group->id);
+            $email = [];
+            foreach ($classmates as $classmate){
+                array_push($email, $classmate['value']);
+            }
+
+            array_push($data, ["group_id"=>$group->id, 'text' => $group->name, "value"=>$email]);
         }
 
         return $data;
@@ -72,13 +83,10 @@ class MailController extends Controller
         }
 
         foreach ($educations as $education){
-            var_dump($education->id);
+            var_dump($education->id);  // Test purpose
             array_push($data, ["education_id"=>$education->id, 'name' => $education->name, "groups"=>$this->getGroups($education->id)]);
         }
 
-
-        return $data;
-
-
+        return response()->json($data);
     }
 }
