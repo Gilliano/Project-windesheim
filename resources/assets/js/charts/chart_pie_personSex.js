@@ -33,8 +33,8 @@ function setupPiePersonSex(){
             },
             options: {
                 title: {
-                    display: true,
-                    text: 'Geslacht van geregistreerde gebruikers'
+                    // display: true,
+                    // text: 'Geslacht van geregistreerde gebruikers'
                 },
                 tooltips: {
                     callbacks: {

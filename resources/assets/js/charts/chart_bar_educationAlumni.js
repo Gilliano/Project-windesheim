@@ -12,7 +12,7 @@ function setupBarEducationAlumni(){
     $.getJSON("/json/charts", sendData, function(data){
         // console.log(data);
 
-        // TODO: Get graduated total per education
+        // Get graduated total per education
         var educations_info = [];
         var educations = data.results;
         $.each(educations, function(index, education){
@@ -69,8 +69,8 @@ function setupBarEducationAlumni(){
                     }]
                 },
                 title: {
-                    display: true,
-                    text: "Diploma's behaald"
+                    // display: true,
+                    // text: "Diploma's behaald"
                 },
                 maintainAspectRatio: false,
                 responsiveAnimationDuration: 1000 // Without this the animation on Chrome doesnt work..
