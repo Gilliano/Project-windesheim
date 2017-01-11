@@ -39,9 +39,25 @@
                             value="Algeria,Angola,kees"
                             data-initial-value='[{"text": "Algeria", "value" : "Algeria"}, {"text": "Angola", "value" : "Angola"}, {"text": "abc", "value" : "abc"}]'
                             data-user-option-allowed="true"
-                            data-url="mail/list"
+                            data-url="/mail/groups/1"
                             data-load-once="true"
                             name="mail_to"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="mail_to">Mail to:</label>
+                    <input
+                            type="text"
+                            multiple
+                            class="tagsInput form-control"
+                            value="Algeria,Angola"
+                            data-initial-value='[{"text": "Algeria", "value" : "Algeria"}, {"text": "abc", "value" : "abc"}]'
+                            data-user-option-allowed="true"
+                            data-url="/mail/groups/1"
+                            data-load-once="true"
+                            name="mail_too"/>
                 </div>
             </div>
 

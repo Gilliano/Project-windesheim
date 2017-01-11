@@ -51,7 +51,7 @@ class MailController extends Controller
     public function getGroups($id = null)
     {
         $data = [];
-        if (is_int($id) ){
+        if (is_numeric($id) ){
             $groups = Group::where('education_id', $id)->get();
         }
         else {

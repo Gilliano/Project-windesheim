@@ -72,6 +72,8 @@ Route::get('/json/charts', 'JSONController@decide');
 Route::get('/mail', 'MailController@setupMail');
 Route::get('/mail/list', 'MailController@setupMailList');
 Route::post('/mail/setup', 'MailController@sendMail');
+Route::get('/mail/groups', 'MailController@getGroups');
+Route::get('/mail/groups/{id}', 'MailController@getGroups');
 
 Route::get('/profile', 'ProfileController@index');
 Route::post('/profile/addSkill', 'ProfileController@addSkill');
