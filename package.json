@@ -17,7 +17,9 @@
   },
   "dependencies": {
     "chart.js": "^2.4.0",
+    "fastsearch": "^1.11.1",
     "grid-list": "^0.3.3",
+    "jquery-contextmenu": "^2.4.1",
     "jquery-ui": "^1.12.1",
     "leaflet": "^1.0.2",
     "leaflet.markercluster": "^1.0.0"

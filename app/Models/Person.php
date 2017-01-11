@@ -55,7 +55,7 @@ class Person extends Model
 
     public function diploma()
     {
-        return $this->hasMany('App\Models\Dimploma');
+        return $this->hasMany('App\Models\Diploma');
     }
 
     public function skill()
