@@ -66,6 +66,14 @@ Route::patch('/jobs/{job}/update', 'JobController@updateJob');
 Route::get('/jobs/{job}/delete', 'JobController@deleteJob');
 Route::get('/jobs/{job}/restore', 'JobController@restoreJob');
 
+Route::get('/groups', 'GroupController@getGroups');
+Route::get('/groups/add', 'GroupController@addGroup');
+Route::post('/groups/add', 'GroupController@saveGroup');
+Route::get('/groups/{group}/edit', 'GroupController@editGroup');
+Route::patch('/groups/{group}/update', 'GroupController@updateGroup');
+Route::get('/groups/{group}/delete', 'GroupController@delete');
+Route::get('/groups/{group}/restore', 'GroupController@restore');
+
 Route::get('/charts', 'ChartsController@index');
 Route::get('/json/charts', 'JSONController@decide');
 
