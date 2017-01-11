@@ -4,9 +4,6 @@
     <link href="css/fastselect.css" rel="stylesheet">
     <link href="/summernote_0.8.2/summernote.css" rel="stylesheet">
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
-
 @stop
 @section('content')
     <div class="container">
@@ -35,7 +32,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="classmates">classmates</label>
-                <select id="classmates" name="classmates" class="form-control selectpicker"  multiple data-selected-text-format="count > 3">
+                <select id="classmates" name="classmates" class="form-control">
                     <option> Select group first! </option>
                 </select>
             </div>
@@ -59,14 +56,14 @@
                 <div class="form-group col-md-12">
                     <label for="mail_to">Mail to:</label>
                     <input
+                            id="test"
                             type="text"
                             multiple
                             class="tagsInput form-control"
-                            value="Algeria,Angola,kees"
-                            data-initial-value='[{"text": "Algeria", "value" : "Algeria"}, {"text": "Angola", "value" : "Angola"}, {"text": "abc", "value" : "abc"}]'
+                            value=""
                             data-user-option-allowed="true"
                             data-url="/mail/groups/1"
-                            data-load-once="true"
+                            data-load-once="false"
                             name="mail_to"/>
                 </div>
             </div>
@@ -81,7 +78,7 @@
                             value="Algeria,Angola"
                             data-initial-value='[{"text": "Algeria", "value" : "Algeria"}, {"text": "abc", "value" : "abc"}]'
                             data-user-option-allowed="true"
-                            data-url="/mail/groups/1"
+                            data-url="/mail/classmates/21"
                             data-load-once="true"
                             name="mail_too"/>
                 </div>
@@ -108,15 +105,10 @@
 
 @section('additionalJS')
 
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
-
-
     <script src="js/fastsearch.js"></script>
     <Script>
         $.getScript("js/fastselect.js", function () {
-            $('.tagsInput').fastselect();
+//            $('.tagsInput').fastselect();
         })
     </Script>
 
@@ -177,15 +169,18 @@
                 $('#classmates').removeAttr('disabled');
                 $.get('/mail/classmates/'+ group , function( data ) {
                     $.each(data, function(val, text) {
-                        console.log(text);
+//                        console.log(text);
                         $('#classmates').append(
                                 $('<option></option>').val(text['value']).html(text['text'])
                         );
-
-//                        $.getScript("js/fastselect.js", function () {
-//                            $('#classmates').fastselect();
-//                        })
                     });
+                    $.getScript("js/fastselect.js", function () {
+//                            $('#classmates').fastselect();
+                        $('#test').data('url', '/mail/classmates/'+ group ).fastselect();
+                        console.log($('#test').data('url'));
+//                        $('.tagsInput').fastselect();
+//                        $('#test').fastselect();
+                    })
                 });
             });
         });
