@@ -7,13 +7,15 @@ use App\Mail\WelcomeAlumni;
 use Mail;
 use App\Models\Group;
 use App\Models\Education;
+use App\Models\EducationCollection;
 
 
 class MailController extends Controller
 {
     public function setupMail()
     {
-        return view('mail.setup_mail_list');
+        $edu = EducationCollection::all();
+        return view('mail.setup_mail_list', compact('edu'));
     }
 
     public function setupMailList()
@@ -75,15 +77,15 @@ class MailController extends Controller
     public function getEducation($id = null)
     {
         $data = [];
-        if (is_int($id) ){
-            $educations = [Education::find($id)];
+        if (is_numeric($id) ){
+            $educations = Education::where('education_collection_id', $id)->get();
         }
         else {
             $educations = Education::all();
         }
 
         foreach ($educations as $education){
-            var_dump($education->id);  // Test purpose
+//            var_dump($education->id);  // Test purpose
             array_push($data, ["education_id"=>$education->id, 'name' => $education->name, "groups"=>$this->getGroups($education->id)]);
         }
 
