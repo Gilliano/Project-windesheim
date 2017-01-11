@@ -31,9 +31,9 @@ class PersonsTableSeeder extends Seeder
         ));
 
         Person::create(array(
-            'firstname' => 'Arjun',
+            'firstname' => 'Arjen',
             'lastname' => 'Schrijer',
-            'birthday' => '1996-10-13',
+            'birthday' => '1997-06-10',
             'sex' => 1,
             'user_id' => 453,
             'privacy_level_id' => '1',

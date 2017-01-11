@@ -7,10 +7,6 @@
             width: 100%;
         }
 
-        .side {
-            display: inline
-        }
-
         .circle {
             width: 50px;
             height: 50px;
@@ -25,13 +21,17 @@
             height: 50px;
             width: 50px;
         }
+
+        .panel {
+            border: 1px solid #d3e0e9;
+        }
     </style>
 @endsection
 
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12 col-md-offset-0">
                 {{-- Status logging --}}
                 @if(session('status'))
                     <div class="alert alert-success">
@@ -41,10 +41,10 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <img src="http://placehold.it/100x100">
+                        <img src="{{ Auth::user()->gravatar }}">
                     </div>
                     <div class="col-md-5">
-                        <h1>{{ $user_name }}</h1>
+                        <h1>{{ $fullname }}</h1>
                     </div>
                     <div class="col-md-2">
                         <div class="circle">15</div>
@@ -58,7 +58,7 @@
 
                 <div class="row">
                     {{-- Algemeen --}}
-                    <div class="panel col-md-5">
+                    <div class="panel col-md-6">
                         <div class="panel-heading">
                             <h3>Algemeen</h3>
                         </div>
@@ -66,60 +66,171 @@
                             <table class="table-condensed">
                                 <tr>
                                     <th>School</th>
-                                    <td>Windesheim Flevoland</td>
+                                    <td>{{ $school }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Klas</th>
-                                    <td>ADSD01</td>
+                                    <th>
+                                        @if(count($educations) <= 1)
+                                            Opleiding
+                                        @else
+                                            Opleidingen
+                                        @endif
+                                    </th>
+                                    <td>
+                                        @for($i = 0; $i < count($educations); $i++)
+                                            @if(count($educations) == $i+1)
+                                                {{ $educations[$i] }}
+                                            @else
+                                                {{ $educations[$i] . ", " }}
+                                            @endif
+
+                                        @endfor
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th>Opleiding</th>
-                                    <td>ADSD (ICT)</td>
+                                    <th>
+                                        @if(count($groups) <= 1)
+                                            Klas
+                                        @else
+                                            Klassen
+                                        @endif
+                                    </th>
+                                    <td>
+                                        @for($i = 0; $i < count($groups); $i++)
+                                            @if(count($groups) == $i+1)
+                                                {{ $groups[$i] }}
+                                            @else
+                                                {{ $groups[$i] . ", " }}
+                                            @endif
+
+                                        @endfor
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>Adres</th>
-                                    <td>Arturo Toscaninistraat 50</td>
+                                    <td>{{ $address }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{{ $email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Alternatieve Email</th>
+                                    <td>{{ $alternativeEmail }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Telefoonnummer</th>
+                                    <td>{{ $phonenumber }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Alternatief Telefoonnummer</th>
+                                    <td>{{ $additionalPhonenumber }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Geboortedatum</th>
+                                    <td>{{ $birthday }} ({{ $age }})</td>
+                                </tr>
+                                <tr>
+                                    <th>Geslacht</th>
+                                    <td>{{ $sex }}</td>
                                 </tr>
                             </table>
                         </div>
                     </div>
 
                     {{-- Diploma's --}}
-                    <div class="panel col-md-5 col-md-offset-2">
+                    <div class="panel col-md-6">
                         <div class="panel-heading">
                             <h3>Diploma's</h3>
                         </div>
                         <div class="panel-body">
-
+                            @foreach($diplomas as $diploma)
+                                {{--<div class="row">--}}
+                                <div class="panel col-md-12">
+                                    <div class="panel-heading">
+                                        <h3>{{ $diploma->education }}</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table-condensed">
+                                            <tr>
+                                                <th>Jaar</th>
+                                                <td>{{ Carbon\Carbon::parse($diploma->graduated_year)->format('Y') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Klas</th>
+                                                <td>{{ $diploma->education_classcode }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>School</th>
+                                                <td>{{ $diploma->school->name }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
                     {{-- Bio --}}
-                    <div class="panel col-md-5">
+                    <div class="panel col-md-6">
                         <div class="panel-heading">
-                            <h3>Bio</h3>
+                            <h3>Autobiografie</h3>
                         </div>
                         <div class="panel-body">
-
+                            {{ $autobiography }}
                         </div>
                     </div>
 
                     {{-- Jobs --}}
-                    <div class="panel col-md-5 col-md-offset-2">
+                    <div class="panel col-md-6">
                         <div class="panel-heading">
-                            <h3>Jobs</h3>
+                            <h3>Werk</h3>
                         </div>
                         <div class="panel-body">
-
+                            @foreach($jobs as $job)
+                                {{--<div class="row">--}}
+                                <div class="panel col-md-12">
+                                    <div class="panel-heading">
+                                        <h3>{{ $job->name }}</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table-condensed">
+                                            <tr>
+                                                <th>Adres</th>
+                                                <td>{{ $job->address }}{{ $job->address_number }}
+                                                    , {{ ucfirst($job->city) }}, {{ strtoupper($job->zip_code) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Functie</th>
+                                                <td>{{ $job->function }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Start</th>
+                                                <td>{{ Carbon\Carbon::parse($job->started_at)->formatLocalized('%d %B %Y') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Huidige baan?</th>
+                                                <td>
+                                                    @if($job->current_job == 0)
+                                                        Nee
+                                                    @else
+                                                        Ja
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
                     {{-- Skills --}}
-                    <div class="panel col-md-5">
+                    <div class="panel col-md-6">
                         <div class="panel-heading">
                             <h3>Skills</h3>
                         </div>
@@ -144,7 +255,7 @@
                     </div>
 
                     {{-- Linke'dTinder --}}
-                    <div class="panel col-md-5 col-md-offset-2">
+                    <div class="panel col-md-6">
                         <div class="panel-heading">
                             <h3>Linke'dTinder</h3>
                         </div>

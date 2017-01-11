@@ -78,6 +78,9 @@ Route::get('/mail/groups/{id}', 'MailController@getGroups');
 Route::get('/profile', 'ProfileController@index');
 Route::post('/profile/addSkill', 'ProfileController@addSkill');
 
+Route::get('/search', 'SearchController@index');
+Route::post('/searchResults', 'SearchController@results');
+
 Route::group(['prefix' => 'api/v1', 'middleware' => 'api'], function() {
 Route::resource('/cookies', 'CookieController');
 });
