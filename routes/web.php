@@ -74,6 +74,12 @@ Route::patch('/groups/{group}/update', 'GroupController@updateGroup');
 Route::get('/groups/{group}/delete', 'GroupController@delete');
 Route::get('/groups/{group}/restore', 'GroupController@restore');
 
+Route::get('/diplomas', 'DiplomaController@index');
+Route::get('/diplomas/add', 'DiplomaController@add');
+Route::post('/diplomas/add', 'DiplomaController@store');
+Route::get('/diplomas/{diploma}/edit', 'DiplomaController@edit');
+Route::patch('/diplomas/{diploma}/update', 'DiplomaController@update');
+
 Route::get('/charts', 'ChartsController@index');
 Route::get('/json/charts', 'JSONController@decide');
 
