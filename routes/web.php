@@ -70,7 +70,13 @@ Route::get('/charts', 'ChartsController@index');
 Route::get('/json/charts', 'JSONController@decide');
 
 Route::get('/mail', 'MailController@setupMail');
+Route::get('/mail/list', 'MailController@setupMailList');
 Route::post('/mail/setup', 'MailController@sendMail');
+Route::get('/mail/classmates/{id}', 'MailController@getClassmates');
+Route::get('/mail/groups', 'MailController@getGroups');
+Route::get('/mail/groups/{id}', 'MailController@getGroups');
+Route::get('/mail/education', 'MailController@getEducation');
+Route::get('/mail/education/{id}', 'MailController@getEducation');
 
 Route::get('/profile', 'ProfileController@index');
 Route::get('/profile/{person_id}', 'ProfileController@getProfile');
@@ -82,3 +88,5 @@ Route::post('/searchResults', 'SearchController@results');
 Route::group(['prefix' => 'api/v1', 'middleware' => 'api'], function() {
 Route::resource('/cookies', 'CookieController');
 });
+
+Route::get('action', 'ActionController@index');

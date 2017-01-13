@@ -18,6 +18,8 @@ class CreateActionsTable extends Migration
             $table->increments('id');
             $table->string('name', 45);
             $table->text('description')->nullable();
+            $table->string('table_name', 45);
+            $table->enum('action', ['view','create', 'update', 'delete','else']);
             $table->softDeletes();
             $table->nullableTimestamps();
         });

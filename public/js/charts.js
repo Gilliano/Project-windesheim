@@ -15856,11 +15856,30 @@ module.exports = function(Chart) {
 // Initialize charts
 $(document).ready(function () {
     // Alumni pie chart
-    setupPieEducationAlumni();
+    $("canvas[name='canvas_pie_educationAlumni']").each(function(index, canvas){
+        setupPieEducationAlumni($(canvas).data('f'), canvas);
+    });
     // Sex pie chart
     setupPiePersonSex();
     // Alumni bar chart
     setupBarEducationAlumni();
+});
+
+// Click event handler for educationlist items
+$("#educationlist").find("a").on('click', function(){
+    // Remove active from all other items
+    $("#educationlist").find("a").each(function(index, item){
+        if($(item).hasClass('active'))
+            $(item).removeClass('active');
+        $(item).parent().find('.collapse').collapse("hide");
+    });
+
+    // Check if item is not yet active
+    if(!$(this).hasClass('active'))
+        $(this).addClass('active');
+
+    // Open up div with education specific charts
+    $(this).parent().find('.collapse').collapse("show");
 });
 function setupBarEducationAlumni(){
     // Setup data for post
@@ -15876,7 +15895,7 @@ function setupBarEducationAlumni(){
     $.getJSON("/json/charts", sendData, function(data){
         // console.log(data);
 
-        // TODO: Get graduated total per education
+        // Get graduated total per education
         var educations_info = [];
         var educations = data.results;
         $.each(educations, function(index, education){
@@ -15933,8 +15952,8 @@ function setupBarEducationAlumni(){
                     }]
                 },
                 title: {
-                    display: true,
-                    text: "Diploma's behaald"
+                    // display: true,
+                    // text: "Diploma's behaald"
                 },
                 maintainAspectRatio: false,
                 responsiveAnimationDuration: 1000 // Without this the animation on Chrome doesnt work..
@@ -15942,10 +15961,10 @@ function setupBarEducationAlumni(){
         });
     });
 }
-function setupPieEducationAlumni(){
+function setupPieEducationAlumni(educationName, canvas){
     // Setup data for post
     var functionName = "educationAlumniChart";
-    var educationName = "HBO-ICT";
+    // educationName = "HBO-ICT";
     var sendData = {
         _token: window.Laravel.csrfToken,
         function: functionName,
@@ -15971,7 +15990,7 @@ function setupPieEducationAlumni(){
         var non_graduated_slice = non_graduated_total / (non_graduated_total+graduated_total) * 360;
         var graduated_slice = graduated_total / (non_graduated_total+graduated_total) * 360;
 
-        var canvas = $("#canvas_pie_educationAlumni"); // Retrieve the canvas to draw our pie on
+        //var canvas = $("canvas[name='canvas_pie_educationAlumni'][data-f='"+educationName+"']"); // Retrieve the canvas to draw our pie on
 
         // Create a new pie chart
         var chart = new Chart(canvas, {
@@ -16046,8 +16065,8 @@ function setupPiePersonSex(){
             },
             options: {
                 title: {
-                    display: true,
-                    text: 'Geslacht van geregistreerde gebruikers'
+                    // display: true,
+                    // text: 'Geslacht van geregistreerde gebruikers'
                 },
                 tooltips: {
                     callbacks: {
