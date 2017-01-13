@@ -7,6 +7,27 @@
             width: 100%;
         }
 
+        .fstControls {
+            width: 100%;
+        }
+
+        .fstChoiceItem {
+            display: inline-block;
+            font-size: 1.2em;
+            position: relative;
+            margin: 0 0.41667em 0.41667em 0;
+            padding: 0.33333em 0.33333em 0.33333em 0.33333em;
+            float: left;
+            border-radius: 0.25em;
+            border: 1px solid #43A2F3;
+            cursor: auto;
+            color: #fff;
+            background-color: #43A2F3;
+            -webkit-animation: fstAnimationEnter 0.2s;
+            -moz-animation: fstAnimationEnter 0.2s;
+            animation: fstAnimationEnter 0.2s;
+        }
+
         .circle {
             width: 50px;
             height: 50px;
@@ -41,7 +62,7 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <img src="{{ Auth::user()->gravatar }}">
+                        <img src="{{ $gravatar }}">
                     </div>
                     <div class="col-md-5">
                         <h1>{{ $fullname }}</h1>
@@ -235,22 +256,30 @@
                             <h3>Skills</h3>
                         </div>
                         <div class="panel-body">
-                            <form action="/profile/addSkill" method="POST" class="form-group">
-                                {{ csrf_field() }}
+                            @if($email == Auth::user()->email)
+                                <form action="/profile/addSkill" method="POST" class="form-group">
+                                    {{ csrf_field() }}
 
-                                <label for="skills">Add Skills</label><br/>
-                                <input type="text" multiple class="skillsInput form-control"
-                                       data-user-option-allowed="true"
-                                       data-url="a" data-load-once="true" name="skills" placeholder="Add Skills"/>
-                                <input type="submit" class="btn btn-success" value="Add"><br/>
-                            </form>
-                            @foreach($skills as $skill)
-
-                                <div data-text="{{ $skill->skill }}" data-value="{{ $skill->skill }}"
-                                     class="fstChoiceItem">
-                                    {{ $skill->skill }}
-                                </div>
-                            @endforeach
+                                    <label for="skills">Add Skills</label><br/>
+                                    <input type="text" multiple class="skillsInput form-control"
+                                           data-user-option-allowed="true"
+                                           data-url="a" data-load-once="true" name="skills" placeholder="Add Skills"/>
+                                    <input type="submit" class="btn btn-success" value="Add"><br/>
+                                </form>
+                                @foreach($skills as $skill)
+                                    <div data-text="{{ $skill->skill }}" data-value="{{ $skill->skill }}"
+                                         class="fstChoiceItem">
+                                        {{ $skill->skill }}
+                                    </div>
+                                @endforeach
+                            @else
+                                @foreach($skills as $skill)
+                                    <div data-text="{{ $skill->skill }}" data-value="{{ $skill->skill }}"
+                                         class="fstChoiceItem">
+                                        {{ $skill->skill }}
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
 
@@ -277,7 +306,6 @@
     <script src="js/fastselect.js"></script>
     <Script>
         $.getScript("js/fastselect.js", function () {
-//            $('.tagsInput').fastselect();
             $('.skillsInput').fastselect();
         })
     </Script>

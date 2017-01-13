@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         if(count(App\Models\ZipInfo::all()) == 0)
             $this->call(ZipInfoTableSeeder::class);
         $this->call(RolesTableSeeder::class);
+        $this->call(ActionsTableSeeder::class);
         factory(App\Models\User::class, 450)->create();
         $this->call(UsersTableSeeder::class);
         $this->call(PrivacyLevelTableSeeder::class);
@@ -27,7 +28,7 @@ class DatabaseSeeder extends Seeder
             $achievement->users()->sync(App\Models\User::all()->random(5));
         });
 
-        factory(App\Models\Action::class, 25)->create()->each(function ($action) {
+        App\Models\Action::all()->each(function ($action) {
             $action->roles()->sync(App\Models\Role::all()->random(5));
             $action->users()->sync(App\Models\User::all()->random(5));
         });
