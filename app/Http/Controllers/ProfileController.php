@@ -76,12 +76,13 @@ class ProfileController extends Controller
 
         $jobs = Job::where('person_id', $person->id)->get();
 
+        $hash = md5(strtolower(trim(User::find($person->user_id)->email)));
+        $gravatar = "http://www.gravatar.com/avatar/$hash";
 
-        return view('profile.index', compact('fullname', 'skills', 'school', 'educations', 'groups', 'autobiography', 'birthday', 'age', 'sex', 'address', 'email', 'alternativeEmail', 'phonenumber', 'additionalPhonenumber', 'diplomas', 'jobs'));
+        return view('profile.index', compact('fullname', 'skills', 'school', 'educations', 'groups', 'autobiography', 'birthday', 'age', 'sex', 'address', 'email', 'alternativeEmail', 'phonenumber', 'additionalPhonenumber', 'diplomas', 'jobs', 'gravatar'));
     }
 
-    public
-    function addSkill(Request $request)
+    public function addSkill(Request $request)
     {
         $newSkills = $request->skills;
         $newSkillsArray = explode(',', $newSkills);
@@ -103,6 +104,94 @@ class ProfileController extends Controller
         }
 
         return back();
+    }
+
+
+    public function getProfile($person_id)
+    {
+        setlocale(LC_TIME, 'Dutch');
+
+        $fullname = "";
+        $skills = "";
+        $person = 0;
+        $autobiography = "";
+        $birthday = "";
+        $age = "";
+        $sex = "";
+        $userInfo = "";
+        $address = "";
+        $email = "";
+        $alternativeEmail = "";
+        $phonenumber = "";
+        $additionalPhonenumber = "";
+
+        // Define $groups to store the names of the groups this person is in or has been in
+        $groups = array();
+
+        // Define $educations to store the names of the educations this person is studying or has studied
+        $educations = array();
+
+        $group = array();
+        $school = array();
+        $diplomas = "";
+        $jobs = "";
+
+
+
+        // Get the user's full name
+        $fullname = Person::find($person_id)->firstname . " " . Person::find($person_id)->lastname;
+
+        // Get the user's skills
+        $skills = Skill::where('person_id', $person_id)->get();
+
+        // Get the person's ID
+        $person = Person::find($person_id);
+
+        // Get the person's information
+        $autobiography = $person->autobiography;
+        $birthday = $person->birthday->formatLocalized('%d %B %Y');
+        $age = $person->birthday->age;
+
+        if ($person->sex == 1) {
+            $sex = 'Man';
+        } elseif ($person->sex == 0) {
+            $sex = 'Vrouw';
+        }
+
+        $userInfo = $person->user->userInformation;
+
+        $address = $userInfo->address . " " . $userInfo->address_number . ", " . ucfirst($userInfo->city);
+
+        $email = $person->user->email;
+
+        $alternativeEmail = $userInfo->alternative_email;
+
+        $phonenumber = $userInfo->mobile_number;
+        $additionalPhonenumber = $userInfo->additional_number;
+
+        // Loop through the groups this person is in
+        foreach ($person->group as $group) {
+            // Get the name of the group of the current iteration and append it to $groups
+            array_push($groups, Group::findOrFail($group->pivot->group_id)->name);
+
+            // Get the name of the education of the current iteration and append it to $educations
+            array_push($educations, Education::find(Group::find($group->pivot->group_id)->education_id)->name . " (" . EducationCollection::find(Education::find(Group::find($group->pivot->group_id)->education_id)->education_collection_id)->name . ")");
+        }
+        if ($group != null) {
+            $school = School::find(Education::find(Group::find($group->pivot->group_id)->education_id)->school_id)->name;
+        } else {
+            $school = "";
+        }
+
+        $diplomas = $person->diploma;
+
+        $jobs = Job::where('person_id', $person->id)->get();
+
+        $hash = md5(strtolower(trim(User::find($person->user_id)->email)));
+        $gravatar = "http://www.gravatar.com/avatar/$hash";
+
+
+        return view('profile.index', compact('fullname', 'skills', 'school', 'educations', 'groups', 'autobiography', 'birthday', 'age', 'sex', 'address', 'email', 'alternativeEmail', 'phonenumber', 'additionalPhonenumber', 'diplomas', 'jobs', 'gravatar'));
     }
 
 }

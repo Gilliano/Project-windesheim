@@ -73,6 +73,7 @@ Route::get('/mail', 'MailController@setupMail');
 Route::post('/mail/setup', 'MailController@sendMail');
 
 Route::get('/profile', 'ProfileController@index');
+Route::get('/profile/{person_id}', 'ProfileController@getProfile');
 Route::post('/profile/addSkill', 'ProfileController@addSkill');
 
 Route::get('/search', 'SearchController@index');
